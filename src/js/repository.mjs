@@ -157,3 +157,29 @@ export class SoftwareProjectRepository {
     }
   }
 }
+
+export class DevTeamRepository {
+  constructor() {}
+
+  get(code) {
+    return IN_MEMORY_DEV_TEAM.find(p => p.code === code);
+  }
+
+  add(project) {
+    IN_MEMORY_DEV_TEAM.push(project);
+  }
+
+  set(project) {
+    this.remove(project);
+    this.add(project);
+  }
+
+  remove(project) {
+    for (let i = 0; i < IN_MEMORY_DEV_TEAM.length; i++) {
+      if (IN_MEMORY_DEV_TEAM[i].code === project.code) {
+        IN_MEMORY_DEV_TEAM.splice(i, 1);
+        break;
+      }
+    }
+  }
+}
