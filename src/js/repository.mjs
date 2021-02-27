@@ -131,3 +131,29 @@ const IN_MEMORY_SW_PROJECTS = [
     finishedBugs: []
   }
 ];
+
+export class SoftwareProjectRepository {
+  constructor() {}
+
+  get(code) {
+    return IN_MEMORY_SW_PROJECTS.find(p => p.code === code);
+  }
+
+  add(project) {
+    IN_MEMORY_SW_PROJECTS.push(project);
+  }
+
+  set(project) {
+    this.remove(project);
+    this.add(project);
+  }
+
+  remove(project) {
+    for (let i = 0; i < IN_MEMORY_SW_PROJECTS.length; i++) {
+      if (IN_MEMORY_SW_PROJECTS[i].code === project.code) {
+        IN_MEMORY_SW_PROJECTS.splice(i, 1);
+        break;
+      }
+    }
+  }
+}
