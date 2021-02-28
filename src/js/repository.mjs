@@ -183,3 +183,29 @@ export class DevTeamRepository {
     }
   }
 }
+
+export class BugRepository {
+  constructor() {}
+
+  get(code) {
+    return IN_MEMORY_BUGS.find(p => p.code === code);
+  }
+
+  add(project) {
+    IN_MEMORY_BUGS.push(project);
+  }
+
+  set(project) {
+    this.remove(project);
+    this.add(project);
+  }
+
+  remove(project) {
+    for (let i = 0; i < IN_MEMORY_BUGS.length; i++) {
+      if (IN_MEMORY_BUGS[i].code === project.code) {
+        IN_MEMORY_BUGS.splice(i, 1);
+        break;
+      }
+    }
+  }
+}
