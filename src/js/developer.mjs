@@ -2,9 +2,10 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-import { DevTeamRepository } from './repository.mjs';
+import { DevTeamRepository, SoftwareProjectRepository } from './repository.mjs';
 
 const devRepository = new DevTeamRepository();
+const projectRepository = new SoftwareProjectRepository();
 const devs = devRepository.getAll();
 let currentDev = null;
 
@@ -43,11 +44,40 @@ function setDevPage(devCode) {
   currentDev = devRepository.get(devCode);
   const emptyEl = document.getElementById('empty');
   const panelEl = document.getElementById('panel');
+  const projects = projectRepository.getByDeveloper(devCode);
 
   emptyEl.classList.remove('visible');
   emptyEl.classList.add('invisible');
   panelEl.classList.remove('invisible');
   panelEl.classList.add('visible');
+  setProjects(projects);
+}
+
+function setProjects(projects) {
+  const bodyEl = document.querySelector('#swProjects table tbody');
+  const addRow = p => {
+    const rowEl = document.createElement('tr');
+    const thEl = document.createElement('th');
+    const nameEl = document.createElement('td');
+    const startDateEl = document.createElement('td');
+    const endDateEl = document.createElement('td');
+
+    thEl.setAttribute('scope', 'row');
+    thEl.innerText = p.code;
+
+    nameEl.innerText = p.name;
+    startDateEl.innerText = p.startDate;
+    endDateEl.innerText = p.endDate;
+
+    rowEl.appendChild(thEl);
+    rowEl.appendChild(nameEl);
+    rowEl.appendChild(startDateEl);
+    rowEl.appendChild(endDateEl);
+    bodyEl.appendChild(rowEl);
+  };
+
+  bodyEl.innerHTML = '';
+  projects.forEach(p => addRow(p));
 }
 
 function setEmptyPage() {
