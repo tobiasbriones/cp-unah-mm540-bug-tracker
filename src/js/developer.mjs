@@ -123,6 +123,7 @@ function setBugs() {
     if (isChecked) {
       setFinished(parentEl);
       bug.state = 'Finished';
+      bug.finishDate = new Date(Date.now()).toDateString();
     }
     else {
       setUnfinished(parentEl);
