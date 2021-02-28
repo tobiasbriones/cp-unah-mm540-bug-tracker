@@ -24,27 +24,31 @@
       <h1>Administrador</h1>
     </header>
 
-    <div id="content">
-      <div id="statistics">
-        <canvas id="chart" width="400" height="400"></canvas>
-      </div>
-      <div>
-        <form id="bugForm" class="row g-3">
-          <p>Asignar bug a desarrollador</p>
-          <div>
-            <select id="bugsSelect" class="form-select form-select-lg mb-3" aria-label="Select bug">
-              <option selected>Seleccionar bug</option>
-            </select>
-          </div>
-          <div>
-            <select id="devsSelect" class="form-select form-select-lg mb-3" aria-label="Select developer">
-              <option selected>Seleccionar desarrollador</option>
-            </select>
-          </div>
-          <div>
-            <button class="btn btn-primary mb-3" type="submit">Asignar bug</button>
-          </div>
-        </form>
+    <div id="content" class="container p-sm-5">
+      <div class="row">
+        <div id="statistics" class="col-xl-8">
+          <canvas id="chart"></canvas>
+        </div>
+        <div class="col-xl-4">
+          <form id="bugForm" class="row g-3 m-4">
+            <p class="text-center font-weight-bold">
+              <strong>Asignar bug a desarrollador</strong>
+            </p>
+            <div>
+              <select id="bugsSelect" class="form-select form-select-lg mb-3" aria-label="Select bug">
+                <option selected>Seleccionar bug</option>
+              </select>
+            </div>
+            <div>
+              <select id="devsSelect" class="form-select form-select-lg mb-3" aria-label="Select developer">
+                <option selected>Seleccionar desarrollador</option>
+              </select>
+            </div>
+            <div>
+              <button class="btn btn-primary mb-3 w-100" type="submit">Asignar bug</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
 
