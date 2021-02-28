@@ -52,7 +52,7 @@ const IN_MEMORY_BUGS = [
     swProjectCode: 1,
     priority: 1,
     state: 'Finished',
-    finishData: new Date(Date.now()).toDateString(),
+    finishDate: new Date(Date.now()).toDateString(),
     developers: [IN_MEMORY_DEV_TEAM[0], IN_MEMORY_DEV_TEAM[3]]
   },
   {
@@ -61,7 +61,7 @@ const IN_MEMORY_BUGS = [
     swProjectCode: 1,
     priority: 4,
     state: 'Finished',
-    finishData: new Date(Date.now()).toDateString(),
+    finishDate: new Date(Date.now()).toDateString(),
     developers: [IN_MEMORY_DEV_TEAM[1]]
   },
   {
@@ -70,7 +70,7 @@ const IN_MEMORY_BUGS = [
     swProjectCode: 2,
     priority: 2,
     state: 'New',
-    finishData: new Date(Date.now()).toDateString(),
+    finishDate: new Date(Date.now()).toDateString(),
     developers: [IN_MEMORY_DEV_TEAM[1], IN_MEMORY_DEV_TEAM[2]]
   },
   {
@@ -79,7 +79,7 @@ const IN_MEMORY_BUGS = [
     swProjectCode: 3,
     priority: 5,
     state: 'Assigned',
-    finishData: new Date(Date.now()).toDateString(),
+    finishDate: new Date(Date.now()).toDateString(),
     developers: [IN_MEMORY_DEV_TEAM[3]]
   }
 ];
