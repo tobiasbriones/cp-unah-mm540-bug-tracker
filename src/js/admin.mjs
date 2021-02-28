@@ -33,6 +33,7 @@ const chart = new Chart(ctx, {
   }
 });
 
+bugsEl.addEventListener('change', onBugSelectChange);
 document.getElementById('bugForm').addEventListener('submit', onAssignBugFormSubmit);
 document.getElementById('dismissModalBtn').addEventListener('click', onDismissModal);
 
@@ -44,13 +45,7 @@ bugs.forEach(bug => {
   bugsEl.appendChild(el);
 });
 
-devs.forEach(dev => {
-  const el = document.createElement('option');
-
-  el.setAttribute('value', dev.code);
-  el.innerText = dev.name;
-  devsEl.appendChild(el);
-});
+updateDevSelect();
 
 function getDatasets(statistics) {
   return [
@@ -76,6 +71,14 @@ function getDatasets(statistics) {
   ];
 }
 
+function onBugSelectChange(e) {
+  const bugCode = parseInt(bugsEl.options[bugsEl.selectedIndex].value);
+
+  if (!isNaN(bugCode)) {
+    updateDevSelect(bugCode);
+  }
+}
+
 function onAssignBugFormSubmit(e) {
   e.preventDefault();
   const bugCode = parseInt(bugsEl.options[bugsEl.selectedIndex].value);
@@ -88,6 +91,22 @@ function onAssignBugFormSubmit(e) {
 
 function onDismissModal() {
   modal.hide();
+}
+
+function updateDevSelect(bugCode) {
+  const appendItem = dev => {
+    const el = document.createElement('option');
+    el.setAttribute('value', dev.code);
+    el.innerText = dev.name;
+    devsEl.appendChild(el);
+  };
+
+  devsEl.innerHTML = '';
+  devs.forEach(dev => {
+    if (!bugCode || dev.assignedBugs.filter(b => b.code === bugCode).length === 0) {
+      appendItem(dev);
+    }
+  });
 }
 
 function assignBug(bugCode, devCode) {
