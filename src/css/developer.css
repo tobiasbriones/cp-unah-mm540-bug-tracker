@@ -1,3 +1,12 @@
 /*
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
+
+body {
+  background-image: url('https://cdn.pixabay.com/photo/2016/07/12/19/08/laptop-1512838_960_720.png');
+  background-size: 100%;
+}
+
+#container {
+  background-color: #FAFAFA;
+}

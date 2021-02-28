@@ -20,10 +20,67 @@
 
   <body>
 
+    <header class="shadow p-3 mb-5 mb-5 rounded">
+      <h1>Developer</h1>
+    </header>
+
+    <div id="container" class="container p-sm-5">
+      <div class="row">
+        <div class="col align-self-center">
+          <form id="devForm" class="row g-3 my-4 mx-4 my-xl-0">
+            <p class="text-center font-weight-bold">
+              <strong>Seleccionar cuenta de desarrollador</strong>
+            </p>
+            <div>
+              <select id="devSelect" class="form-select form-select-lg mb-3" aria-label="Select bug">
+                <option selected>Seleccionar desarrollador</option>
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div id="dev" class="col">
+          <div id="empty" class="visible">
+            <p>
+              <strong>Accede como desarrollador</strong>
+            </p>
+            <div>
+              Entra a tu cuenta de desarrollador para ver tus proyectos de software
+              y administrar tus bugs.
+            </div>
+          </div>
+          <div id="panel" class="invisible">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Bug asignado</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="modalText"></p>
+          </div>
+          <div class="modal-footer">
+            <button id="dismissModalBtn" class="btn btn-primary" type="button" data-dismiss="modal">Ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
             crossorigin="anonymous">
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
     <script src="./js/developer.mjs" type="module"></script>
 
   </body>
