@@ -13,7 +13,6 @@ const IN_MEMORY_DEV_TEAM = [
     tech: [
       'Spring Boot', 'Spring MVC', 'Ruby on Rails', 'Unreal Engine'
     ],
-    assignedBugs: []
   },
   {
     code: 2,
@@ -24,7 +23,6 @@ const IN_MEMORY_DEV_TEAM = [
     tech: [
       'Spring Boot', 'Spring MVC', 'Express.js', 'Nest.js'
     ],
-    assignedBugs: []
   },
   {
     code: 3,
@@ -35,7 +33,6 @@ const IN_MEMORY_DEV_TEAM = [
     tech: [
       'Laravel', 'Spring MVC', 'Symphony', 'JDBC'
     ],
-    assignedBugs: []
   },
   {
     code: 4,
@@ -46,7 +43,6 @@ const IN_MEMORY_DEV_TEAM = [
     tech: [
       'Angular', 'React.js', 'Vue.js', 'Node.js'
     ],
-    assignedBugs: []
   }
 ];
 const IN_MEMORY_BUGS = [
@@ -56,7 +52,8 @@ const IN_MEMORY_BUGS = [
     swProjectCode: 1,
     priority: 1,
     state: 'Finished',
-    finishData: new Date(Date.now()).toDateString()
+    finishData: new Date(Date.now()).toDateString(),
+    developers: [IN_MEMORY_DEV_TEAM[0], IN_MEMORY_DEV_TEAM[3]]
   },
   {
     code: 2,
@@ -64,7 +61,8 @@ const IN_MEMORY_BUGS = [
     swProjectCode: 1,
     priority: 4,
     state: 'Finished',
-    finishData: new Date(Date.now()).toDateString()
+    finishData: new Date(Date.now()).toDateString(),
+    developers: [IN_MEMORY_DEV_TEAM[1]]
   },
   {
     code: 3,
@@ -72,7 +70,8 @@ const IN_MEMORY_BUGS = [
     swProjectCode: 2,
     priority: 2,
     state: 'New',
-    finishData: new Date(Date.now()).toDateString()
+    finishData: new Date(Date.now()).toDateString(),
+    developers: [IN_MEMORY_DEV_TEAM[1], IN_MEMORY_DEV_TEAM[2]]
   },
   {
     code: 4,
@@ -80,7 +79,8 @@ const IN_MEMORY_BUGS = [
     swProjectCode: 3,
     priority: 5,
     state: 'Assigned',
-    finishData: new Date(Date.now()).toDateString()
+    finishData: new Date(Date.now()).toDateString(),
+    developers: [IN_MEMORY_DEV_TEAM[3]]
   }
 ];
 const IN_MEMORY_SW_PROJECTS = [
