@@ -37,15 +37,7 @@ bugsEl.addEventListener('change', onBugSelectChange);
 document.getElementById('bugForm').addEventListener('submit', onAssignBugFormSubmit);
 document.getElementById('dismissModalBtn').addEventListener('click', onDismissModal);
 
-bugs.forEach(bug => {
-  const el = document.createElement('option');
-
-  el.setAttribute('value', bug.code);
-  el.innerText = bug.code + ' ' + bug.description;
-  bugsEl.appendChild(el);
-});
-
-updateDevSelect();
+updateAssignBugsForm();
 
 function getDatasets(statistics) {
   return [
@@ -93,7 +85,30 @@ function onDismissModal() {
   modal.hide();
 }
 
+function updateAssignBugsForm() {
+  updateBugSelect();
+  updateDevSelect();
+}
+
+function updateBugSelect() {
+  const defEl = document.createElement('option');
+
+  bugsEl.innerHTML = '';
+  defEl.selected = true;
+  defEl.innerText = 'Seleccionar bug';
+  bugsEl.appendChild(defEl);
+
+  bugs.forEach(bug => {
+    const el = document.createElement('option');
+
+    el.setAttribute('value', bug.code);
+    el.innerText = bug.code + ' ' + bug.description;
+    bugsEl.appendChild(el);
+  });
+}
+
 function updateDevSelect(bugCode) {
+  const defEl = document.createElement('option');
   const appendItem = dev => {
     const el = document.createElement('option');
     el.setAttribute('value', dev.code);
@@ -102,6 +117,10 @@ function updateDevSelect(bugCode) {
   };
 
   devsEl.innerHTML = '';
+  defEl.selected = true;
+  defEl.innerText = 'Seleccionar desarrollador';
+  devsEl.appendChild(defEl);
+
   devs.forEach(dev => {
     if (!bugCode || dev.assignedBugs.filter(b => b.code === bugCode).length === 0) {
       appendItem(dev);
@@ -117,4 +136,5 @@ function assignBug(bugCode, devCode) {
   dev.assignedBugs.push(bug);
   modalTextEl.innerText = `Bug ${ bug.code } asignado a ${ dev.name }`;
   modal.show();
+  updateAssignBugsForm();
 }
