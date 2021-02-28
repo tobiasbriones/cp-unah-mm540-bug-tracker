@@ -20,11 +20,32 @@
 
   <body>
 
+    <header class="shadow p-3 mb-5 mb-5 rounded">
+      <h1>QA</h1>
+    </header>
+
+    <div id="container" class="container p-sm-5">
+      <div class="row">
+        <div class="col align-self-center">
+          <form id="projectForm" class="row g-3 my-4 mx-4 my-xl-0">
+            <p class="text-center font-weight-bold">
+              <strong>Proyecto:</strong>
+            </p>
+            <div>
+              <select id="projectSelect" class="form-select form-select-lg mb-3" aria-label="Select project">
+                <option selected>Seleccionar proyecto</option>
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
             crossorigin="anonymous">
     </script>
-    <script src="./js/developer.mjs" type="module"></script>
+    <script src="./js/qa.mjs" type="module"></script>
 
   </body>
 
