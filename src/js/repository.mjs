@@ -148,6 +148,10 @@ export class SoftwareProjectRepository {
     return IN_MEMORY_SW_PROJECTS.find(p => p.code === code);
   }
 
+  getByDeveloper(devCode) {
+    return IN_MEMORY_SW_PROJECTS.filter(p => p.devTeam.find(d => d.code === devCode));
+  }
+
   add(project) {
     IN_MEMORY_SW_PROJECTS.push(project);
   }
