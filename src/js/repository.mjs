@@ -136,6 +136,10 @@ export class SoftwareProjectRepository {
   constructor() {
   }
 
+  getAll() {
+    return IN_MEMORY_SW_PROJECTS;
+  }
+
   get(code) {
     return IN_MEMORY_SW_PROJECTS.find(p => p.code === code);
   }
@@ -163,6 +167,10 @@ export class DevTeamRepository {
   constructor() {
   }
 
+  getAll() {
+    return IN_MEMORY_DEV_TEAM;
+  }
+
   get(code) {
     return IN_MEMORY_DEV_TEAM.find(p => p.code === code);
   }
@@ -188,6 +196,10 @@ export class DevTeamRepository {
 
 export class BugRepository {
   constructor() {
+  }
+
+  getAll() {
+    return IN_MEMORY_BUGS;
   }
 
   get(code) {
