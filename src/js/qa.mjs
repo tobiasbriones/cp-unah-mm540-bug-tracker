@@ -32,7 +32,10 @@ function onProjectSelectChange() {
   const el = document.getElementById('projectSelect');
   const projectCode = parseInt(el.options[el.selectedIndex].value);
 
-  if (!isNaN(projectCode)) {
+  if (isNaN(projectCode)) {
+    document.querySelector('#bugs table tbody').innerHTML = '';
+  }
+  else {
     setProject(projectCode);
   }
 }
