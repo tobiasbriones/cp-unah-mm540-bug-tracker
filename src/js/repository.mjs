@@ -12,7 +12,7 @@ const IN_MEMORY_DEV_TEAM = [
     ],
     tech: [
       'Spring Boot', 'Spring MVC', 'Ruby on Rails', 'Unreal Engine'
-    ],
+    ]
   },
   {
     code: 2,
@@ -22,7 +22,7 @@ const IN_MEMORY_DEV_TEAM = [
     ],
     tech: [
       'Spring Boot', 'Spring MVC', 'Express.js', 'Nest.js'
-    ],
+    ]
   },
   {
     code: 3,
@@ -32,7 +32,7 @@ const IN_MEMORY_DEV_TEAM = [
     ],
     tech: [
       'Laravel', 'Spring MVC', 'Symphony', 'JDBC'
-    ],
+    ]
   },
   {
     code: 4,
@@ -42,7 +42,7 @@ const IN_MEMORY_DEV_TEAM = [
     ],
     tech: [
       'Angular', 'React.js', 'Vue.js', 'Node.js'
-    ],
+    ]
   }
 ];
 const IN_MEMORY_BUGS = [
@@ -212,6 +212,10 @@ export class BugRepository {
 
   get(code) {
     return IN_MEMORY_BUGS.find(b => b.code === code);
+  }
+
+  getByDeveloper(devCode) {
+    return IN_MEMORY_BUGS.filter(b => b.developers.find(d => d.code === devCode));
   }
 
   add(bug) {

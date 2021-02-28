@@ -2,10 +2,11 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-import { DevTeamRepository, SoftwareProjectRepository } from './repository.mjs';
+import { BugRepository, DevTeamRepository, SoftwareProjectRepository } from './repository.mjs';
 
 const devRepository = new DevTeamRepository();
 const projectRepository = new SoftwareProjectRepository();
+const bugRepository = new BugRepository();
 const devs = devRepository.getAll();
 let currentDev = null;
 
@@ -51,6 +52,7 @@ function setDevPage(devCode) {
   panelEl.classList.remove('invisible');
   panelEl.classList.add('visible');
   setProjects(projects);
+  setBugs();
 }
 
 function setProjects(projects) {
@@ -78,6 +80,70 @@ function setProjects(projects) {
 
   bodyEl.innerHTML = '';
   projects.forEach(p => addRow(p));
+}
+
+function setBugs() {
+  const bugsEl = document.querySelector('#bugList');
+  const bugs = bugRepository.getByDeveloper(currentDev.code);
+  const addRow = bug => {
+    const text = `#${ bug.code } - ${ bug.description }`;
+    const labelEl = document.createElement('label');
+    const inputEl = document.createElement('input');
+    const textNode = document.createTextNode(text);
+
+    inputEl.classList.add('form-check-input');
+    inputEl.classList.add('me-1');
+    inputEl.dataset.code = bug.code;
+    inputEl.setAttribute('type', 'checkbox');
+    inputEl.addEventListener('change', onItemClick);
+
+    labelEl.classList.add('list-group-item');
+    labelEl.appendChild(inputEl);
+    labelEl.appendChild(textNode);
+    if (bug.state === 'Finished') {
+      setFinished(labelEl);
+    }
+    else {
+      setUnfinished(labelEl);
+    }
+
+    bugsEl.appendChild(labelEl);
+  };
+
+  bugsEl.innerHTML = '';
+  bugs.forEach(b => addRow(b));
+
+  function onItemClick(e) {
+    const el = e.target;
+    const isChecked = el.checked;
+    const parentEl = el.parentElement;
+    const code = parseInt(el.dataset.code);
+    const bug = bugRepository.get(code);
+
+    if (isChecked) {
+      setFinished(parentEl);
+      bug.state = 'Finished';
+    }
+    else {
+      setUnfinished(parentEl);
+      bug.state = 'Assigned';
+    }
+    bugRepository.set(bug);
+  }
+
+  function setUnfinished(labelEl) {
+    const checkboxEl = labelEl.querySelector('input');
+
+    checkboxEl.checked = false;
+    labelEl.classList.remove('list-group-item-secondary');
+  }
+
+  function setFinished(labelEl) {
+    const checkboxEl = labelEl.querySelector('input');
+
+    checkboxEl.checked = true;
+    labelEl.classList.add('list-group-item-secondary');
+  }
 }
 
 function setEmptyPage() {
