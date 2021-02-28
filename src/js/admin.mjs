@@ -9,6 +9,7 @@ const bugsRepository = new BugRepository();
 const devs = devRepository.getAll();
 const bugs = bugsRepository.getAll();
 const statistics = bugsRepository.getStatistics();
+const modal = new bootstrap.Modal(document.getElementById('modal'));
 const bugsEl = document.getElementById('bugsSelect');
 const devsEl = document.getElementById('devsSelect');
 const ctx = document.getElementById('chart').getContext('2d');
@@ -31,6 +32,9 @@ const chart = new Chart(ctx, {
     }
   }
 });
+
+document.getElementById('bugForm').addEventListener('submit', onAssignBugFormSubmit);
+document.getElementById('dismissModalBtn').addEventListener('click', onDismissModal);
 
 bugs.forEach(bug => {
   const el = document.createElement('option');
@@ -70,4 +74,28 @@ function getDatasets(statistics) {
       borderWidth: 1
     }
   ];
+}
+
+function onAssignBugFormSubmit(e) {
+  e.preventDefault();
+  const bugCode = parseInt(bugsEl.options[bugsEl.selectedIndex].value);
+  const devCode = parseInt(devsEl.options[devsEl.selectedIndex].value);
+
+  if (!isNaN(bugCode) && !isNaN(devCode)) {
+    assignBug(bugCode, devCode);
+  }
+}
+
+function onDismissModal() {
+  modal.hide();
+}
+
+function assignBug(bugCode, devCode) {
+  const bug = bugsRepository.get(bugCode);
+  const dev = devRepository.get(devCode);
+  const modalTextEl = document.getElementById('modalText');
+
+  dev.assignedBugs.push(bug);
+  modalTextEl.innerText = `Bug ${ bug.code } asignado a ${ dev.name }`;
+  modal.show();
 }

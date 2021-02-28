@@ -12,7 +12,8 @@ const IN_MEMORY_DEV_TEAM = [
     ],
     tech: [
       'Spring Boot', 'Spring MVC', 'Ruby on Rails', 'Unreal Engine'
-    ]
+    ],
+    assignedBugs: []
   },
   {
     code: 2,
@@ -22,7 +23,8 @@ const IN_MEMORY_DEV_TEAM = [
     ],
     tech: [
       'Spring Boot', 'Spring MVC', 'Express.js', 'Nest.js'
-    ]
+    ],
+    assignedBugs: []
   },
   {
     code: 3,
@@ -32,7 +34,8 @@ const IN_MEMORY_DEV_TEAM = [
     ],
     tech: [
       'Laravel', 'Spring MVC', 'Symphony', 'JDBC'
-    ]
+    ],
+    assignedBugs: []
   },
   {
     code: 4,
@@ -42,7 +45,8 @@ const IN_MEMORY_DEV_TEAM = [
     ],
     tech: [
       'Angular', 'React.js', 'Vue.js', 'Node.js'
-    ]
+    ],
+    assignedBugs: []
   }
 ];
 const IN_MEMORY_BUGS = [
@@ -172,21 +176,21 @@ export class DevTeamRepository {
   }
 
   get(code) {
-    return IN_MEMORY_DEV_TEAM.find(p => p.code === code);
+    return IN_MEMORY_DEV_TEAM.find(d => d.code === code);
   }
 
-  add(project) {
-    IN_MEMORY_DEV_TEAM.push(project);
+  add(dev) {
+    IN_MEMORY_DEV_TEAM.push(dev);
   }
 
-  set(project) {
-    this.remove(project);
-    this.add(project);
+  set(dev) {
+    this.remove(dev);
+    this.add(dev);
   }
 
-  remove(project) {
+  remove(dev) {
     for (let i = 0; i < IN_MEMORY_DEV_TEAM.length; i++) {
-      if (IN_MEMORY_DEV_TEAM[i].code === project.code) {
+      if (IN_MEMORY_DEV_TEAM[i].code === dev.code) {
         IN_MEMORY_DEV_TEAM.splice(i, 1);
         break;
       }
@@ -203,21 +207,21 @@ export class BugRepository {
   }
 
   get(code) {
-    return IN_MEMORY_BUGS.find(p => p.code === code);
+    return IN_MEMORY_BUGS.find(b => b.code === code);
   }
 
-  add(project) {
-    IN_MEMORY_BUGS.push(project);
+  add(bug) {
+    IN_MEMORY_BUGS.push(bug);
   }
 
-  set(project) {
-    this.remove(project);
-    this.add(project);
+  set(bug) {
+    this.remove(bug);
+    this.add(bug);
   }
 
-  remove(project) {
+  remove(bug) {
     for (let i = 0; i < IN_MEMORY_BUGS.length; i++) {
-      if (IN_MEMORY_BUGS[i].code === project.code) {
+      if (IN_MEMORY_BUGS[i].code === bug.code) {
         IN_MEMORY_BUGS.splice(i, 1);
         break;
       }
