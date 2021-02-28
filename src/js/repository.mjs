@@ -218,6 +218,10 @@ export class BugRepository {
     return IN_MEMORY_BUGS.filter(b => b.developers.find(d => d.code === devCode));
   }
 
+  getByProject(projectCode) {
+    return IN_MEMORY_BUGS.filter(b => b.swProjectCode === projectCode);
+  }
+
   add(bug) {
     IN_MEMORY_BUGS.push(bug);
   }
