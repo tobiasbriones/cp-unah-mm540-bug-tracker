@@ -67,7 +67,7 @@ const IN_MEMORY_BUGS = [
     description: 'It crashes when Z',
     swProjectCode: 2,
     priority: 2,
-    state: 'Finished',
+    state: 'New',
     finishData: new Date(Date.now()).toDateString()
   },
   {
@@ -75,7 +75,7 @@ const IN_MEMORY_BUGS = [
     description: 'It crashes when W',
     swProjectCode: 3,
     priority: 5,
-    state: 'Finished',
+    state: 'Assigned',
     finishData: new Date(Date.now()).toDateString()
   }
 ];
@@ -133,7 +133,8 @@ const IN_MEMORY_SW_PROJECTS = [
 ];
 
 export class SoftwareProjectRepository {
-  constructor() {}
+  constructor() {
+  }
 
   get(code) {
     return IN_MEMORY_SW_PROJECTS.find(p => p.code === code);
@@ -159,7 +160,8 @@ export class SoftwareProjectRepository {
 }
 
 export class DevTeamRepository {
-  constructor() {}
+  constructor() {
+  }
 
   get(code) {
     return IN_MEMORY_DEV_TEAM.find(p => p.code === code);
@@ -185,7 +187,8 @@ export class DevTeamRepository {
 }
 
 export class BugRepository {
-  constructor() {}
+  constructor() {
+  }
 
   get(code) {
     return IN_MEMORY_BUGS.find(p => p.code === code);
@@ -207,5 +210,28 @@ export class BugRepository {
         break;
       }
     }
+  }
+
+  getStatistics() {
+    let newBugs = 0;
+    let assignedBugs = 0;
+    let finishedBugs = 0;
+
+    IN_MEMORY_BUGS.forEach(bug => {
+      if (bug.state === 'New') {
+        newBugs++;
+      }
+      else if (bug.state === 'Assigned') {
+        assignedBugs++;
+      }
+      else if (bug.state === 'Finished') {
+        finishedBugs++;
+      }
+    });
+    return {
+      newBugs: newBugs,
+      assignedBugs: assignedBugs,
+      finishedBugs: finishedBugs
+    };
   }
 }
