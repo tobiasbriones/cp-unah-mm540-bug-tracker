@@ -34,6 +34,7 @@ const chart = new Chart(ctx, {
 });
 
 bugsEl.addEventListener('change', onBugSelectChange);
+document.querySelector('header > h2').addEventListener('click', onHeaderClick);
 document.getElementById('bugForm').addEventListener('submit', onAssignBugFormSubmit);
 document.getElementById('dismissModalBtn').addEventListener('click', onDismissModal);
 
@@ -61,6 +62,10 @@ function getDatasets(statistics) {
       borderWidth: 1
     }
   ];
+}
+
+function onHeaderClick() {
+  window.location.href = './index.html';
 }
 
 function onBugSelectChange(e) {

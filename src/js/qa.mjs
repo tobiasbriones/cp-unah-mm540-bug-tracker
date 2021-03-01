@@ -11,6 +11,7 @@ let currentProject = null;
 init();
 
 function init() {
+  document.querySelector('header > h2').addEventListener('click', onHeaderClick);
   document.getElementById('projectSelect').addEventListener('change', onProjectSelectChange);
   initProjectsSelect();
 }
@@ -26,6 +27,10 @@ function initProjectsSelect() {
     opEl.innerText = project.name;
     el.appendChild(opEl);
   });
+}
+
+function onHeaderClick() {
+  window.location.href = './index.html';
 }
 
 function onProjectSelectChange() {

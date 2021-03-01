@@ -13,6 +13,7 @@ let currentDev = null;
 init();
 
 function init() {
+  document.querySelector('header > h2').addEventListener('click', onHeaderClick);
   document.getElementById('devSelect').addEventListener('change', onDevSelectChange);
   initDeveloperSelect();
 }
@@ -27,6 +28,10 @@ function initDeveloperSelect() {
     opEl.innerText = dev.name;
     el.appendChild(opEl);
   });
+}
+
+function onHeaderClick() {
+  window.location.href = './index.html';
 }
 
 function onDevSelectChange() {
