@@ -34,6 +34,7 @@ function onProjectSelectChange() {
 
   if (isNaN(projectCode)) {
     document.querySelector('#bugs table tbody').innerHTML = '';
+    document.getElementById('assignedDevelopers').innerHTML = '';
   }
   else {
     setProject(projectCode);
@@ -44,6 +45,7 @@ function setProject(projectCode) {
   currentProject = projectRepository.get(projectCode);
   const bugs = bugRepository.getByProject(currentProject.code);
   const bodyEl = document.querySelector('#bugs table tbody');
+  const devEl = document.getElementById('assignedDevelopers');
   const addRow = bug => {
     const rowEl = document.createElement('tr');
     const thEl = document.createElement('th');
@@ -60,14 +62,41 @@ function setProject(projectCode) {
     priorityEl.innerText = bug.priority;
     finishDateEl.innerText = bug.finishDate;
 
+    rowEl.dataset.code = bug.code;
     rowEl.appendChild(thEl);
     rowEl.appendChild(descriptionEl);
     rowEl.appendChild(stateEl);
     rowEl.appendChild(priorityEl);
     rowEl.appendChild(finishDateEl);
     bodyEl.appendChild(rowEl);
+
+    rowEl.addEventListener('click', onItemClick);
   };
 
   bodyEl.innerHTML = '';
+  devEl.innerHTML = '';
   bugs.forEach(b => addRow(b));
+
+  function onItemClick(e) {
+    const rowEl = e.target.parentElement;
+    const bugCode = parseInt(rowEl.dataset.code);
+    const bug = bugRepository.get(bugCode);
+    const developers = bug.developers;
+
+    setSelected(rowEl);
+    devEl.innerHTML = '';
+    developers.forEach(dev => {
+      const liEl = document.createElement('li');
+
+      liEl.classList.add('list-group-item');
+      liEl.innerText = dev.name;
+      devEl.appendChild(liEl);
+    });
+  }
+
+  function setSelected(rowEl) {
+    document.querySelectorAll('table tr.selected')
+            .forEach(rowEl => rowEl.classList.remove('selected'));
+    rowEl.classList.add('selected');
+  }
 }
