@@ -126,11 +126,12 @@ function updateDevSelect(bugCode) {
   defEl.innerText = 'Seleccionar desarrollador';
   devsEl.appendChild(defEl);
 
-  devs.forEach(dev => {
-    if (!bugCode || dev.assignedBugs.filter(b => b.code === bugCode).length === 0) {
-      appendItem(dev);
-    }
-  });
+  if (bugCode) {
+    const bug = bugsRepository.get(bugCode);
+
+    devs.filter(dev => !bug.developers.find(bugDev => bugDev.code === dev.code))
+        .forEach(dev => appendItem(dev));
+  }
 }
 
 function assignBug(bugCode, devCode) {
@@ -138,7 +139,8 @@ function assignBug(bugCode, devCode) {
   const dev = devRepository.get(devCode);
   const modalTextEl = document.getElementById('modalText');
 
-  dev.assignedBugs.push(bug);
+  bug.developers.push(dev);
+  bugsRepository.set(bug);
   modalTextEl.innerText = `Bug ${ bug.code } asignado a ${ dev.name }`;
   modal.show();
   updateAssignBugsForm();
