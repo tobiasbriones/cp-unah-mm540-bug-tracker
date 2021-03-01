@@ -1,3 +1,11 @@
 /*
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
+
+table tr {
+  cursor: pointer;
+}
+
+table tr.selected {
+  background-color: #B3E5FC;
+}

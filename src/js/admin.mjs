@@ -45,6 +45,7 @@ function init() {
   document.getElementById('actionBugs').addEventListener('click', onActionBugsClick);
   document.getElementById('actionDevelopers').addEventListener('click', onActionDevsClick);
   document.getElementById('actionProjects').addEventListener('click', onActionProjectsClick);
+  document.getElementById('addNewDevBtn').addEventListener('click', onAddNewDevButtonClick);
 
   updateAssignBugsForm();
   setPage('bugsPage');
@@ -112,6 +113,11 @@ function onDismissModal() {
   modal.hide();
 }
 
+function onAddNewDevButtonClick() {
+  document.getElementById('developerCreateContainer').classList.remove('gone');
+  document.getElementById('developerUpdateContainer').classList.add('gone');
+}
+
 function setPage(page) {
   const pageEl = document.getElementById(page);
 
@@ -160,12 +166,42 @@ function initDevsPage() {
     languagesEl.innerText = JSON.stringify(dev.languages);
     techEl.innerText = JSON.stringify(dev.tech);
 
+    rowEl.dataset.code = dev.code;
     rowEl.appendChild(thEl);
     rowEl.appendChild(nameEl);
     rowEl.appendChild(languagesEl);
     rowEl.appendChild(techEl);
     bodyEl.appendChild(rowEl);
+
+    rowEl.addEventListener('click', onItemClick);
   });
+
+  function onItemClick(e) {
+    const rowEl = e.target.parentElement;
+    const devCode = parseInt(rowEl.dataset.code);
+    const dev = devRepository.get(devCode);
+
+    setSelected(rowEl);
+    onUpdate(dev);
+  }
+
+  function setSelected(rowEl) {
+    document.querySelectorAll('table tr.selected')
+            .forEach(rowEl => rowEl.classList.remove('selected'));
+    rowEl.classList.add('selected');
+  }
+}
+
+function onUpdate(dev) {
+  const createEl = document.getElementById('developerCreateContainer');
+  const updateEl = document.getElementById('developerUpdateContainer');
+
+  createEl.classList.add('gone');
+  updateEl.classList.remove('gone');
+  document.getElementById('devUpdateCodeInput').value = dev.code;
+  document.getElementById('devUpdateNameInput').value = dev.name;
+  document.getElementById('devUpdateLanguagesInput').value = JSON.stringify(dev.languages);
+  document.getElementById('devUpdateTechInput').value = JSON.stringify(dev.tech);
 }
 
 function initProjectsPage() {
