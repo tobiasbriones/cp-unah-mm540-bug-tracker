@@ -84,14 +84,13 @@
 
       <div id="devsPage" class="row">
 
-        <div id="devsForm">
+        <!-- ------------------------------  CREATE FORM  ------------------------------ -->
 
-          <!-- ------------------------------  CREATE FORM  ------------------------------ -->
-
+        <div id="developerCreateContainer">
           <p class="text-center font-weight-bold">
             <strong>Crear nuevo desarrollador</strong>
           </p>
-          <form id="createForm">
+          <form id="developerCreateForm">
             <div class="form-group">
               <label for="codeInput">Code</label>
               <input id="codeInput"
@@ -124,13 +123,15 @@
             </div>
             <button class="btn btn-primary w-100" type="submit">Registrar</button>
           </form>
+        </div>
 
-          <!-- ------------------------------  UPDATE FORM  ------------------------------ -->
+        <!-- ------------------------------  UPDATE FORM  ------------------------------ -->
 
+        <div id="developerUpdateContainer">
           <p class="text-center font-weight-bold">
             <strong>Actualizar desarrollador</strong>
           </p>
-          <form id="updateForm">
+          <form id="developerUpdateForm">
             <div class="form-group">
               <label for="codeInput">Code</label>
               <input id="codeInput"
@@ -162,10 +163,12 @@
               <button class="btn btn-danger col mx-2" type="submit">Eliminar</button>
             </div>
           </form>
+        </div>
 
-          <!-- ----------------------------------------  LIST OF DEVELOPERS  ----------------------------------------
-           -->
+        <!-- ----------------------------------------  LIST OF DEVELOPERS  ----------------------------------------
+         -->
 
+        <div id="developerListContainer">
           <p class="text-center font-weight-bold">
             <strong>Desarrolladores</strong>
           </p>
@@ -182,7 +185,6 @@
             <tbody>
             </tbody>
           </table>
-
         </div>
 
       </div>
