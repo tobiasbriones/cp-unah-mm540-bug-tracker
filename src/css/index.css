@@ -1,3 +1,21 @@
 /*
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
+
+#container {
+  min-height: 600px;
+}
+
+.options {
+  margin-top: 150px;
+}
+
+.options > div {
+  padding: 150px 0;
+  transition: background-color 200ms;
+  cursor: pointer;
+}
+
+.options > div:active {
+  background-color: #F0F0F0;
+}
