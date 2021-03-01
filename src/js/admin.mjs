@@ -32,13 +32,22 @@ const chart = new Chart(ctx, {
     }
   }
 });
+const pages = ['bugsPage', 'devsPage', 'projectsPage'];
 
-bugsEl.addEventListener('change', onBugSelectChange);
-document.querySelector('header > h2').addEventListener('click', onHeaderClick);
-document.getElementById('bugForm').addEventListener('submit', onAssignBugFormSubmit);
-document.getElementById('dismissModalBtn').addEventListener('click', onDismissModal);
+init();
 
-updateAssignBugsForm();
+function init() {
+  bugsEl.addEventListener('change', onBugSelectChange);
+  document.querySelector('header > h2').addEventListener('click', onHeaderClick);
+  document.getElementById('bugForm').addEventListener('submit', onAssignBugFormSubmit);
+  document.getElementById('dismissModalBtn').addEventListener('click', onDismissModal);
+  document.getElementById('actionBugs').addEventListener('click', onActionBugsClick);
+  document.getElementById('actionDevelopers').addEventListener('click', onActionDevsClick);
+  document.getElementById('actionProjects').addEventListener('click', onActionProjectsClick);
+
+  updateAssignBugsForm();
+  setPage('bugsPage');
+}
 
 function getDatasets(statistics) {
   return [
@@ -68,7 +77,19 @@ function onHeaderClick() {
   window.location.href = './index.html';
 }
 
-function onBugSelectChange(e) {
+function onActionBugsClick() {
+  setPage(pages[0]);
+}
+
+function onActionDevsClick() {
+  setPage(pages[1]);
+}
+
+function onActionProjectsClick() {
+  setPage(pages[2]);
+}
+
+function onBugSelectChange() {
   const bugCode = parseInt(bugsEl.options[bugsEl.selectedIndex].value);
 
   if (!isNaN(bugCode)) {
@@ -88,6 +109,17 @@ function onAssignBugFormSubmit(e) {
 
 function onDismissModal() {
   modal.hide();
+}
+
+function setPage(page) {
+  const pageEl = document.getElementById(page);
+
+  hideAllPages();
+  pageEl.classList.remove('gone');
+}
+
+function hideAllPages() {
+  pages.forEach(page => document.getElementById(page).classList.add('gone'));
 }
 
 function updateAssignBugsForm() {
