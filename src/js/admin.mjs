@@ -2,10 +2,11 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-import { BugRepository, DevTeamRepository } from './repository.mjs';
+import { BugRepository, DevTeamRepository, SoftwareProjectRepository } from './repository.mjs';
 
 const devRepository = new DevTeamRepository();
 const bugsRepository = new BugRepository();
+const projectRepository = new SoftwareProjectRepository();
 const devs = devRepository.getAll();
 const bugs = bugsRepository.getAll();
 const statistics = bugsRepository.getStatistics();
@@ -115,11 +116,87 @@ function setPage(page) {
   const pageEl = document.getElementById(page);
 
   hideAllPages();
+  initPage(page);
   pageEl.classList.remove('gone');
 }
 
 function hideAllPages() {
   pages.forEach(page => document.getElementById(page).classList.add('gone'));
+}
+
+function initPage(page) {
+  switch (page) {
+    case pages[0]:
+      break;
+    case pages[1]:
+      initDevsPage();
+      break;
+    case pages[2]:
+      initProjectsPage();
+      break;
+  }
+}
+
+function initDevsPage() {
+  const createEl = document.getElementById('developerCreateContainer');
+  const updateEl = document.getElementById('developerUpdateContainer');
+  const bodyEl = document.querySelector('#developerListContainer tbody');
+
+  createEl.classList.add('gone');
+  updateEl.classList.add('gone');
+
+  bodyEl.innerHTML = '';
+  devRepository.getAll().forEach(dev => {
+    const rowEl = document.createElement('tr');
+    const thEl = document.createElement('th');
+    const nameEl = document.createElement('td');
+    const languagesEl = document.createElement('td');
+    const techEl = document.createElement('td');
+
+    thEl.setAttribute('scope', 'row');
+    thEl.innerText = dev.code;
+
+    nameEl.innerText = dev.name;
+    languagesEl.innerText = JSON.stringify(dev.languages);
+    techEl.innerText = JSON.stringify(dev.tech);
+
+    rowEl.appendChild(thEl);
+    rowEl.appendChild(nameEl);
+    rowEl.appendChild(languagesEl);
+    rowEl.appendChild(techEl);
+    bodyEl.appendChild(rowEl);
+  });
+}
+
+function initProjectsPage() {
+  const createEl = document.getElementById('projectCreateContainer');
+  const updateEl = document.getElementById('projectUpdateContainer');
+  const bodyEl = document.querySelector('#projectListContainer tbody');
+
+  createEl.classList.add('gone');
+  updateEl.classList.add('gone');
+
+  bodyEl.innerHTML = '';
+  projectRepository.getAll().forEach(project => {
+    const rowEl = document.createElement('tr');
+    const thEl = document.createElement('th');
+    const nameEl = document.createElement('td');
+    const startDateEl = document.createElement('td');
+    const endDateEl = document.createElement('td');
+
+    thEl.setAttribute('scope', 'row');
+    thEl.innerText = project.code;
+
+    nameEl.innerText = project.name;
+    startDateEl.innerText = project.startDate;
+    endDateEl.innerText = project.endDate;
+
+    rowEl.appendChild(thEl);
+    rowEl.appendChild(nameEl);
+    rowEl.appendChild(startDateEl);
+    rowEl.appendChild(endDateEl);
+    bodyEl.appendChild(rowEl);
+  });
 }
 
 function updateAssignBugsForm() {
