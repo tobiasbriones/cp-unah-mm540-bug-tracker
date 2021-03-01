@@ -46,6 +46,7 @@ function init() {
   document.getElementById('actionDevelopers').addEventListener('click', onActionDevsClick);
   document.getElementById('actionProjects').addEventListener('click', onActionProjectsClick);
   document.getElementById('addNewDevBtn').addEventListener('click', onAddNewDevButtonClick);
+  document.getElementById('addNewProjectBtn').addEventListener('click', onAddNewProjectButtonClick);
 
   updateAssignBugsForm();
   setPage('bugsPage');
@@ -118,6 +119,11 @@ function onAddNewDevButtonClick() {
   document.getElementById('developerUpdateContainer').classList.add('gone');
 }
 
+function onAddNewProjectButtonClick() {
+  document.getElementById('projectCreateContainer').classList.remove('gone');
+  document.getElementById('projectUpdateContainer').classList.add('gone');
+}
+
 function setPage(page) {
   const pageEl = document.getElementById(page);
 
@@ -182,7 +188,7 @@ function initDevsPage() {
     const dev = devRepository.get(devCode);
 
     setSelected(rowEl);
-    onUpdate(dev);
+    onUpdateDev(dev);
   }
 
   function setSelected(rowEl) {
@@ -192,7 +198,7 @@ function initDevsPage() {
   }
 }
 
-function onUpdate(dev) {
+function onUpdateDev(dev) {
   const createEl = document.getElementById('developerCreateContainer');
   const updateEl = document.getElementById('developerUpdateContainer');
 
@@ -202,6 +208,26 @@ function onUpdate(dev) {
   document.getElementById('devUpdateNameInput').value = dev.name;
   document.getElementById('devUpdateLanguagesInput').value = JSON.stringify(dev.languages);
   document.getElementById('devUpdateTechInput').value = JSON.stringify(dev.tech);
+}
+
+function onUpdateProject(project) {
+  const createEl = document.getElementById('projectCreateContainer');
+  const updateEl = document.getElementById('projectUpdateContainer');
+
+  createEl.classList.add('gone');
+  updateEl.classList.remove('gone');
+  document.getElementById('projectUpdateCodeInput').value = project.code;
+  document.getElementById('projectUpdateNameInput').value = project.name;
+  document.getElementById('projectUpdateStartDateInput').value = new Date().toISOString()
+                                                                                            .slice(
+                                                                                              0,
+                                                                                              10
+                                                                                            );
+  document.getElementById('projectUpdateEndDateInput').value = new Date().toISOString()
+                                                                         .slice(
+                                                                           0,
+                                                                           10
+                                                                         );;
 }
 
 function initProjectsPage() {
@@ -227,12 +253,30 @@ function initProjectsPage() {
     startDateEl.innerText = project.startDate;
     endDateEl.innerText = project.endDate;
 
+    rowEl.dataset.code = project.code;
     rowEl.appendChild(thEl);
     rowEl.appendChild(nameEl);
     rowEl.appendChild(startDateEl);
     rowEl.appendChild(endDateEl);
     bodyEl.appendChild(rowEl);
+
+    rowEl.addEventListener('click', onItemClick);
   });
+
+  function onItemClick(e) {
+    const rowEl = e.target.parentElement;
+    const projectCode = parseInt(rowEl.dataset.code);
+    const project = devRepository.get(projectCode);
+
+    setSelected(rowEl);
+    onUpdateProject(project);
+  }
+
+  function setSelected(rowEl) {
+    document.querySelectorAll('table tr.selected')
+            .forEach(rowEl => rowEl.classList.remove('selected'));
+    rowEl.classList.add('selected');
+  }
 }
 
 function updateAssignBugsForm() {
