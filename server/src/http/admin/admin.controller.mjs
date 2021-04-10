@@ -20,7 +20,7 @@ export class AdminController {
       res.end();
     }
     catch (err) {
-      res.status(400).send(err);
+      res.status(400).send(err.message);
     }
   }
 
@@ -31,7 +31,7 @@ export class AdminController {
       res.json(stats);
     }
     catch (err) {
-      res.status(400).send(err);
+      res.status(400).send(err.message);
     }
   }
 
@@ -48,7 +48,7 @@ export class AdminController {
       res.end();
     }
     catch (err) {
-      res.status(400).send(err);
+      res.status(400).send(err.message);
     }
   }
 
@@ -59,7 +59,7 @@ export class AdminController {
       res.json(devTeams);
     }
     catch (err) {
-      res.status(400).send(err);
+      res.status(400).send(err.message);
     }
   }
 
@@ -71,7 +71,7 @@ export class AdminController {
       res.json(devTeam);
     }
     catch (err) {
-      res.status(400).send(err);
+      res.status(400).send(err.message);
     }
   }
 
@@ -89,7 +89,7 @@ export class AdminController {
       res.end();
     }
     catch (err) {
-      res.status(400).send(err);
+      res.status(400).send(err.message);
     }
   }
 
@@ -101,7 +101,7 @@ export class AdminController {
       res.end();
     }
     catch (err) {
-      res.status(400).send(err);
+      res.status(400).send(err.message);
     }
   }
 
@@ -118,7 +118,7 @@ export class AdminController {
       res.end();
     }
     catch (err) {
-      res.status(400).send(err);
+      res.status(400).send(err.message);
     }
   }
 
@@ -129,7 +129,7 @@ export class AdminController {
       res.json(projects);
     }
     catch (err) {
-      res.status(400).send(err);
+      res.status(400).send(err.message);
     }
   }
 
@@ -141,7 +141,7 @@ export class AdminController {
       res.json(project);
     }
     catch (err) {
-      res.status(400).send(err);
+      res.status(400).send(err.message);
     }
   }
 
@@ -159,7 +159,7 @@ export class AdminController {
       res.end();
     }
     catch (err) {
-      res.status(400).send(err);
+      res.status(400).send(err.message);
     }
   }
 
@@ -171,7 +171,7 @@ export class AdminController {
       res.end();
     }
     catch (err) {
-      res.status(400).send(err);
+      res.status(400).send(err.message);
     }
   }
 
@@ -189,7 +189,7 @@ export class AdminController {
       res.end();
     }
     catch (err) {
-      res.status(400).send(err);
+      res.status(400).send(err.message);
     }
   }
 
@@ -200,7 +200,7 @@ export class AdminController {
       res.json(users);
     }
     catch (err) {
-      res.status(400).send(err);
+      res.status(400).send(err.message);
     }
   }
 
@@ -212,7 +212,7 @@ export class AdminController {
       res.json(user);
     }
     catch (err) {
-      res.status(400).send(err);
+      res.status(400).send(err.message);
     }
   }
 
@@ -231,7 +231,7 @@ export class AdminController {
       res.end();
     }
     catch (err) {
-      res.status(400).send(err);
+      res.status(400).send(err.message);
     }
   }
 
@@ -243,7 +243,7 @@ export class AdminController {
       res.end();
     }
     catch (err) {
-      res.status(400).send(err);
+      res.status(400).send(err.message);
     }
   }
 }
