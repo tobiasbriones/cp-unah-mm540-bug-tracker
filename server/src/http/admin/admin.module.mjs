@@ -20,20 +20,20 @@ export class AdminModule {
 
     router.post('/dev-team', (req, res) => controller.createDevTeam(req, res));
     router.get('/dev-team', (req, res) => controller.readAllDevTeams(req, res));
-    router.get('/dev-team/:devId', (req, res) => controller.readDevTeam(req, res));
-    router.put('/dev-team', (req, res) => controller.updateDevTeam(req, res));
-    router.delete('/dev-team', (req, res) => controller.deleteDevTeam(req, res));
+    router.get('/dev-team/:devTeamId', (req, res) => controller.readDevTeam(req, res));
+    router.put('/dev-team/:devTeamId', (req, res) => controller.updateDevTeam(req, res));
+    router.delete('/dev-team/:devTeamId', (req, res) => controller.deleteDevTeam(req, res));
 
     router.post('/projects', (req, res) => controller.createProject(req, res));
     router.get('/projects', (req, res) => controller.readAllProjects(req, res));
     router.get('/projects/:projectId', (req, res) => controller.readProject(req, res));
-    router.put('/projects', (req, res) => controller.updateProject(req, res));
-    router.delete('/projects', (req, res) => controller.deleteProject(req, res));
+    router.put('/projects/:projectId', (req, res) => controller.updateProject(req, res));
+    router.delete('/projects/:projectId', (req, res) => controller.deleteProject(req, res));
 
     router.post('/users', (req, res) => controller.createUser(req, res));
     router.get('/users', (req, res) => controller.readAllUsers(req, res));
     router.get('/users/:userId', (req, res) => controller.readUser(req, res));
-    router.put('/users', (req, res) => controller.updateUser(req, res));
-    router.delete('/users', (req, res) => controller.deleteUser(req, res));
+    router.put('/users/:userId', (req, res) => controller.updateUser(req, res));
+    router.delete('/users/:userId', (req, res) => controller.deleteUser(req, res));
   }
 }
