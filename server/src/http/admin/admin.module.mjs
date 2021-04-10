@@ -25,7 +25,7 @@ export class AdminModule {
     router.post('/projects', this.#controller.createProject);
     router.get('/projects', this.#controller.readAllProjects);
     router.get('/projects/:projectId', this.#controller.readProject);
-    router.put('/projects', this.#controller.updateProjects);
+    router.put('/projects', this.#controller.updateProject);
     router.delete('/projects', this.#controller.deleteProject);
 
     router.post('/users', this.#controller.createUser);

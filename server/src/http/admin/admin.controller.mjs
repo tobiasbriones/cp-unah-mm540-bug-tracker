@@ -51,7 +51,7 @@ export class AdminController {
 
   }
 
-  async updateProjects(req, res) {
+  async updateProject(req, res) {
 
   }
 
