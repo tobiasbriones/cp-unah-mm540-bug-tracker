@@ -5,19 +5,14 @@
 import { BugsController } from './bugs.controller.mjs';
 
 export class BugsModule {
+  #controller;
 
-  constructor() {}
+  constructor() {
+    this.#controller = new BugsController();
+  }
 
   init(router) {
-    router.post('/bugs', async (req, res) => {
-      const controller = new BugsController();
-
-      await controller.create(req, res);
-    });
-    router.get('/bugs', async (req, res) => {
-      const controller = new BugsController();
-
-      await controller.readAll(req, res);
-    });
+    router.post('/bugs', this.#controller.create);
+    router.get('/bugs', this.#controller.readAll);
   }
 }
