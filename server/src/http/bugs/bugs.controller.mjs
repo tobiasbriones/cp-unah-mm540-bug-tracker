@@ -2,9 +2,9 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-const BugModel = require('../../database/bug.model').BugModel;
+import { BugModel } from '../../database/bug.model.mjs';
 
-exports.BugsController = class {
+export class BugsController {
   constructor() {
   }
 
@@ -23,4 +23,4 @@ exports.BugsController = class {
 
     res.send(bugs);
   }
-};
+}

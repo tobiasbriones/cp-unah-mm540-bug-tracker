@@ -2,7 +2,8 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 const SoftwareProjectShema = new Schema({
   code: Number,
@@ -10,4 +11,4 @@ const SoftwareProjectShema = new Schema({
   startDate: Date,
   endDate: Date,
 });
-exports.SoftwareProjectModel = mongoose.model('SoftwareProject', SoftwareProjectShema);
+export const SoftwareProjectModel = mongoose.model('SoftwareProject', SoftwareProjectShema);

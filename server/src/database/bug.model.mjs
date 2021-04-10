@@ -2,7 +2,8 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 const BugSchema = new Schema({
   code: Number,
@@ -14,4 +15,4 @@ const BugSchema = new Schema({
   ],
   finishDate: Date
 });
-exports.BugModel = mongoose.model('Bug', BugSchema);
+export const BugModel = mongoose.model('Bug', BugSchema);

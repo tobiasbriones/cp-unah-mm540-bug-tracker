@@ -2,7 +2,8 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 const DevTeamSchema = new Schema({
   code: Number,
@@ -10,4 +11,4 @@ const DevTeamSchema = new Schema({
   languages: [String],
   tech: [String]
 });
-exports.DevTeamModel = mongoose.model('DevTeam', DevTeamSchema);
+export const DevTeamModel = mongoose.model('DevTeam', DevTeamSchema);

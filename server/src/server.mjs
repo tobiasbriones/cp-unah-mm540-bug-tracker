@@ -2,23 +2,25 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-const express = require('express');
+import express from 'express';
+import cors from 'cors';
+import { newMongooseDb } from './database/db.mjs';
+import { HttpModule } from './http/http.module.mjs';
+
 const router = express.Router();
-const cors = require('cors');
-const http = require('./http/http.module');
-const db = require('./database/db');
 const port = 3000;
+const httpModule = new HttpModule();
 
-http.init(router);
+httpModule.init(router);
 
-db.newMongooseDb().then(listen, onDbError);
+newMongooseDb().then(listen, onDbError);
 
 async function listen() {
   const app = express();
 
   app.use(express.json());
   app.use(cors());
-  app.use('', router);
+  app.use('/', router);
   app.listen(port, () => {
     console.log(`Server running on port ${ port }`);
   });
