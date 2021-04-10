@@ -12,26 +12,28 @@ export class AdminModule {
   }
 
   init(router) {
-    router.patch('/bugs/:bugId/assign', this.#controller.assignBug);
+    const controller = this.#controller;
 
-    router.get('/stats/bugs', this.#controller.readAllBugStats);
+    router.patch('/bugs/:bugId/assign', (req, res) => controller.assignBug(req, res));
 
-    router.post('/dev-team', this.#controller.createDevTeam);
-    router.get('/dev-team', this.#controller.readAllDevTeams);
-    router.get('/dev-team/:devId', this.#controller.readDevTeam);
-    router.put('/dev-team', this.#controller.updateDevTeam);
-    router.delete('/dev-team', this.#controller.deleteDevTeam);
+    router.get('/stats/bugs', (req, res) => controller.readAllBugStats(req, res));
 
-    router.post('/projects', this.#controller.createProject);
-    router.get('/projects', this.#controller.readAllProjects);
-    router.get('/projects/:projectId', this.#controller.readProject);
-    router.put('/projects', this.#controller.updateProject);
-    router.delete('/projects', this.#controller.deleteProject);
+    router.post('/dev-team', (req, res) => controller.createDevTeam(req, res));
+    router.get('/dev-team', (req, res) => controller.readAllDevTeams(req, res));
+    router.get('/dev-team/:devId', (req, res) => controller.readDevTeam(req, res));
+    router.put('/dev-team', (req, res) => controller.updateDevTeam(req, res));
+    router.delete('/dev-team', (req, res) => controller.deleteDevTeam(req, res));
 
-    router.post('/users', this.#controller.createUser);
-    router.get('/users', this.#controller.readAllUsers);
-    router.get('/users/:userId', this.#controller.readUser);
-    router.put('/users', this.#controller.updateUser);
-    router.delete('/users', this.#controller.deleteUser);
+    router.post('/projects', (req, res) => controller.createProject(req, res));
+    router.get('/projects', (req, res) => controller.readAllProjects(req, res));
+    router.get('/projects/:projectId', (req, res) => controller.readProject(req, res));
+    router.put('/projects', (req, res) => controller.updateProject(req, res));
+    router.delete('/projects', (req, res) => controller.deleteProject(req, res));
+
+    router.post('/users', (req, res) => controller.createUser(req, res));
+    router.get('/users', (req, res) => controller.readAllUsers(req, res));
+    router.get('/users/:userId', (req, res) => controller.readUser(req, res));
+    router.put('/users', (req, res) => controller.updateUser(req, res));
+    router.delete('/users', (req, res) => controller.deleteUser(req, res));
   }
 }

@@ -12,7 +12,7 @@ export class BugsModule {
   }
 
   init(router) {
-    router.post('/', this.#controller.create);
-    router.get('/', this.#controller.readAll);
+    router.post('/', (req, res) => this.#controller.create(req, res));
+    router.get('/', (req, res) => this.#controller.readAll(req, res));
   }
 }
