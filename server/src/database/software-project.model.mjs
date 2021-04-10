@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 const SoftwareProjectShema = new Schema({
-  code: Number,
+  code: { type: Number, unique: true },
   name: String,
   startDate: Date,
   endDate: Date,

@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 const BugSchema = new Schema({
-  code: Number,
+  code: {type: Number, unique: true},
   description: String,
   swProjectCode: Number,
   priority: { type: Number, min: 1, max: 5 },
