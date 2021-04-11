@@ -2,7 +2,6 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-const BASE_URL = 'http://localhost:3000/api/v1';
 const IN_MEMORY_DEV_TEAM = [
   {
     code: 1,
