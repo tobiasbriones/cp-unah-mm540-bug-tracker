@@ -2,10 +2,45 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
+import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import { AuthController } from './auth.controller.mjs';
 import { Strategy } from 'passport-local';
 import { UserModel } from '../../database/user.model.mjs';
+
+const JWT_PRIVATE_KEY = ':D'; // Save it into a safe place
+
+const login = async (req, res, next) => {
+  passport.authenticate(
+    'login',
+    async (err, user, info) => {
+      console.log(`err: ${err}, user: ${user}, info: ${info}`);
+      try {
+        if (err || !user) {
+          return res.send(err);
+        }
+
+        req.login(
+          user,
+          { session: false },
+          async (error) => {
+            if (error) {
+              return next(error);
+            }
+
+            const body = { _id: user._id, email: user.email };
+            const token = jwt.sign({ user: body }, JWT_PRIVATE_KEY);
+
+            return res.json({ token });
+          }
+        );
+      }
+      catch (error) {
+        return next(error);
+      }
+    }
+  )(req, res, next);
+};
 
 export class AuthModule {
   #controller;
@@ -15,7 +50,7 @@ export class AuthModule {
   }
 
   init(router) {
-    router.post('/login', (req, res) => this.#controller.login(req, res));
+    router.post('/login', login);
 
     passport.use(
       'signup',
@@ -46,16 +81,16 @@ export class AuthModule {
         },
         async (login, password, done) => {
           try {
-            const user = await UserModel.findOne({ email: login });
+            const user = await UserModel.findOne({ login: login });
 
             if (!user) {
-              return done(null, false, { message: 'User not found' });
+              return done('User not found', false);
             }
 
             const validate = await user.isValidPassword(password);
 
             if (!validate) {
-              return done(null, false, { message: 'Wrong Password' });
+              return done('Wrong Password', false);
             }
             return done(null, user, { message: 'Logged in Successfully' });
           }
@@ -68,4 +103,4 @@ export class AuthModule {
   }
 }
 
-export const signUp = passport.authenticate('signup', { session: false })
+export const signUp = passport.authenticate('signup', { session: false });
