@@ -3,6 +3,7 @@
  */
 
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
 const Schema = mongoose.Schema;
 const UserSchema = new Schema({
@@ -15,4 +16,13 @@ const UserSchema = new Schema({
     enum: ['admin', 'dev', 'qa']
   }
 });
+
+UserSchema.pre(
+  'save',
+  async function(next) {
+    this.password = await bcrypt.hash(this.password, 10);
+    next();
+  }
+);
+
 export const UserModel = mongoose.model('User', UserSchema);
