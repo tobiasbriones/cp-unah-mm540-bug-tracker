@@ -2,11 +2,11 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-import { BugRepository, SoftwareProjectRepository } from '../repository.mjs';
+import { BugRepository, SoftwareProjectRepository } from '../../repository.mjs';
 import 'bootstrap';
 import '../bootstrap/bootstrap.min.css';
-import './qa.html';
 import '../default.css';
+import './qa.html';
 import './qa.css';
 
 const projectRepository = new SoftwareProjectRepository();

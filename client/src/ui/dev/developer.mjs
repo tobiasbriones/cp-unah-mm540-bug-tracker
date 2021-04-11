@@ -2,7 +2,7 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-import { BugRepository, DevTeamRepository, SoftwareProjectRepository } from '../repository.mjs';
+import { BugRepository, DevTeamRepository, SoftwareProjectRepository } from '../../repository.mjs';
 import 'bootstrap';
 import '../bootstrap/bootstrap.min.css';
 import './developer.html';

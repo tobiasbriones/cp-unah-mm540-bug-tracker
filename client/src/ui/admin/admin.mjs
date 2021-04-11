@@ -2,13 +2,14 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-import { BugRepository, DevTeamRepository, SoftwareProjectRepository } from '../repository.mjs';
 import 'bootstrap';
 import 'chart.js'
 import '../bootstrap/bootstrap.min.css';
-import './admin.html';
 import '../default.css';
+import './admin.html';
 import './admin.css';
+import { Modal } from 'bootstrap/dist/js/bootstrap.esm.js';
+import { BugRepository, DevTeamRepository, SoftwareProjectRepository } from '../../repository.mjs';
 
 const devRepository = new DevTeamRepository();
 const bugsRepository = new BugRepository();
@@ -16,7 +17,7 @@ const projectRepository = new SoftwareProjectRepository();
 const devs = devRepository.getAll();
 const bugs = bugsRepository.getAll();
 const statistics = bugsRepository.getStatistics();
-const modal = new bootstrap.Modal(document.getElementById('modal'));
+const modal = new Modal(document.getElementById('modal'));
 const bugsEl = document.getElementById('bugsSelect');
 const devsEl = document.getElementById('devsSelect');
 const ctx = document.getElementById('chart').getContext('2d');

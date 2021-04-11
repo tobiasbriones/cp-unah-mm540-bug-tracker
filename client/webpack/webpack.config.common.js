@@ -10,53 +10,53 @@ const plugins = [
   new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
   new HtmlWebpackPlugin(
     {
-      template: './src/index.html',
+      template: './src/ui/index.html',
       filename: 'index.html',
       chunks: ['main'],
-      favicon: './src/favicon.png'
+      favicon: './src/ui/favicon.png'
     }
   ),
   new HtmlWebpackPlugin(
     {
-      template: './src/admin/admin.html',
+      template: './src/ui/admin/admin.html',
       filename: 'admin.html',
       chunks: ['admin'],
-      favicon: './src/favicon.png'
+      favicon: './src/ui/favicon.png'
     }
   ),
   new HtmlWebpackPlugin(
     {
-      template: './src/dev/developer.html',
+      template: './src/ui/dev/developer.html',
       filename: 'developer.html',
       chunks: ['developer'],
-      favicon: './src/favicon.png'
+      favicon: './src/ui/favicon.png'
     }
   ),
   new HtmlWebpackPlugin(
     {
-      template: './src/qa/qa.html',
+      template: './src/ui/qa/qa.html',
       filename: 'qa.html',
       chunks: ['qa'],
-      favicon: './src/favicon.png'
+      favicon: './src/ui/favicon.png'
     }
   ),
   new HtmlWebpackPlugin(
     {
-      template: './src/auth/login.html',
+      template: './src/ui/auth/login.html',
       filename: 'login.html',
       chunks: ['login'],
-      favicon: './src/favicon.png'
+      favicon: './src/ui/favicon.png'
     }
   ),
 ];
 
 module.exports = {
   entry: {
-    main: './src/index.mjs',
-    admin: './src/admin/admin.mjs',
-    developer: './src/dev/developer.mjs',
-    qa: './src/qa/qa.mjs',
-    login: './src/auth/login.mjs'
+    main: './src/ui/index.mjs',
+    admin: './src/ui/admin/admin.mjs',
+    developer: './src/ui/dev/developer.mjs',
+    qa: './src/ui/qa/qa.mjs',
+    login: './src/ui/auth/login.mjs'
   },
   output: {
     path: path.resolve(__dirname, '..', 'dist'),
