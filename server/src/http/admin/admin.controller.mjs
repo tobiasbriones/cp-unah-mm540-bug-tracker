@@ -220,8 +220,8 @@ export class AdminController {
     try {
       const id = req.params['userId'];
       const user = {
-        id_usuario: req.body['user_id'],
-        nombre_completo: req.body['full_name'],
+        id_usuario: req.body['id_usuario'],
+        nombre_completo: req.body['nombre_completo'],
         login: req.body['login'],
         password: req.body['password'],
         rol: req.body['rol']
