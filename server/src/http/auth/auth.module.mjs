@@ -51,6 +51,7 @@ export class AuthModule {
 
   init(router) {
     router.post('/login', login);
+    router.post('/verify-token', jwtGuard);
 
     passport.use(
       'signup',
@@ -105,7 +106,7 @@ export class AuthModule {
       new JwtStrategy(
         {
           secretOrKey: JWT_PRIVATE_KEY,
-          jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
+          jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
         },
         async (token, done) => {
           try {
