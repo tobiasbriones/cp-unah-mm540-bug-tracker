@@ -15,10 +15,9 @@ const login = async (req, res, next) => {
   passport.authenticate(
     'login',
     async (err, user, info) => {
-      console.log(`err: ${ err }, user: ${ user }, info: ${ info }`);
       try {
         if (err || !user) {
-          return res.send(err);
+          return res.status(401).send(err);
         }
 
         req.login(
