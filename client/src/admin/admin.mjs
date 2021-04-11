@@ -2,12 +2,12 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-import { BugRepository, DevTeamRepository, SoftwareProjectRepository } from '../js/repository.mjs';
+import { BugRepository, DevTeamRepository, SoftwareProjectRepository } from '../repository.mjs';
 import 'bootstrap';
 import 'chart.js'
 import '../css/bootstrap.min.css';
 import './admin.html';
-import '../css/default.css';
+import '../default.css';
 import './admin.css';
 
 const devRepository = new DevTeamRepository();

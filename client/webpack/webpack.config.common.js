@@ -52,7 +52,7 @@ const plugins = [
 
 module.exports = {
   entry: {
-    main: './src/js/index.mjs',
+    main: './src/index.mjs',
     admin: './src/admin/admin.mjs',
     developer: './src/dev/developer.mjs',
     qa: './src/qa/qa.mjs',

@@ -5,8 +5,8 @@
 import 'bootstrap';
 import '../css/bootstrap.min.css';
 import './login.html';
-import '../css/default.css';
-import '../css/index.css';
+import '../default.css';
+import '../index.css';
 import { AuthService } from './auth.service.mjs';
 
 init();

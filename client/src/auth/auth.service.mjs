@@ -2,7 +2,7 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-import { API_BASE_URL } from '../js/app.config.mjs';
+import { API_BASE_URL } from '../app.config.mjs';
 import axios from 'axios';
 import Cookies from 'js-cookie'
 

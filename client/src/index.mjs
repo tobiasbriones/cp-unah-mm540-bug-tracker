@@ -3,10 +3,10 @@
  */
 
 import 'bootstrap';
-import '../css/bootstrap.min.css';
-import '../index.html';
-import '../css/default.css';
-import '../css/index.css';
+import './css/bootstrap.min.css';
+import './index.html';
+import './default.css';
+import './index.css';
 
 init();
 
