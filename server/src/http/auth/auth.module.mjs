@@ -29,9 +29,8 @@ const login = async (req, res, next) => {
             }
 
             const body = { _id: user._id, email: user.email };
-            const token = jwt.sign({ user: body }, JWT_PRIVATE_KEY);
-
-            return res.json({ token });
+            req.token = jwt.sign({ user: body }, JWT_PRIVATE_KEY);
+            next();
           }
         );
       }
@@ -50,7 +49,15 @@ export class AuthModule {
   }
 
   init(router) {
-    router.post('/login', login);
+    router.post(
+      '/login',
+      login,
+      (req, res) => res.json({
+        uid: req.user.login,
+        name: req.user.nombre_completo,
+        uat: req.token
+      })
+    );
     router.post('/verify-token', jwtGuard, (req, res) => res.end());
 
     passport.use(
