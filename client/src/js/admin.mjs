@@ -3,6 +3,12 @@
  */
 
 import { BugRepository, DevTeamRepository, SoftwareProjectRepository } from './repository.mjs';
+import 'bootstrap';
+import 'chart.js'
+import '../css/bootstrap.min.css';
+import '../admin.html';
+import '../css/default.css';
+import '../css/admin.css';
 
 const devRepository = new DevTeamRepository();
 const bugsRepository = new BugRepository();
