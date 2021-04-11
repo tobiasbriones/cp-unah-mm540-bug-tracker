@@ -9,7 +9,7 @@ const UserSchema = new Schema({
   id_usuario: { type: Number, unique: true },
   nombre_completo: { type: String },
   login: { type: String, unique: true },
-  password: [String],
+  password: String,
   rol: ['admin', 'dev', 'qa']
 });
 export const UserModel = mongoose.model('User', UserSchema);
