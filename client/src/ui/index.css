@@ -6,14 +6,18 @@
   min-height: 600px;
 }
 
+body {
+  background: url('https://cdn.pixabay.com/photo/2021/03/26/14/37/gears-6126071_960_720.png');
+}
+
 nav {
   display: flex;
   justify-content: flex-end;
 }
 
 .nav-item {
-  border-radius: 8px;
   background: aliceblue;
+  border-radius: 8px;
 }
 
 .options {
