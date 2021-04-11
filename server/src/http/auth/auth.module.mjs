@@ -51,7 +51,7 @@ export class AuthModule {
 
   init(router) {
     router.post('/login', login);
-    router.post('/verify-token', jwtGuard);
+    router.post('/verify-token', jwtGuard, (req, res) => res.end());
 
     passport.use(
       'signup',
