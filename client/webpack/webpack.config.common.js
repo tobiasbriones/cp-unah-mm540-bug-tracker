@@ -26,7 +26,7 @@ const plugins = [
   ),
   new HtmlWebpackPlugin(
     {
-      template: './src/developer.html',
+      template: './src/dev/developer.html',
       filename: 'developer.html',
       chunks: ['developer'],
       favicon: './src/favicon.png'
@@ -54,7 +54,7 @@ module.exports = {
   entry: {
     main: './src/js/index.mjs',
     admin: './src/admin/admin.mjs',
-    developer: './src/js/developer.mjs',
+    developer: './src/dev/developer.mjs',
     qa: './src/js/qa.mjs',
     login: './src/auth/login.mjs'
   },
