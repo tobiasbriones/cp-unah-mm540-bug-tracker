@@ -12,4 +12,4 @@ const UserSchema = new Schema({
   password: [String],
   rol: ['admin', 'dev', 'qa']
 });
-export const UserModel = mongoose.model('UserModel', UserSchema);
+export const UserModel = mongoose.model('User', UserSchema);
