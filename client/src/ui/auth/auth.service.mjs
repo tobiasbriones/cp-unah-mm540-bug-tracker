@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 
 const BASE_URL = API_BASE_URL + '/auth';
 const UAT_KEY = 'uat';
+const NAME_KEY = 'name';
 const UID_KEY = 'uid';
 
 export class AuthService {
@@ -15,14 +16,24 @@ export class AuthService {
   }
 
   getLogin() {
-    return Cookies.get(UAT_KEY);
+    const login = {
+      uid: Cookies.get(UID_KEY),
+      name: Cookies.get(NAME_KEY),
+      uat: Cookies.get(UAT_KEY)
+    };
+    const isSet = login.uid && login.name && login.uat;
+    return isSet ? login : null;
   }
 
-  saveLogin(jwt) {
-    Cookies.set(UAT_KEY, jwt);
+  saveLogin(login) {
+    Cookies.set(UID_KEY, login.uid);
+    Cookies.set(NAME_KEY, login.name);
+    Cookies.set(UAT_KEY, login.uat);
   }
 
   deleteLogin() {
+    Cookies.remove(UID_KEY);
+    Cookies.remove(NAME_KEY);
     Cookies.remove(UAT_KEY);
   }
 
@@ -32,10 +43,13 @@ export class AuthService {
     return await axios.post(url, data);
   }
 
-  async verify(token) {
+  async verify(login) {
+    if (!login || !login.uat) {
+      return false;
+    }
     const url = BASE_URL + '/verify-token';
     const config = {
-      headers: { Authorization: `Bearer ${ token }` }
+      headers: { Authorization: `Bearer ${ login.uat }` }
     };
     return await axios.post(url, {}, config);
   }

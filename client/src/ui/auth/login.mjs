@@ -18,13 +18,13 @@ function init() {
 async function onSubmit(e) {
   e.preventDefault();
   const login = document.getElementById('loginInput').value;
-  const passwordInput = document.getElementById('passwordInput').value;
+  const password = document.getElementById('passwordInput').value;
   const authService = new AuthService();
 
   try {
-    const res = await authService.authenticate(login, passwordInput);
+    const res = await authService.authenticate(login, password);
 
-    authService.saveLogin(res.data['token']);
+    authService.saveLogin(res.data);
     onLoggedIn();
   }
   catch (err) {
