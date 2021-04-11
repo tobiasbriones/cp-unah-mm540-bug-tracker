@@ -7,6 +7,7 @@ import passport from 'passport';
 import { AuthController } from './auth.controller.mjs';
 import { Strategy } from 'passport-local';
 import { UserModel } from '../../database/user.model.mjs';
+import { ExtractJwt as ExtractJWT, Strategy as JwtStrategy } from 'passport-jwt';
 
 const JWT_PRIVATE_KEY = ':D'; // Save it into a safe place
 
@@ -14,7 +15,7 @@ const login = async (req, res, next) => {
   passport.authenticate(
     'login',
     async (err, user, info) => {
-      console.log(`err: ${err}, user: ${user}, info: ${info}`);
+      console.log(`err: ${ err }, user: ${ user }, info: ${ info }`);
       try {
         if (err || !user) {
           return res.send(err);
@@ -100,7 +101,40 @@ export class AuthModule {
         }
       )
     );
+
+    passport.use(
+      new JwtStrategy(
+        {
+          secretOrKey: JWT_PRIVATE_KEY,
+          jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
+        },
+        async (token, done) => {
+          try {
+            return done(null, token.user);
+          }
+          catch (error) {
+            done(error);
+          }
+        }
+      )
+    );
   }
 }
 
 export const signUp = passport.authenticate('signup', { session: false });
+
+export const jwtGuard = passport.authenticate('jwt', { session: false });
+
+export const adminGuard = async (req, res, next) => {
+  if (!req.user || !req.user._id) {
+    res.status(401).send('Unauthorized');
+    return;
+  }
+  const user = await UserModel.findById(req.user._id);
+
+  if (!user || user.rol !== 'admin') {
+    res.status(401).send('Unauthorized');
+    return;
+  }
+  next();
+};

@@ -3,6 +3,7 @@
  */
 
 import express from 'express';
+import { adminGuard, jwtGuard } from './auth/auth.module.mjs';
 
 export class HttpRouter {
   #adminRouter;
@@ -28,7 +29,7 @@ export class HttpRouter {
   }
 
   init(app) {
-    app.use('/admin', this.#adminRouter);
+    app.use('/admin', jwtGuard, adminGuard, this.#adminRouter);
     app.use('/auth', this.#authRouter);
     app.use('/bugs', this.#bugsRouter);
   }
