@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 const BASE_URL = API_BASE_URL + '/auth';
 const UAT_KEY = 'uat';
 const NAME_KEY = 'name';
+const ROLE_KEY = 'role';
 const UID_KEY = 'uid';
 
 export class AuthService {
@@ -19,6 +20,7 @@ export class AuthService {
     const login = {
       uid: Cookies.get(UID_KEY),
       name: Cookies.get(NAME_KEY),
+      role: Cookies.get(ROLE_KEY),
       uat: Cookies.get(UAT_KEY)
     };
     const isSet = login.uid && login.name && login.uat;
@@ -28,12 +30,14 @@ export class AuthService {
   saveLogin(login) {
     Cookies.set(UID_KEY, login.uid);
     Cookies.set(NAME_KEY, login.name);
+    Cookies.set(ROLE_KEY, login.rol);
     Cookies.set(UAT_KEY, login.uat);
   }
 
   deleteLogin() {
     Cookies.remove(UID_KEY);
     Cookies.remove(NAME_KEY);
+    Cookies.remove(ROLE_KEY);
     Cookies.remove(UAT_KEY);
   }
 

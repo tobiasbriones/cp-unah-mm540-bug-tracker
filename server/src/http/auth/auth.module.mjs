@@ -55,6 +55,7 @@ export class AuthModule {
       (req, res) => res.json({
         uid: req.user.login,
         name: req.user.nombre_completo,
+        rol: req.user.rol,
         uat: req.token
       })
     );
