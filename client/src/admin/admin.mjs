@@ -5,7 +5,7 @@
 import { BugRepository, DevTeamRepository, SoftwareProjectRepository } from '../repository.mjs';
 import 'bootstrap';
 import 'chart.js'
-import '../css/bootstrap.min.css';
+import '../bootstrap/bootstrap.min.css';
 import './admin.html';
 import '../default.css';
 import './admin.css';

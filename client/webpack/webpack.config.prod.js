@@ -30,7 +30,7 @@ const plugins = [
     }
   ),
   new FixStyleOnlyEntriesPlugin(),
-  new MiniCssExtractPlugin({ filename: './css/[name].[contentHash].css' }),
+  new MiniCssExtractPlugin({ filename: './bootstrap/[name].[contentHash].bootstrap' }),
   new OptimizeCSSAssetsPlugin({})
 ];
 const cssRules = {
@@ -43,7 +43,7 @@ const cssRules = {
         publicPath: '../'
       }
     },
-    'css-loader'
+    'bootstrap-loader'
   ]
 };
 const fileRules = {

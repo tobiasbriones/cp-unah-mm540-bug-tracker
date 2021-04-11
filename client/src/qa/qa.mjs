@@ -4,7 +4,7 @@
 
 import { BugRepository, SoftwareProjectRepository } from '../repository.mjs';
 import 'bootstrap';
-import '../css/bootstrap.min.css';
+import '../bootstrap/bootstrap.min.css';
 import './qa.html';
 import '../default.css';
 import './qa.css';

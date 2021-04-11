@@ -3,7 +3,7 @@
  */
 
 import 'bootstrap';
-import './css/bootstrap.min.css';
+import './bootstrap/bootstrap.min.css';
 import './index.html';
 import './default.css';
 import './index.css';
