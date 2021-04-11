@@ -3,6 +3,7 @@
  */
 
 import { AdminController } from './admin.controller.mjs';
+import { signUp } from '../auth/auth.module.mjs';
 
 export class AdminModule {
   #controller;
@@ -30,7 +31,11 @@ export class AdminModule {
     router.put('/projects/:projectId', (req, res) => controller.updateProject(req, res));
     router.delete('/projects/:projectId', (req, res) => controller.deleteProject(req, res));
 
-    router.post('/users', (req, res) => controller.createUser(req, res));
+    router.post(
+      '/users',
+      signUp,
+      (req, res) => controller.updateUser(req, res)
+    );
     router.get('/users', (req, res) => controller.readAllUsers(req, res));
     router.get('/users/:userId', (req, res) => controller.readUser(req, res));
     router.put('/users/:userId', (req, res) => controller.updateUser(req, res));

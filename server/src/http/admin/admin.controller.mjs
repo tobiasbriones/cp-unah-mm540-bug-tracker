@@ -175,24 +175,6 @@ export class AdminController {
     }
   }
 
-  async createUser(req, res) {
-    try {
-      const user = {
-        id_usuario: req.body['id_usuario'],
-        nombre_completo: req.body['nombre_completo'],
-        login: req.body['login'],
-        password: req.body['password'],
-        rol: req.body['rol']
-      };
-      await this.#service.createUser(user);
-
-      res.end();
-    }
-    catch (err) {
-      res.status(400).send(err.message);
-    }
-  }
-
   async readAllUsers(req, res) {
     try {
       const users = await this.#service.readAllUsers();
@@ -223,7 +205,6 @@ export class AdminController {
         id_usuario: req.body['id_usuario'],
         nombre_completo: req.body['nombre_completo'],
         login: req.body['login'],
-        password: req.body['password'],
         rol: req.body['rol']
       };
       await this.#service.updateUser(id, user);

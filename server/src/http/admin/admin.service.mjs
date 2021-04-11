@@ -67,10 +67,6 @@ export class AdminService {
     await SoftwareProjectModel.deleteOne({ code: id });
   }
 
-  async createUser(user) {
-    await UserModel.create(user);
-  }
-
   async readAllUsers() {
     return UserModel.find();
   }
@@ -87,6 +83,8 @@ export class AdminService {
   }
 
   async updateUser(id, user) {
+    console.log(id);
+    console.log(user);
     await UserModel.updateOne({ id_usuario: id }, user);
   }
 
