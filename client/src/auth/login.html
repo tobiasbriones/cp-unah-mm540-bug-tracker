@@ -1,0 +1,42 @@
+<!--
+  ~ Copyright (c) 2021 Tobias Briones. All rights reserved.
+  -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>Login</title>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#455A64">
+    <meta charset="UTF-8">
+  </head>
+
+  <body>
+    <header class="shadow p-5 mb-5 mb-5 rounded">
+      <h1>Bug Tracker App | Login</h1>
+    </header>
+
+    <div class="container px-5">
+      <form id="form">
+        <div class="form-group mb-4">
+          <label for="loginInput">Login</label>
+          <input id="loginInput"
+                 class="form-control"
+                 type="text"
+                 aria-describedby="loginHelp"
+                 placeholder="Enter username">
+          <small id="loginHelp" class="form-text text-muted">Enter your username in the login field</small>
+        </div>
+        <div class="form-group mb-4">
+          <label for="passwordInput">Password</label>
+          <input id="passwordInput" class="form-control" type="password" placeholder="Password">
+        </div>
+        <button class="btn btn-primary w-100" type="submit">Login</button>
+      </form>
+    </div>
+  </body>
+
+</html>

@@ -40,6 +40,14 @@ const plugins = [
       favicon: './src/favicon.png'
     }
   ),
+  new HtmlWebpackPlugin(
+    {
+      template: './src/auth/login.html',
+      filename: 'login.html',
+      chunks: ['login'],
+      favicon: './src/favicon.png'
+    }
+  ),
 ];
 
 module.exports = {
@@ -48,6 +56,7 @@ module.exports = {
     admin: './src/js/admin.mjs',
     developer: './src/js/developer.mjs',
     qa: './src/js/qa.mjs',
+    login: './src/auth/login.mjs'
   },
   output: {
     path: path.resolve(__dirname, '..', 'dist'),
