@@ -10,6 +10,9 @@ const UserSchema = new Schema({
   nombre_completo: { type: String },
   login: { type: String, unique: true },
   password: String,
-  rol: ['admin', 'dev', 'qa']
+  rol: {
+    type: String,
+    enum: ['admin', 'dev', 'qa']
+  }
 });
 export const UserModel = mongoose.model('User', UserSchema);

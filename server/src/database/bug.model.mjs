@@ -10,9 +10,12 @@ const BugSchema = new Schema({
   description: String,
   swProjectCode: Number,
   priority: { type: Number, min: 1, max: 5 },
-  state: [
-    'New', 'Assigned', 'Finished'
-  ],
+  state: {
+    type: String,
+    enum: [
+      'New', 'Assigned', 'Finished'
+    ]
+  },
   finishDate: Date
 });
 export const BugModel = mongoose.model('Bug', BugSchema);
