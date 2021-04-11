@@ -6,6 +6,16 @@
   min-height: 600px;
 }
 
+nav {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-item {
+  border-radius: 8px;
+  background: aliceblue;
+}
+
 .options {
   margin-top: 150px;
   user-select: none;
