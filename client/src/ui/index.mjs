@@ -31,6 +31,10 @@ function onLogout() {
   loginEl.href = './login.html';
   loginEl.textContent = 'Login';
   logoutEl.classList.add('d-none');
+
+  document.getElementById('adminBtn').classList.add('d-none');
+  document.getElementById('devBtn').classList.add('d-none');
+  document.getElementById('qaBtn').classList.add('d-none');
 }
 
 async function checkLogin() {
@@ -59,4 +63,16 @@ function setLogin(login) {
   el.href = '#';
   el.textContent = name;
   logoutEl.classList.remove('d-none');
+
+  if (login.role === 'admin') {
+    document.getElementById('adminBtn').classList.remove('d-none');
+    document.getElementById('devBtn').classList.remove('d-none');
+    document.getElementById('qaBtn').classList.remove('d-none');
+  }
+  else if (login.role === 'dev') {
+    document.getElementById('devBtn').classList.remove('d-none');
+  }
+  else if (login.role === 'qa') {
+    document.getElementById('qaBtn').classList.remove('d-none');
+  }
 }
