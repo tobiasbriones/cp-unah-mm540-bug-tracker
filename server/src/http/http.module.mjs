@@ -3,27 +3,31 @@
  */
 
 import { BugsModule } from './bugs/bugs.module.mjs';
-import { HttpRouter } from './http.router.mjs';
-import { AdminModule } from './admin/admin.module.mjs';
-import { AuthModule } from './auth/auth.module.mjs';
+
+const PATH = '';
 
 export class HttpModule {
-  #router;
-  #adminModule;
-  #authModule;
-  #bugsModule;
+  #modules;
 
   constructor() {
-    this.#router = new HttpRouter();
-    this.#adminModule = new AdminModule();
-    this.#authModule = new AuthModule();
-    this.#bugsModule = new BugsModule();
+    this.#modules = [
+      // new AdminModule(),
+      //new AuthModule(),
+      new BugsModule()
+    ];
   }
 
   init(app) {
-    this.#router.init(app);
-    this.#adminModule.init(this.#router.adminRouter);
-    this.#authModule.init(this.#router.authRouter);
-    this.#bugsModule.init(this.#router.bugsRouter);
+    this.#modules.forEach(module => initModule(module, app));
   }
+}
+
+function initModule(module, app) {
+  const path = PATH + module.path;
+  const middlewares = module.middlewares;
+  const router = module.router;
+
+  console.log('init module '+path);
+  app.use(path, middlewares, router);
+  module.init();
 }
