@@ -13,8 +13,7 @@ const ROLE_KEY = 'role';
 const UID_KEY = 'uid';
 
 export class AuthService {
-  constructor() {
-  }
+  constructor() {}
 
   getLogin() {
     const login = {
@@ -23,14 +22,14 @@ export class AuthService {
       role: Cookies.get(ROLE_KEY),
       uat: Cookies.get(UAT_KEY)
     };
-    const isSet = login.uid && login.name && login.uat;
+    const isSet = login.uid && login.name && login.uat && login.role;
     return isSet ? login : null;
   }
 
   saveLogin(login) {
     Cookies.set(UID_KEY, login.uid);
     Cookies.set(NAME_KEY, login.name);
-    Cookies.set(ROLE_KEY, login.rol);
+    Cookies.set(ROLE_KEY, login.role);
     Cookies.set(UAT_KEY, login.uat);
   }
 
