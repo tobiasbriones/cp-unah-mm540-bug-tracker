@@ -3,7 +3,7 @@
  */
 
 import { DevTeamModel } from '../dev-team/dev-team.model.mjs';
-import { ProjectModel } from './project.model.mjs';
+import { ProjectModel } from '../projects/project.model.mjs';
 import { UserModel } from '../users/user.model.mjs';
 
 export class AdminService {
