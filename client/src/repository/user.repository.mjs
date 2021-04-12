@@ -49,12 +49,12 @@ export class UserRepository {
     await axios.put(url, user, config);
   }
 
-  async remove(user) {
+  async remove(id) {
     const login = this.authService.getLogin();
     const config = {
       headers: { Authorization: `Bearer ${ login.uat }` }
     };
-    const url = `${ BASE_URL }/${ user.id_usuario }`;
+    const url = `${ BASE_URL }/${ id }`;
     await axios.delete(url, config);
   }
 }

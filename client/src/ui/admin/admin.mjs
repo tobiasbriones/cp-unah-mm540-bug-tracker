@@ -50,6 +50,7 @@ function init() {
   bugsEl.addEventListener('change', onBugSelectChange);
   document.querySelector('header > h2').addEventListener('click', onHeaderClick);
   document.getElementById('userUpdateForm').addEventListener('submit', onCreateUserSubmit);
+  document.getElementById('userDeleteBtn').addEventListener('click', onUserDelete);
   document.getElementById('bugForm').addEventListener('submit', onAssignBugFormSubmit);
   document.getElementById('dismissModalBtn').addEventListener('click', onDismissModal);
   document.getElementById('actionUsers').addEventListener('click', onActionUsersClick);
@@ -129,6 +130,17 @@ async function onCreateUserSubmit(e) {
     await userRepository.set(user);
 
     document.getElementById('actionUsers').click();
+  }
+  catch (e) {
+    alert(e);
+  }
+}
+
+async function onUserDelete() {
+  const userId = parseInt(document.getElementById('userUpdateIdInput').value);
+
+  try {
+    await userRepository.remove(userId);
   }
   catch (e) {
     alert(e);

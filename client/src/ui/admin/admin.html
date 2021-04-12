@@ -155,7 +155,7 @@
                 <input id="userUpdateNameInput" class="form-control" type="text" placeholder="Nombre Completo">
               </div>
               <div class="form-group">
-                <label for="userCreateLoginInput">Login</label>
+                <label for="userUpdateLoginInput">Login</label>
                 <input id="userUpdateLoginInput" class="form-control" type="text"
                        placeholder="Login">
                 <small id="userUpdateLoginHelp" class="form-text text-muted">
@@ -172,7 +172,10 @@
                   <option value="qa">QA</option>
                 </select>
               </div>
-              <button class="btn btn-primary w-100" type="submit">Actualizar</button>
+              <div class="row">
+                <button class="btn btn-primary col-8 mx-2" type="submit">Actualizar</button>
+                <button id="userDeleteBtn" class="btn btn-danger col mx-2">Eliminar</button>
+              </div>
             </form>
           </div>
 
