@@ -7,23 +7,33 @@ import cors from 'cors';
 import { newMongooseDb } from './database/db.mjs';
 import { HttpModule } from './http/http.module.mjs';
 
-const port = 3000;
-const httpModule = new HttpModule();
+const PORT = 3000;
 
 newMongooseDb().then(listen, onDbError);
 
 async function listen() {
   const app = express();
+  const httpModule = new HttpModule();
 
   app.use(express.json());
   app.use(cors());
   httpModule.init(app);
 
-  app.listen(port, () => {
-    console.log(`Server running on port ${ port }`);
-  });
+  app.listen(PORT, onListen);
+}
+
+function onListen(err) {
+  const onError = () => console.log(`Failed to run app: ${ err }`);
+  const onRun = () => console.log(`Server running on port ${ PORT }`);
+
+  if (err) {
+    onError(err);
+  }
+  else {
+    onRun();
+  }
 }
 
 function onDbError(err) {
-  console.log(err);
+  console.log(`Failed to connect to the database: ${ err }`);
 }
