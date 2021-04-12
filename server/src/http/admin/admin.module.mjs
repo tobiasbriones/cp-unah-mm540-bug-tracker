@@ -3,7 +3,7 @@
  */
 
 import { AdminController } from './admin.controller.mjs';
-import { adminGuard, jwtGuard, signUp } from '../auth/auth.module.mjs';
+import { adminGuard, jwtGuard, signUp } from '../auth/auth.middleware.mjs';
 import { Module } from '../module.mjs';
 
 const ROUTER_CONFIG = Object.freeze({
