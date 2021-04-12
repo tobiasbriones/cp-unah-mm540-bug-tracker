@@ -113,11 +113,14 @@
                 </small>
               </div>
               <div class="form-group">
-                <label for="userCreateRoleInput">Rol</label>
-                <input id="userCreateRoleInput" class="form-control" type="text" placeholder="Role">
-                <small id="userCreateRoleHelp" class="form-text text-muted">
-                  El rol solo puede ser: admin, dev o qa
-                </small>
+                <select id="userCreateRoleInput"
+                        class="form-select form-select mb-3"
+                        aria-label=".form-select-lg example">
+                  <option selected>Seleccionar rol</option>
+                  <option value="admin">Administrador</option>
+                  <option value="dev">Desarrollador</option>
+                  <option value="qa">QA</option>
+                </select>
               </div>
               <div class="form-group">
                 <label for="userCreatePasswordInput">Password</label>
@@ -160,7 +163,9 @@
                 </small>
               </div>
               <div class="form-group">
-                <select id="userUpdateRoleInput" class="form-select form-select mb-3" aria-label=".form-select-lg example">
+                <select id="userUpdateRoleInput"
+                        class="form-select form-select mb-3"
+                        aria-label=".form-select-lg example">
                   <option selected>Seleccionar rol</option>
                   <option value="admin">Administrador</option>
                   <option value="dev">Desarrollador</option>
