@@ -4,7 +4,7 @@
 
 import { AdminService } from './admin.service.mjs';
 import { UsersService } from '../users/users.service.mjs';
-import { DevTeamService } from '../dev-team/dev-team.service.mjs';
+import { TeamsService } from '../teams/teams.service.mjs';
 import { ProjectsServices } from '../projects/projects.services.mjs';
 
 export class AdminController {
@@ -16,7 +16,7 @@ export class AdminController {
   constructor() {
     this.#service = new AdminService();
     this.#usersService = new UsersService();
-    this.#devTeamService = new DevTeamService();
+    this.#devTeamService = new TeamsService();
     this.#projectsService = new ProjectsServices();
   }
 

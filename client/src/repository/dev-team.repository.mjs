@@ -6,7 +6,7 @@ import axios from 'axios';
 import { API_BASE_URL } from '../app.config.mjs';
 import { AuthService } from '../ui/auth/auth.service.mjs';
 
-const BASE_URL = API_BASE_URL + '/admin/dev-team';
+const BASE_URL = API_BASE_URL + '/admin/teams';
 
 export class DevTeamRepository {
   constructor() {

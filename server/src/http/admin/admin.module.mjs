@@ -29,11 +29,11 @@ export class AdminModule extends Module {
 
     this.router.get('/stats/bugs', (req, res) => controller.readAllBugStats(req, res));
 
-    this.router.post('/dev-team', (req, res) => controller.createDevTeam(req, res));
-    this.router.get('/dev-team', (req, res) => controller.readAllDevTeams(req, res));
-    this.router.get('/dev-team/:devTeamId', (req, res) => controller.readDevTeam(req, res));
-    this.router.put('/dev-team/:devTeamId', (req, res) => controller.updateDevTeam(req, res));
-    this.router.delete('/dev-team/:devTeamId', (req, res) => controller.deleteDevTeam(req, res));
+    this.router.post('/teams', (req, res) => controller.createDevTeam(req, res));
+    this.router.get('/teams', (req, res) => controller.readAllDevTeams(req, res));
+    this.router.get('/teams/:devTeamId', (req, res) => controller.readDevTeam(req, res));
+    this.router.put('/teams/:devTeamId', (req, res) => controller.updateDevTeam(req, res));
+    this.router.delete('/teams/:devTeamId', (req, res) => controller.deleteDevTeam(req, res));
 
     this.router.post('/projects', (req, res) => controller.createProject(req, res));
     this.router.get('/projects', (req, res) => controller.readAllProjects(req, res));

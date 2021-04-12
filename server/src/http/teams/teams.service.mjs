@@ -2,21 +2,21 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-import { DevTeamModel } from './dev-team.model.mjs';
+import { TeamModel } from './team.model.mjs';
 
-export class DevTeamService {
+export class TeamsService {
   constructor() {}
 
   async createDevTeam(devTeam) {
-    await DevTeamModel.create(devTeam);
+    await TeamModel.create(devTeam);
   }
 
   async readAllDevTeams() {
-    return DevTeamModel.find();
+    return TeamModel.find();
   }
 
   async readDevTeam(id) {
-    const devTeam = await DevTeamModel.findOne({ code: id });
+    const devTeam = await TeamModel.findOne({ code: id });
 
     if (!devTeam) {
       throw new Error(`DevTeam ${id} not found`);
@@ -25,10 +25,10 @@ export class DevTeamService {
   }
 
   async updateDevTeam(id, devTeam) {
-    await DevTeamModel.updateOne({ code: id }, devTeam);
+    await TeamModel.updateOne({ code: id }, devTeam);
   }
 
   async deleteDevTeam(id) {
-    await DevTeamModel.deleteOne({ code: id });
+    await TeamModel.deleteOne({ code: id });
   }
 }
