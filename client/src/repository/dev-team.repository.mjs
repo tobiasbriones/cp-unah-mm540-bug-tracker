@@ -45,7 +45,7 @@ export class DevTeamRepository {
     const config = {
       headers: { Authorization: `Bearer ${ login.uat }` }
     };
-    const url = `${ BASE_URL }/${ devTeam.id_usuario }`;
+    const url = `${ BASE_URL }/${ devTeam.code }`;
     await axios.put(url, devTeam, config);
   }
 
