@@ -66,29 +66,4 @@ export class AdminService {
   async deleteProject(id) {
     await SoftwareProjectModel.deleteOne({ code: id });
   }
-
-  async readAllUsers() {
-    return UserModel.find();
-  }
-
-  async readUser(id) {
-    const user = UserModel.findOne({ id_usuario: id });
-
-    console.log(id);
-    // console.log(user);
-    if (!user) {
-      throw new Error('User not found');
-    }
-    return user;
-  }
-
-  async updateUser(id, user) {
-    console.log(id);
-    console.log(user);
-    await UserModel.updateOne({ id_usuario: id }, user);
-  }
-
-  async deleteUser(id) {
-    await UserModel.deleteOne({ id_usuario: id });
-  }
 }

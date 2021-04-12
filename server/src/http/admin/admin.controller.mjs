@@ -3,12 +3,15 @@
  */
 
 import { AdminService } from './admin.service.mjs';
+import { UsersService } from '../users/users.service.mjs';
 
 export class AdminController {
   #service;
+  #usersService;
 
   constructor() {
     this.#service = new AdminService();
+    this.#usersService = new UsersService();
   }
 
   async assignBug(req, res) {
@@ -177,7 +180,7 @@ export class AdminController {
 
   async readAllUsers(req, res) {
     try {
-      const users = await this.#service.readAllUsers();
+      const users = await this.#usersService.readAllUsers();
 
       res.json(users);
     }
@@ -189,7 +192,7 @@ export class AdminController {
   async readUser(req, res) {
     try {
       const id = req.params['userId'];
-      const user = await this.#service.readUser(id);
+      const user = await this.#usersService.readUser(id);
 
       res.json(user);
     }
@@ -207,7 +210,7 @@ export class AdminController {
         login: req.body['login'],
         rol: req.body['rol']
       };
-      await this.#service.updateUser(id, user);
+      await this.#usersService.updateUser(id, user);
 
       res.end();
     }
@@ -219,7 +222,7 @@ export class AdminController {
   async deleteUser(req, res) {
     try {
       const id = req.params['userId'];
-      await this.#service.deleteUser(id);
+      await this.#usersService.deleteUser(id);
 
       res.end();
     }
