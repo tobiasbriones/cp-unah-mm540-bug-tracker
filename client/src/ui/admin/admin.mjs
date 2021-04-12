@@ -40,7 +40,7 @@ const chart = new Chart(ctx, {
     }
   }
 });
-const pages = ['bugsPage', 'devsPage', 'projectsPage'];
+const pages = ['bugsPage', 'devsPage', 'projectsPage', 'usersPage'];
 
 init();
 
@@ -49,6 +49,7 @@ function init() {
   document.querySelector('header > h2').addEventListener('click', onHeaderClick);
   document.getElementById('bugForm').addEventListener('submit', onAssignBugFormSubmit);
   document.getElementById('dismissModalBtn').addEventListener('click', onDismissModal);
+  document.getElementById('actionUsers').addEventListener('click', onActionUsersClick);
   document.getElementById('actionBugs').addEventListener('click', onActionBugsClick);
   document.getElementById('actionDevelopers').addEventListener('click', onActionDevsClick);
   document.getElementById('actionProjects').addEventListener('click', onActionProjectsClick);
@@ -85,6 +86,10 @@ function getDatasets(statistics) {
 
 function onHeaderClick() {
   window.location.href = './index.html';
+}
+
+function onActionUsersClick() {
+  setPage(pages[3]);
 }
 
 function onActionBugsClick() {
@@ -152,6 +157,9 @@ function initPage(page) {
       break;
     case pages[2]:
       initProjectsPage();
+      break;
+    case pages[3]:
+      initUsersPage();
       break;
   }
 }
@@ -284,6 +292,17 @@ function initProjectsPage() {
             .forEach(rowEl => rowEl.classList.remove('selected'));
     rowEl.classList.add('selected');
   }
+}
+
+function initUsersPage() {
+  const createEl = document.getElementById('userCreateContainer');
+  const updateEl = document.getElementById('userUpdateContainer');
+  const bodyEl = document.querySelector('#userListContainer tbody');
+
+  createEl.classList.add('gone');
+  updateEl.classList.add('gone');
+
+  bodyEl.innerHTML = '';
 }
 
 function updateAssignBugsForm() {

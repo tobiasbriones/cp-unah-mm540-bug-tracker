@@ -24,6 +24,12 @@
       <nav class="navbar navbar-light">
         <form class="form-inline mx-auto">
           <button
+            id="actionUsers"
+            class="btn btn-outline-success bg-primary text-white"
+            type="button">
+            Usuarios
+          </button>
+          <button
             id="actionBugs"
             class="btn btn-outline-success bg-primary text-white"
             type="button">
@@ -46,6 +52,125 @@
     </header>
 
     <div id="container" class="container p-sm-5">
+
+      <!-- ----------------------------------------  USERS PAGE  ---------------------------------------- -->
+
+      <div id="usersPage" class="row">
+        <!-- ----------------------------------------  LIST OF USERS  ----------------------------------------
+         -->
+
+        <div id="userListContainer">
+          <p class="text-center font-weight-bold">
+            <strong>Usuarios</strong>
+          </p>
+
+          <button id="addNewUserBtn" class="btn btn-primary" type="button">
+            Nuevo
+          </button>
+
+          <table class="table table-hover mt-4">
+            <thead>
+              <tr>
+                <th scope="col">Id Usuario</th>
+                <th scope="col">Nombre Completo</th>
+                <th scope="col">Login</th>
+                <th scope="col">Role</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+
+          <!-- ------------------------------  CREATE FORM  ------------------------------ -->
+
+          <div id="userCreateContainer" class="mt-5">
+            <p class="text-center font-weight-bold">
+              <strong>Crear nuevo usuario</strong>
+            </p>
+            <form id="userCreateForm">
+              <div class="form-group">
+                <label for="userCreateIdInput">Id Usuario</label>
+                <input id="userCreateIdInput"
+                       class="form-control"
+                       type="number"
+                       aria-describedby="userCreateIdHelp"
+                       placeholder="Ingresar id">
+                <small id="userCreateIdHelp" class="form-text text-muted">
+                  El id de usuario debe ser un entero
+                  positivo único
+                </small>
+              </div>
+              <div class="form-group">
+                <label for="userCreateNameInput">Nombre Completo</label>
+                <input id="userCreateNameInput" class="form-control" type="text" placeholder="Nombre">
+              </div>
+              <div class="form-group">
+                <label for="userCreateLoginInput">Login</label>
+                <input id="userCreateLoginInput" class="form-control" type="text"
+                       placeholder="Login">
+                <small id="userCreateLoginHelp" class="form-text text-muted">
+                  Nombre de usuario para iniciar sesión
+                </small>
+              </div>
+              <div class="form-group">
+                <label for="userCreateRoleInput">Rol</label>
+                <input id="userCreateRoleInput" class="form-control" type="text" placeholder="Role">
+                <small id="userCreateRoleHelp" class="form-text text-muted">
+                  El rol solo puede ser: admin, dev o qa
+                </small>
+              </div>
+              <div class="form-group">
+                <label for="userCreatePasswordInput">Password</label>
+                <input id="userCreatePasswordInput" class="form-control" type="password" placeholder="Password">
+              </div>
+              <button class="btn btn-primary w-100" type="submit">Registrar</button>
+            </form>
+          </div>
+
+          <!-- ------------------------------  UPDATE FORM  ------------------------------ -->
+
+          <div id="userUpdateContainer" class="mt-5">
+            <p class="text-center font-weight-bold">
+              <strong>Actualizar usuario</strong>
+            </p>
+            <form id="userUpdateForm">
+              <div class="form-group">
+                <label for="userCreateIdInput">Id Usuario</label>
+                <input id="userUpdateIdInput"
+                       class="form-control"
+                       type="number"
+                       aria-describedby="userUpdateIdHelp"
+                       placeholder="Ingresar id">
+                <small id="userUpdateIdHelp" class="form-text text-muted">
+                  El id de usuario debe ser un entero
+                  positivo único
+                </small>
+              </div>
+              <div class="form-group">
+                <label for="userUpdateNameInput">Nombre Completo</label>
+                <input id="userUpdateNameInput" class="form-control" type="text" placeholder="Nombre Completo">
+              </div>
+              <div class="form-group">
+                <label for="userCreateLoginInput">Login</label>
+                <input id="userUpdateLoginInput" class="form-control" type="text"
+                       placeholder="Login">
+                <small id="userUpdateLoginHelp" class="form-text text-muted">
+                  Nombre de usuario para iniciar sesión
+                </small>
+              </div>
+              <div class="form-group">
+                <label for="userUpdateRoleInput">Rol</label>
+                <input id="userUpdateRoleInput" class="form-control" type="text" placeholder="Role">
+                <small id="userUpdateRoleHelp" class="form-text text-muted">
+                  El rol solo puede ser: admin, dev o qa
+                </small>
+              </div>
+              <button class="btn btn-primary w-100" type="submit">Actualizar</button>
+            </form>
+          </div>
+
+        </div>
+      </div>
 
       <!-- ----------------------------------------  BUGS PAGE  ---------------------------------------- -->
 
@@ -107,88 +232,88 @@
             </tbody>
           </table>
 
-        <!-- ------------------------------  CREATE FORM  ------------------------------ -->
+          <!-- ------------------------------  CREATE FORM  ------------------------------ -->
 
-        <div id="developerCreateContainer" class="mt-5">
-          <p class="text-center font-weight-bold">
-            <strong>Crear nuevo desarrollador</strong>
-          </p>
-          <form id="developerCreateForm">
-            <div class="form-group">
-              <label for="devCreateCodeInput">Code</label>
-              <input id="devCreateCodeInput"
-                     class="form-control"
-                     type="number"
-                     aria-describedby="codeHelp"
-                     placeholder="Ingresar código">
-              <small id="devCreateCodeHelp" class="form-text text-muted">
-                El código de desarrollador debe ser un entero
-                positivo único
-              </small>
-            </div>
-            <div class="form-group">
-              <label for="devCreateNameInput">Nombre</label>
-              <input id="devCreateNameInput" class="form-control" type="text" placeholder="Nombre">
-            </div>
-            <div class="form-group">
-              <label for="devCreateLanguagesInput">Lenguajes de programación</label>
-              <input id="devCreateLanguagesInput" class="form-control" type="text"
-                     placeholder="Lenguajes de programación">
-              <small id="devCreateLangHelp" class="form-text text-muted">
-                Ingresa cada item separado por comas
-              </small>
-            </div>
-            <div class="form-group">
-              <label for="devCreateTechInput">Tecnologías</label>
-              <input id="devCreateTechInput" class="form-control" type="text" placeholder="Tecnologías">
-              <small id="devCreateTechHelp" class="form-text text-muted">
-                Ingresa cada item separado por comas
-              </small>
-            </div>
-            <button class="btn btn-primary w-100" type="submit">Registrar</button>
-          </form>
-        </div>
+          <div id="developerCreateContainer" class="mt-5">
+            <p class="text-center font-weight-bold">
+              <strong>Crear nuevo desarrollador</strong>
+            </p>
+            <form id="developerCreateForm">
+              <div class="form-group">
+                <label for="devCreateCodeInput">Code</label>
+                <input id="devCreateCodeInput"
+                       class="form-control"
+                       type="number"
+                       aria-describedby="codeHelp"
+                       placeholder="Ingresar código">
+                <small id="devCreateCodeHelp" class="form-text text-muted">
+                  El código de desarrollador debe ser un entero
+                  positivo único
+                </small>
+              </div>
+              <div class="form-group">
+                <label for="devCreateNameInput">Nombre</label>
+                <input id="devCreateNameInput" class="form-control" type="text" placeholder="Nombre">
+              </div>
+              <div class="form-group">
+                <label for="devCreateLanguagesInput">Lenguajes de programación</label>
+                <input id="devCreateLanguagesInput" class="form-control" type="text"
+                       placeholder="Lenguajes de programación">
+                <small id="devCreateLangHelp" class="form-text text-muted">
+                  Ingresa cada item separado por comas
+                </small>
+              </div>
+              <div class="form-group">
+                <label for="devCreateTechInput">Tecnologías</label>
+                <input id="devCreateTechInput" class="form-control" type="text" placeholder="Tecnologías">
+                <small id="devCreateTechHelp" class="form-text text-muted">
+                  Ingresa cada item separado por comas
+                </small>
+              </div>
+              <button class="btn btn-primary w-100" type="submit">Registrar</button>
+            </form>
+          </div>
 
-        <!-- ------------------------------  UPDATE FORM  ------------------------------ -->
+          <!-- ------------------------------  UPDATE FORM  ------------------------------ -->
 
-        <div id="developerUpdateContainer" class="mt-5">
-          <p class="text-center font-weight-bold">
-            <strong>Actualizar desarrollador</strong>
-          </p>
-          <form id="developerUpdateForm">
-            <div class="form-group">
-              <label for="devUpdateCodeInput">Code</label>
-              <input id="devUpdateCodeInput"
-                     class="form-control"
-                     readonly
-                     type="number"
-                     aria-describedby="codeHelp">
-            </div>
-            <div class="form-group">
-              <label for="devUpdateNameInput">Nombre</label>
-              <input id="devUpdateNameInput" class="form-control" type="text" placeholder="Nombre">
-            </div>
-            <div class="form-group">
-              <label for="devUpdateLanguagesInput">Lenguajes de programación</label>
-              <input id="devUpdateLanguagesInput" class="form-control" type="text"
-                     placeholder="Lenguajes de programación">
-              <small id="devUpdateLangHelp" class="form-text text-muted">
-                Ingresa cada item separado por comas
-              </small>
-            </div>
-            <div class="form-group">
-              <label for="devUpdateTechInput">Tecnologías</label>
-              <input id="devUpdateTechInput" class="form-control" type="text" placeholder="Tecnologías">
-              <small id="devUpdateTechHelp" class="form-text text-muted">
-                Ingresa cada item separado por comas
-              </small>
-            </div>
-            <div class="row">
-              <button class="btn btn-primary col-8 mx-2" type="submit">Actualizar</button>
-              <button class="btn btn-danger col mx-2" type="submit">Eliminar</button>
-            </div>
-          </form>
-        </div>
+          <div id="developerUpdateContainer" class="mt-5">
+            <p class="text-center font-weight-bold">
+              <strong>Actualizar desarrollador</strong>
+            </p>
+            <form id="developerUpdateForm">
+              <div class="form-group">
+                <label for="devUpdateCodeInput">Code</label>
+                <input id="devUpdateCodeInput"
+                       class="form-control"
+                       readonly
+                       type="number"
+                       aria-describedby="codeHelp">
+              </div>
+              <div class="form-group">
+                <label for="devUpdateNameInput">Nombre</label>
+                <input id="devUpdateNameInput" class="form-control" type="text" placeholder="Nombre">
+              </div>
+              <div class="form-group">
+                <label for="devUpdateLanguagesInput">Lenguajes de programación</label>
+                <input id="devUpdateLanguagesInput" class="form-control" type="text"
+                       placeholder="Lenguajes de programación">
+                <small id="devUpdateLangHelp" class="form-text text-muted">
+                  Ingresa cada item separado por comas
+                </small>
+              </div>
+              <div class="form-group">
+                <label for="devUpdateTechInput">Tecnologías</label>
+                <input id="devUpdateTechInput" class="form-control" type="text" placeholder="Tecnologías">
+                <small id="devUpdateTechHelp" class="form-text text-muted">
+                  Ingresa cada item separado por comas
+                </small>
+              </div>
+              <div class="row">
+                <button class="btn btn-primary col-8 mx-2" type="submit">Actualizar</button>
+                <button class="btn btn-danger col mx-2" type="submit">Eliminar</button>
+              </div>
+            </form>
+          </div>
 
         </div>
 
