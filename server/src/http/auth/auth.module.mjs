@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import { AuthController } from './auth.controller.mjs';
 import { Strategy } from 'passport-local';
-import { UserModel } from '../../database/user.model.mjs';
+import { UserModel } from '../admin/user.model.mjs';
 import { ExtractJwt as ExtractJWT, Strategy as JwtStrategy } from 'passport-jwt';
 
 const JWT_PRIVATE_KEY = ':D'; // Save it into a safe place

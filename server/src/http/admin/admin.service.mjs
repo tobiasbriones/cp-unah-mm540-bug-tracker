@@ -2,9 +2,9 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-import { DevTeamModel } from '../../database/dev-team.model.mjs';
-import { SoftwareProjectModel } from '../../database/software-project.model.mjs';
-import { UserModel } from '../../database/user.model.mjs';
+import { DevTeamModel } from './dev-team.model.mjs';
+import { SoftwareProjectModel } from './software-project.model.mjs';
+import { UserModel } from './user.model.mjs';
 
 export class AdminService {
   constructor() {

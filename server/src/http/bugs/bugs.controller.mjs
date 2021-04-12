@@ -2,7 +2,7 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-import { BugModel } from '../../database/bug.model.mjs';
+import { BugModel } from './bug.model.mjs';
 
 export class BugsController {
   constructor() {
