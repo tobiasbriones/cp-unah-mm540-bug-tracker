@@ -11,4 +11,4 @@ const SoftwareProjectShema = new Schema({
   startDate: Date,
   endDate: Date,
 });
-export const SoftwareProjectModel = mongoose.model('SoftwareProject', SoftwareProjectShema);
+export const ProjectModel = mongoose.model('SoftwareProject', SoftwareProjectShema);

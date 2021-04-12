@@ -3,7 +3,7 @@
  */
 
 import { DevTeamModel } from '../dev-team/dev-team.model.mjs';
-import { SoftwareProjectModel } from './software-project.model.mjs';
+import { ProjectModel } from './project.model.mjs';
 import { UserModel } from '../users/user.model.mjs';
 
 export class AdminService {
@@ -18,15 +18,15 @@ export class AdminService {
   }
 
   async createProject(project) {
-    await SoftwareProjectModel.create(project);
+    await ProjectModel.create(project);
   }
 
   async readAllProjects() {
-    return SoftwareProjectModel.find();
+    return ProjectModel.find();
   }
 
   async readProject(id) {
-    const project = await SoftwareProjectModel.findOne({ code: id });
+    const project = await ProjectModel.findOne({ code: id });
 
     if (!project) {
       throw new Error('Software Project not found');
@@ -35,10 +35,10 @@ export class AdminService {
   }
 
   async updateProject(id, project) {
-    await SoftwareProjectModel.updateOne({ code: id }, project);
+    await ProjectModel.updateOne({ code: id }, project);
   }
 
   async deleteProject(id) {
-    await SoftwareProjectModel.deleteOne({ code: id });
+    await ProjectModel.deleteOne({ code: id });
   }
 }
