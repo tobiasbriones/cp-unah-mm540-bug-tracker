@@ -5,15 +5,14 @@
 import { UserModel } from './user.model.mjs';
 
 export class UsersService {
-  constructor() {
-  }
+  constructor() {}
 
   async readAllUsers() {
     return UserModel.find();
   }
 
   async readUser(id) {
-    const user = UserModel.findOne({ id: id });
+    const user = await UserModel.findOne({ id: id });
 
     if (!user) {
       throw new Error(`User ${ id } not found`);
