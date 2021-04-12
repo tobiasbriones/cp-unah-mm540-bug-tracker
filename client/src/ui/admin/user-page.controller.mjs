@@ -183,14 +183,14 @@ export class UserPageController {
     document.getElementById('userCreateIdInput').value = '';
     document.getElementById('userCreateNameInput').value = '';
     document.getElementById('userCreateLoginInput').value = '';
-    document.getElementById('userCreateRoleInput').value = '-1';
+    document.getElementById('userCreateRoleInput').value = 'none';
     document.getElementById('userCreatePasswordInput').value = '';
     document.getElementById('userCreateError').innerText = '';
 
     document.getElementById('userUpdateIdInput').value = '';
     document.getElementById('userUpdateNameInput').value = '';
     document.getElementById('userUpdateLoginInput').value = '';
-    document.getElementById('userUpdateRoleInput').value = '-1';
+    document.getElementById('userUpdateRoleInput').value = 'none';
     document.getElementById('userUpdateError').innerText = '';
   }
 
