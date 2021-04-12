@@ -135,7 +135,7 @@
             </p>
             <form id="userUpdateForm">
               <div class="form-group">
-                <label for="userCreateIdInput">Id Usuario</label>
+                <label for="userUpdateIdInput">Id Usuario</label>
                 <input id="userUpdateIdInput"
                        class="form-control"
                        type="number"
@@ -160,11 +160,12 @@
                 </small>
               </div>
               <div class="form-group">
-                <label for="userUpdateRoleInput">Rol</label>
-                <input id="userUpdateRoleInput" class="form-control" type="text" placeholder="Role">
-                <small id="userUpdateRoleHelp" class="form-text text-muted">
-                  El rol solo puede ser: admin, dev o qa
-                </small>
+                <select id="userUpdateRoleInput" class="form-select form-select mb-3" aria-label=".form-select-lg example">
+                  <option selected>Seleccionar rol</option>
+                  <option value="admin">Administrador</option>
+                  <option value="dev">Desarrollador</option>
+                  <option value="qa">QA</option>
+                </select>
               </div>
               <button class="btn btn-primary w-100" type="submit">Actualizar</button>
             </form>
