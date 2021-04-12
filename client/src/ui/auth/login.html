@@ -12,6 +12,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#455A64">
     <meta charset="UTF-8">
+
+    <style>
+      .container {
+        background: rgba(255, 255, 255, 0.9);
+      }
+    </style>
   </head>
 
   <body>
@@ -19,7 +25,7 @@
       <h1>Bug Tracker App | Login</h1>
     </header>
 
-    <div class="container px-5">
+    <div class="container p-5">
       <form id="form">
         <div class="form-group mb-4">
           <label for="loginInput">Login</label>
@@ -35,6 +41,8 @@
           <input id="passwordInput" class="form-control" type="password" placeholder="Password">
         </div>
         <button class="btn btn-primary w-100" type="submit">Login</button>
+
+        <div id="error" class="pt-5 text-danger"></div>
       </form>
     </div>
   </body>

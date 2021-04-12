@@ -29,10 +29,17 @@ async function onSubmit(e) {
   }
   catch (err) {
     console.log(err);
-    alert('Invalid credentials');
+    setError('Invalid credentials');
   }
 }
 
 function onLoggedIn() {
   window.location.href = '/';
+}
+
+function setError(msg) {
+  const el = document.getElementById('error');
+
+  el.innerText = msg;
+  el.classList.remove('d-none');
 }
