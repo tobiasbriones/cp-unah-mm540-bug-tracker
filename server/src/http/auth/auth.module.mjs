@@ -4,12 +4,9 @@
 
 import passport from 'passport';
 import { AuthController } from './auth.controller.mjs';
-import { Strategy } from 'passport-local';
-import { UserModel } from '../admin/user.model.mjs';
-import { ExtractJwt as ExtractJWT, Strategy as JwtStrategy } from 'passport-jwt';
 import { Module } from '../module.mjs';
 import { jwtGuard, login } from './auth.middleware.mjs';
-import { JWT_PRIVATE_KEY } from './auth.secret.mjs';
+import { jwtStrategy, loginStrategy, signupStrategy } from './auth.strategy.mjs';
 
 const ROUTER_CONFIG = Object.freeze({
   path: '/auth'
@@ -40,69 +37,7 @@ export class AuthModule extends Module {
 }
 
 function setupPassport() {
-  passport.use(
-    'signup',
-    new Strategy(
-      {
-        usernameField: 'login',
-        passwordField: 'password'
-      },
-      async (login, password, done) => {
-        try {
-          const user = await UserModel.create({ login, password });
-
-          return done(null, user);
-        }
-        catch (error) {
-          done(error);
-        }
-      }
-    )
-  );
-
-  passport.use(
-    'login',
-    new Strategy(
-      {
-        usernameField: 'login',
-        passwordField: 'password'
-      },
-      async (login, password, done) => {
-        try {
-          const user = await UserModel.findOne({ login: login });
-
-          if (!user) {
-            return done('User not found', false);
-          }
-
-          const validate = await user.isValidPassword(password);
-
-          if (!validate) {
-            return done('Wrong Password', false);
-          }
-          return done(null, user, { message: 'Logged in Successfully' });
-        }
-        catch (error) {
-          return done(error);
-        }
-      }
-    )
-  );
-
-  passport.use(
-    new JwtStrategy(
-      {
-        secretOrKey: JWT_PRIVATE_KEY,
-        jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
-      },
-      async (token, done) => {
-        try {
-          return done(null, token.user);
-        }
-        catch (error) {
-          done(error);
-        }
-      }
-    )
-  );
+  passport.use('signup', signupStrategy);
+  passport.use('login', loginStrategy);
+  passport.use('jwt', jwtStrategy);
 }
