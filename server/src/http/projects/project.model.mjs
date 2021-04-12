@@ -5,10 +5,10 @@
 import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
-const SoftwareProjectShema = new Schema({
+const ProjectSchema = new Schema({
   code: { type: Number, unique: true },
   name: String,
   startDate: Date,
   endDate: Date,
 });
-export const ProjectModel = mongoose.model('SoftwareProject', SoftwareProjectShema);
+export const ProjectModel = mongoose.model('Project', ProjectSchema);
