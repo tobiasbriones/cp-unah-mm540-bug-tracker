@@ -45,7 +45,7 @@ export class UserRepository {
     const config = {
       headers: { Authorization: `Bearer ${ login.uat }` }
     };
-    const url = `${ BASE_URL }/${ user.id_usuario }`;
+    const url = `${ BASE_URL }/${ user.id }`;
     await axios.put(url, user, config);
   }
 
