@@ -10,7 +10,9 @@ import './admin.html';
 import './admin.css';
 import { Modal } from 'bootstrap/dist/js/bootstrap.esm.js';
 import { BugRepository, DevTeamRepository, SoftwareProjectRepository } from '../../repository.mjs';
+import { UserRepository } from '../../repository/user.repository.mjs';
 
+const userRepository = new UserRepository();
 const devRepository = new DevTeamRepository();
 const bugsRepository = new BugRepository();
 const projectRepository = new SoftwareProjectRepository();
@@ -225,7 +227,7 @@ function onUpdateDev(dev) {
   document.getElementById('devUpdateTechInput').value = JSON.stringify(dev.tech);
 }
 
-function onUpdateProject(project) {
+function onUpdateUser(project) {
   const createEl = document.getElementById('projectCreateContainer');
   const updateEl = document.getElementById('projectUpdateContainer');
 
@@ -284,7 +286,7 @@ function initProjectsPage() {
     const project = devRepository.get(projectCode);
 
     setSelected(rowEl);
-    onUpdateProject(project);
+    onUpdateUser(project);
   }
 
   function setSelected(rowEl) {
@@ -303,6 +305,55 @@ function initUsersPage() {
   updateEl.classList.add('gone');
 
   bodyEl.innerHTML = '';
+
+  userRepository.getAll().then(load, error);
+
+  function load(users) {
+    console.log(users);
+    users.forEach(user => {
+      const rowEl = document.createElement('tr');
+      const thEl = document.createElement('th');
+      const nameEl = document.createElement('td');
+      const loginEl = document.createElement('td');
+      const roleEl = document.createElement('td');
+
+      thEl.setAttribute('scope', 'row');
+      thEl.innerText = user.id_usuario;
+
+      nameEl.innerText = user.nombre_completo;
+      loginEl.innerText = user.login;
+      roleEl.innerText = user.rol;
+
+      rowEl.dataset.code = user.id_usuario;
+      rowEl.appendChild(thEl);
+      rowEl.appendChild(nameEl);
+      rowEl.appendChild(loginEl);
+      rowEl.appendChild(roleEl);
+      bodyEl.appendChild(rowEl);
+
+      rowEl.addEventListener('click', onItemClick);
+    });
+  }
+
+  function error(err) {
+    console.log(err);
+    alert(err);
+  }
+
+  function onItemClick(e) {
+    const rowEl = e.target.parentElement;
+    const userId = parseInt(rowEl.dataset.code);
+    const user = userRepository.get(userId);
+
+    setSelected(rowEl);
+    onUpdateUser(user);
+  }
+
+  function setSelected(rowEl) {
+    document.querySelectorAll('table tr.selected')
+            .forEach(rowEl => rowEl.classList.remove('selected'));
+    rowEl.classList.add('selected');
+  }
 }
 
 function updateAssignBugsForm() {
