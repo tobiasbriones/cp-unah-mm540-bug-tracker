@@ -12,15 +12,15 @@ export class AuthController {
   }
 
   async login(req, res) {
-    try {
-      const username = req.body['username'];
-      const password = req.body['password'];
-      const jwt = await this.#service.login(username, password);
+    res.json({
+      uid: req.user.login,
+      name: req.user.nombre_completo,
+      rol: req.user.rol,
+      uat: req.token
+    });
+  }
 
-      res.send(jwt);
-    }
-    catch (err) {
-      res.status(400).send(err.message);
-    }
+  async verifyToken(req, res) {
+    res.end()
   }
 }

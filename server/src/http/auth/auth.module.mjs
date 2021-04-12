@@ -27,14 +27,13 @@ export class AuthModule extends Module {
     this.router.post(
       '/login',
       login,
-      (req, res) => res.json({
-        uid: req.user.login,
-        name: req.user.nombre_completo,
-        rol: req.user.rol,
-        uat: req.token
-      })
+      (req, res) => this.#controller.login(req, res)
     );
-    this.router.post('/verify-token', jwtGuard, (req, res) => res.end());
+    this.router.post(
+      '/verify-token',
+      jwtGuard,
+      (req, res) => this.#controller.verifyToken(req, res)
+    );
 
     setupPassport();
   }
