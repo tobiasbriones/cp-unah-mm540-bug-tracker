@@ -12,20 +12,20 @@ export class UserPageController {
 
   get userForCreate() {
     return {
-      id_usuario: parseInt(document.getElementById('userCreateIdInput').value),
-      nombre_completo: document.getElementById('userCreateNameInput').value,
+      id: parseInt(document.getElementById('userCreateIdInput').value),
+      full_name: document.getElementById('userCreateNameInput').value,
       login: document.getElementById('userCreateLoginInput').value,
-      rol: document.getElementById('userCreateRoleInput').value,
+      role: document.getElementById('userCreateRoleInput').value,
       password: document.getElementById('userCreatePasswordInput').value
     };
   }
 
   get userForUpdate() {
     return {
-      id_usuario: parseInt(document.getElementById('userUpdateIdInput').value),
-      nombre_completo: document.getElementById('userUpdateNameInput').value,
+      id: parseInt(document.getElementById('userUpdateIdInput').value),
+      full_name: document.getElementById('userUpdateNameInput').value,
       login: document.getElementById('userUpdateLoginInput').value,
-      rol: document.getElementById('userUpdateRoleInput').value
+      role: document.getElementById('userUpdateRoleInput').value
     }
   }
 
@@ -88,13 +88,13 @@ export class UserPageController {
       const roleEl = document.createElement('td');
 
       thEl.setAttribute('scope', 'row');
-      thEl.innerText = user.id_usuario;
+      thEl.innerText = user.id;
 
-      nameEl.innerText = user.nombre_completo;
+      nameEl.innerText = user.full_name;
       loginEl.innerText = user.login;
-      roleEl.innerText = user.rol;
+      roleEl.innerText = user.role;
 
-      rowEl.dataset.code = user.id_usuario;
+      rowEl.dataset.id = user.id;
       rowEl.appendChild(thEl);
       rowEl.appendChild(nameEl);
       rowEl.appendChild(loginEl);
@@ -106,7 +106,7 @@ export class UserPageController {
 
     async function onItemClick(e) {
       const rowEl = e.target.parentElement;
-      const userId = parseInt(rowEl.dataset.code);
+      const userId = parseInt(rowEl.dataset.id);
       const user = await ctx.userRepository.get(userId);
 
       setSelected(rowEl);
@@ -129,10 +129,8 @@ export class UserPageController {
       await this.resume();
     }
     catch (e) {
-      if (JSON.stringify(e).includes('500')) {
-        e = 'Usuario ya existe';
-      }
-      document.getElementById('userCreateError').innerText = e;
+      const msg = e.response.data ? e.response.data : e;
+      document.getElementById('userCreateError').innerText = msg;
     }
   }
 
@@ -150,7 +148,8 @@ export class UserPageController {
       await this.resume();
     }
     catch (e) {
-      document.getElementById('userUpdateError').innerText = e;
+      const msg = e.response.data ? e.response.data : e;
+      document.getElementById('userUpdateError').innerText = msg;
     }
   }
 
@@ -160,10 +159,10 @@ export class UserPageController {
 
     createEl.classList.add('gone');
     updateEl.classList.remove('gone');
-    document.getElementById('userUpdateIdInput').value = user.id_usuario;
-    document.getElementById('userUpdateNameInput').value = user.nombre_completo;
+    document.getElementById('userUpdateIdInput').value = user.id;
+    document.getElementById('userUpdateNameInput').value = user.full_name;
     document.getElementById('userUpdateLoginInput').value = user.login;
-    document.getElementById('userUpdateRoleInput').value = user.rol;
+    document.getElementById('userUpdateRoleInput').value = user.role;
   }
 
   async onUserDelete() {
@@ -175,7 +174,8 @@ export class UserPageController {
       await this.resume();
     }
     catch (e) {
-      document.getElementById('userUpdateError').innerText = e;
+      const msg = e.response.data ? e.response.data : e;
+      document.getElementById('userUpdateError').innerText = msg;
     }
   }
 
@@ -195,6 +195,6 @@ export class UserPageController {
   }
 
   checkUser(user) {
-    return user.id_usuario && user.nombre_completo && user.login && user.rol;
+    return user.id && user.full_name && user.login && user.role;
   }
 }
