@@ -127,6 +127,8 @@
                 <input id="userCreatePasswordInput" class="form-control" type="password" placeholder="Password">
               </div>
               <button class="btn btn-primary w-100" type="submit">Registrar</button>
+
+              <div id="userCreateError" class="text-danger my-4"></div>
             </form>
           </div>
 
@@ -166,7 +168,7 @@
                 <select id="userUpdateRoleInput"
                         class="form-select form-select mb-3"
                         aria-label=".form-select-lg example">
-                  <option selected>Seleccionar rol</option>
+                  <option value="-1" selected>Seleccionar rol</option>
                   <option value="admin">Administrador</option>
                   <option value="dev">Desarrollador</option>
                   <option value="qa">QA</option>
@@ -176,6 +178,8 @@
                 <button class="btn btn-primary col-8 mx-2" type="submit">Actualizar</button>
                 <button id="userDeleteBtn" class="btn btn-danger col mx-2">Eliminar</button>
               </div>
+
+              <div id="userUpdateError" class="text-danger my-4"></div>
             </form>
           </div>
 

@@ -49,7 +49,8 @@ init();
 function init() {
   bugsEl.addEventListener('change', onBugSelectChange);
   document.querySelector('header > h2').addEventListener('click', onHeaderClick);
-  document.getElementById('userUpdateForm').addEventListener('submit', onCreateUserSubmit);
+  document.getElementById('userCreateForm').addEventListener('submit', onCreateUserSubmit);
+  document.getElementById('userUpdateForm').addEventListener('submit', onUpdateUserSubmit);
   document.getElementById('userDeleteBtn').addEventListener('click', onUserDelete);
   document.getElementById('bugForm').addEventListener('submit', onAssignBugFormSubmit);
   document.getElementById('dismissModalBtn').addEventListener('click', onDismissModal);
@@ -120,19 +121,59 @@ function onBugSelectChange() {
 async function onCreateUserSubmit(e) {
   e.preventDefault();
   const user = {
+    id_usuario: parseInt(document.getElementById('userCreateIdInput').value),
+    nombre_completo: document.getElementById('userCreateNameInput').value,
+    login: document.getElementById('userCreateLoginInput').value,
+    rol: document.getElementById('userCreateRoleInput').value,
+    password: document.getElementById('userCreatePasswordInput').value
+  };
+
+  if (!checkUser(user) || !user.password) {
+    document.getElementById('userCreateError').innerText = 'Llenar todos los campos';
+    return;
+  }
+
+  try {
+    await userRepository.add(user);
+
+    document.getElementById('userCreateIdInput').value = '';
+    document.getElementById('userCreateNameInput').value = '';
+    document.getElementById('userCreateLoginInput').value = '';
+    document.getElementById('userCreateRoleInput').value = '-1';
+    document.getElementById('userCreatePasswordInput').value = '';
+    document.getElementById('userCreateError').innerText = '';
+
+    document.getElementById('actionUsers').click();
+  }
+  catch (e) {
+    if (JSON.stringify(e).includes('500')) {
+      e = 'Usuario ya existe';
+    }
+    document.getElementById('userCreateError').innerText = e;
+  }
+}
+
+async function onUpdateUserSubmit(e) {
+  e.preventDefault();
+  const user = {
     id_usuario: parseInt(document.getElementById('userUpdateIdInput').value),
     nombre_completo: document.getElementById('userUpdateNameInput').value,
     login: document.getElementById('userUpdateLoginInput').value,
     rol: document.getElementById('userUpdateRoleInput').value
   };
 
+  if (!checkUser(user)) {
+    document.getElementById('userUpdateError').innerText = 'Llenar todos los campos';
+    return;
+  }
   try {
     await userRepository.set(user);
 
+    document.getElementById('userUpdateError').innerText = '';
     document.getElementById('actionUsers').click();
   }
   catch (e) {
-    alert(e);
+    document.getElementById('userUpdateError').innerText = e;
   }
 }
 
@@ -141,10 +182,17 @@ async function onUserDelete() {
 
   try {
     await userRepository.remove(userId);
+
+    document.getElementById('userUpdateError').innerText = '';
+    document.getElementById('actionUsers').click();
   }
   catch (e) {
-    alert(e);
+    document.getElementById('userUpdateError').innerText = e;
   }
+}
+
+function checkUser(user) {
+  return user.id_usuario && user.nombre_completo && user.login && user.rol;
 }
 
 function onAssignBugFormSubmit(e) {
