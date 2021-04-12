@@ -48,7 +48,7 @@ export async function adminGuard(req, res, next) {
   }
   const user = await UserModel.findById(req.user._id);
 
-  if (!user || user.rol !== 'admin') {
+  if (!user || user.role !== 'admin') {
     res.status(401).send('Unauthorized');
     return;
   }

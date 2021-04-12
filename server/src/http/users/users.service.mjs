@@ -12,7 +12,7 @@ export class UsersService {
   }
 
   async readUser(id) {
-    const user = UserModel.findOne({ id_usuario: id });
+    const user = UserModel.findOne({ id: id });
 
     if (!user) {
       throw new Error(`User ${id} not found`);
@@ -21,10 +21,10 @@ export class UsersService {
   }
 
   async updateUser(id, user) {
-    await UserModel.updateOne({ id_usuario: id }, user);
+    await UserModel.updateOne({ id: id }, user);
   }
 
   async deleteUser(id) {
-    await UserModel.deleteOne({ id_usuario: id });
+    await UserModel.deleteOne({ id: id });
   }
 }

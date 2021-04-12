@@ -211,10 +211,10 @@ export class AdminController {
     try {
       const id = req.params['userId'];
       const user = {
-        id_usuario: req.body['id_usuario'],
-        nombre_completo: req.body['nombre_completo'],
+        id: req.body['id'],
+        full_name: req.body['full_name'],
         login: req.body['login'],
-        rol: req.body['rol']
+        role: req.body['role']
       };
       await this.#usersService.updateUser(id, user);
 

@@ -7,11 +7,11 @@ import bcrypt from 'bcrypt';
 
 const Schema = mongoose.Schema;
 const UserSchema = new Schema({
-  id_usuario: { type: Number, unique: true },
-  nombre_completo: { type: String },
+  id: { type: Number, unique: true },
+  full_name: { type: String },
   login: { type: String, unique: true, required: true },
   password: { type: String, required: true },
-  rol: {
+  role: {
     type: String,
     enum: ['admin', 'dev', 'qa']
   }
