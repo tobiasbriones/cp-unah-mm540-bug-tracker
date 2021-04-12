@@ -34,6 +34,7 @@ export class AdminModule {
     router.post(
       '/users',
       checkUser,
+      checkPassword,
       jwtGuard,
       adminGuard,
       signUp,
@@ -49,12 +50,22 @@ export class AdminModule {
 function checkUser(req, res, next) {
   const user = req.body;
 
-  if (!user.id_usuario || !user.nombre_completo || !user.login || !user.rol || !user.password) {
+  if (!user.id_usuario || !user.nombre_completo || !user.login || !user.rol) {
     res.status(400).send('User must be set');
     return;
   }
   if (user.rol !== 'admin' && user.rol !== 'dev' && user.rol !== 'qa') {
     res.status(400).send('Invalid role');
+    return;
+  }
+  next();
+}
+
+function checkPassword(req, res, next) {
+  const user = req.body;
+
+  if (!user.password) {
+    res.status(400).send('User password must be set');
     return;
   }
   next();
