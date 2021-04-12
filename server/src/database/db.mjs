@@ -4,15 +4,17 @@
 
 import mongoose from 'mongoose';
 
-const host = '127.0.0.1';
-const port = '27017';
-const document = 'bug_tracker';
-const uri = `mongodb://${ host }:${ port }/${ document }`;
+const HOST = '127.0.0.1';
+const PORT = '27017';
+const DOC = 'bug_tracker';
+const URI = `mongodb://${ HOST }:${ PORT }/${ DOC }`;
 
 export function newMongooseDb() {
-  const options = { useNewUrlParser: true, useUnifiedTopology: true };
-  return mongoose.connect(
-    uri,
-    options
-  );
+  const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true
+  };
+  return mongoose.connect(URI, options);
 }
