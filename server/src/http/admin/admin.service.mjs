@@ -4,7 +4,7 @@
 
 import { DevTeamModel } from './dev-team.model.mjs';
 import { SoftwareProjectModel } from './software-project.model.mjs';
-import { UserModel } from './user.model.mjs';
+import { UserModel } from '../users/user.model.mjs';
 
 export class AdminService {
   constructor() {

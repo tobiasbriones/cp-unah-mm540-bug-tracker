@@ -3,7 +3,7 @@
  */
 
 import { Strategy } from 'passport-local';
-import { UserModel } from '../admin/user.model.mjs';
+import { UserModel } from '../users/user.model.mjs';
 import { ExtractJwt as ExtractJWT, Strategy as JwtStrategy } from 'passport-jwt';
 import { JWT_PRIVATE_KEY } from './auth.secret.mjs';
 

@@ -2,7 +2,7 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-import { UserModel } from '../admin/user.model.mjs';
+import { UserModel } from './user.model.mjs';
 
 export class UsersService {
   constructor() {}

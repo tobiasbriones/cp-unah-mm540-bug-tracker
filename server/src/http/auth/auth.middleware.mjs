@@ -4,7 +4,7 @@
 
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
-import { UserModel } from '../admin/user.model.mjs';
+import { UserModel } from '../users/user.model.mjs';
 import { JWT_PRIVATE_KEY } from './auth.secret.mjs';
 
 export async function login(req, res, next) {
