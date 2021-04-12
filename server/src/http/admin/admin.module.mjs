@@ -5,6 +5,7 @@
 import { AdminController } from './admin.controller.mjs';
 import { adminGuard, jwtGuard, signUp } from '../auth/auth.middleware.mjs';
 import { Module } from '../module.mjs';
+import { UsersService } from '../users/users.service.mjs';
 
 const ROUTER_CONFIG = Object.freeze({
   path: '/admin',
@@ -45,6 +46,7 @@ export class AdminModule extends Module {
       '/users',
       checkUser,
       checkPassword,
+      checkUserExists,
       signUp,
       (req, res) => controller.updateUser(req, res)
     );
@@ -77,4 +79,21 @@ function checkPassword(req, res, next) {
     return;
   }
   next();
+}
+
+async function checkUserExists(req, res, next) {
+  try {
+    const usersService = new UsersService();
+    const exists = await usersService.exists(req.body);
+
+    if (exists) {
+      res.status(400).send('User already exists');
+    }
+    else {
+      next();
+    }
+  }
+  catch (err) {
+    res.status(500).send(err);
+  }
 }

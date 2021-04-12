@@ -5,7 +5,8 @@
 import { UserModel } from './user.model.mjs';
 
 export class UsersService {
-  constructor() {}
+  constructor() {
+  }
 
   async readAllUsers() {
     return UserModel.find();
@@ -15,7 +16,7 @@ export class UsersService {
     const user = UserModel.findOne({ id: id });
 
     if (!user) {
-      throw new Error(`User ${id} not found`);
+      throw new Error(`User ${ id } not found`);
     }
     return user;
   }
@@ -26,5 +27,11 @@ export class UsersService {
 
   async deleteUser(id) {
     await UserModel.deleteOne({ id: id });
+  }
+
+  async exists(user) {
+    const byId = await UserModel.findOne({ id: user.id });
+    const byLogin = await UserModel.findOne({ login: user.login });
+    return byId || byLogin;
   }
 }
