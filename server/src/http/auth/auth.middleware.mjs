@@ -41,7 +41,7 @@ export const signUp = passport.authenticate('signup', { session: false });
 
 export const jwtGuard = passport.authenticate('jwt', { session: false });
 
-export const adminGuard = async (req, res, next) => {
+export async function adminGuard(req, res, next) {
   if (!req.user || !req.user._id) {
     res.status(401).send('Unauthorized');
     return;
@@ -53,4 +53,4 @@ export const adminGuard = async (req, res, next) => {
     return;
   }
   next();
-};
+}
