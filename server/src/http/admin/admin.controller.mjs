@@ -5,16 +5,19 @@
 import { AdminService } from './admin.service.mjs';
 import { UsersService } from '../users/users.service.mjs';
 import { DevTeamService } from '../dev-team/dev-team.service.mjs';
+import { ProjectsServices } from '../projects/projects.services.mjs';
 
 export class AdminController {
   #service;
   #usersService;
   #devTeamService;
+  #projectsService;
 
   constructor() {
     this.#service = new AdminService();
     this.#usersService = new UsersService();
     this.#devTeamService = new DevTeamService();
+    this.#projectsService = new ProjectsServices();
   }
 
   async assignBug(req, res) {
@@ -119,7 +122,7 @@ export class AdminController {
         startDate: req.body['startDate'],
         endDate: req.body['endDate']
       };
-      await this.#service.createProject(project);
+      await this.#projectsService.createProject(project);
 
       res.end();
     }
@@ -130,7 +133,7 @@ export class AdminController {
 
   async readAllProjects(req, res) {
     try {
-      const projects = await this.#service.readAllProjects();
+      const projects = await this.#projectsService.readAllProjects();
 
       res.json(projects);
     }
@@ -142,7 +145,7 @@ export class AdminController {
   async readProject(req, res) {
     try {
       const id = req.params['projectId'];
-      const project = await this.#service.readProject(id);
+      const project = await this.#projectsService.readProject(id);
 
       res.json(project);
     }
@@ -160,7 +163,7 @@ export class AdminController {
         startDate: req.body['startDate'],
         endDate: req.body['endDate']
       };
-      await this.#service.updateProject(id, project);
+      await this.#projectsService.updateProject(id, project);
 
       res.end();
     }
@@ -172,7 +175,7 @@ export class AdminController {
   async deleteProject(req, res) {
     try {
       const id = req.params['projectId'];
-      await this.#service.deleteProject(id);
+      await this.#projectsService.deleteProject(id);
 
       res.end();
     }
