@@ -2,12 +2,12 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-import { DevTeamRepository } from '../../repository/dev-team.repository.mjs';
+import { TeamRepository } from '../../repository/team.repository.mjs';
 import { setSelected } from './table.mjs';
 
 export class DevTeamPageController {
   constructor() {
-    this.devTeamRepository = new DevTeamRepository();
+    this.devTeamRepository = new TeamRepository();
   }
 
   get devTeamForCreate() {

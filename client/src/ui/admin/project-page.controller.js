@@ -3,13 +3,13 @@
  */
 
 import { ProjectRepository } from '../../repository/project.repository.mjs';
-import { DevTeamRepository } from '../../repository/dev-team.repository.mjs';
+import { TeamRepository } from '../../repository/team.repository.mjs';
 import { setSelected } from './table.mjs';
 
 export class ProjectPageController {
   constructor() {
     this.projectRepository = new ProjectRepository();
-    this.devTeamRepository = new DevTeamRepository();
+    this.devTeamRepository = new TeamRepository();
   }
 
   get projectForCreate() {

@@ -4,12 +4,12 @@
 
 import { BugRepository } from '../../repository.mjs';
 import { Modal } from 'bootstrap';
-import { DevTeamRepository } from '../../repository/dev-team.repository.mjs';
+import { TeamRepository } from '../../repository/team.repository.mjs';
 
 export class BugPageController {
   constructor() {
     this.bugRepository = new BugRepository();
-    this.devTeamRepository = new DevTeamRepository();
+    this.devTeamRepository = new TeamRepository();
   }
 
   init() {

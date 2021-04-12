@@ -8,7 +8,7 @@ import { AuthService } from '../ui/auth/auth.service.mjs';
 
 const BASE_URL = API_BASE_URL + '/admin/teams';
 
-export class DevTeamRepository {
+export class TeamRepository {
   constructor() {
     this.authService = new AuthService();
   }
