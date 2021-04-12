@@ -3,7 +3,7 @@
  */
 
 import 'bootstrap';
-import 'chart.js'
+import 'chart.js';
 import '../bootstrap/bootstrap.min.css';
 import '../default.css';
 import './admin.html';
@@ -49,12 +49,14 @@ init();
 function init() {
   bugsEl.addEventListener('change', onBugSelectChange);
   document.querySelector('header > h2').addEventListener('click', onHeaderClick);
+  document.getElementById('userUpdateForm').addEventListener('submit', onCreateUserSubmit);
   document.getElementById('bugForm').addEventListener('submit', onAssignBugFormSubmit);
   document.getElementById('dismissModalBtn').addEventListener('click', onDismissModal);
   document.getElementById('actionUsers').addEventListener('click', onActionUsersClick);
   document.getElementById('actionBugs').addEventListener('click', onActionBugsClick);
   document.getElementById('actionDevelopers').addEventListener('click', onActionDevsClick);
   document.getElementById('actionProjects').addEventListener('click', onActionProjectsClick);
+  document.getElementById('addNewUserBtn').addEventListener('click', onAddNewUserButtonClick);
   document.getElementById('addNewDevBtn').addEventListener('click', onAddNewDevButtonClick);
   document.getElementById('addNewProjectBtn').addEventListener('click', onAddNewProjectButtonClick);
 
@@ -114,6 +116,25 @@ function onBugSelectChange() {
   }
 }
 
+async function onCreateUserSubmit(e) {
+  e.preventDefault();
+  const user = {
+    id_usuario: parseInt(document.getElementById('userUpdateIdInput').value),
+    nombre_completo: document.getElementById('userUpdateNameInput').value,
+    login: document.getElementById('userUpdateLoginInput').value,
+    rol: document.getElementById('userUpdateRoleInput').value
+  };
+
+  try {
+    await userRepository.set(user);
+
+    document.getElementById('actionUsers').click();
+  }
+  catch (e) {
+    alert(e);
+  }
+}
+
 function onAssignBugFormSubmit(e) {
   e.preventDefault();
   const bugCode = parseInt(bugsEl.options[bugsEl.selectedIndex].value);
@@ -126,6 +147,11 @@ function onAssignBugFormSubmit(e) {
 
 function onDismissModal() {
   modal.hide();
+}
+
+function onAddNewUserButtonClick() {
+  document.getElementById('userCreateContainer').classList.remove('gone');
+  document.getElementById('userUpdateContainer').classList.add('gone');
 }
 
 function onAddNewDevButtonClick() {
@@ -215,6 +241,18 @@ function initDevsPage() {
   }
 }
 
+function onUpdateUser(user) {
+  const createEl = document.getElementById('userCreateContainer');
+  const updateEl = document.getElementById('userUpdateContainer');
+
+  createEl.classList.add('gone');
+  updateEl.classList.remove('gone');
+  document.getElementById('userUpdateIdInput').value = user.id_usuario;
+  document.getElementById('userUpdateNameInput').value = user.nombre_completo;
+  document.getElementById('userUpdateLoginInput').value = user.login;
+  document.getElementById('userUpdateRoleInput').value = user.rol;
+}
+
 function onUpdateDev(dev) {
   const createEl = document.getElementById('developerCreateContainer');
   const updateEl = document.getElementById('developerUpdateContainer');
@@ -227,7 +265,7 @@ function onUpdateDev(dev) {
   document.getElementById('devUpdateTechInput').value = JSON.stringify(dev.tech);
 }
 
-function onUpdateUser(project) {
+function onUpdateProject(project) {
   const createEl = document.getElementById('projectCreateContainer');
   const updateEl = document.getElementById('projectUpdateContainer');
 
@@ -236,15 +274,16 @@ function onUpdateUser(project) {
   document.getElementById('projectUpdateCodeInput').value = project.code;
   document.getElementById('projectUpdateNameInput').value = project.name;
   document.getElementById('projectUpdateStartDateInput').value = new Date().toISOString()
-                                                                                            .slice(
-                                                                                              0,
-                                                                                              10
-                                                                                            );
+                                                                           .slice(
+                                                                             0,
+                                                                             10
+                                                                           );
   document.getElementById('projectUpdateEndDateInput').value = new Date().toISOString()
                                                                          .slice(
                                                                            0,
                                                                            10
-                                                                         );;
+                                                                         );
+  ;
 }
 
 function initProjectsPage() {
@@ -286,7 +325,7 @@ function initProjectsPage() {
     const project = devRepository.get(projectCode);
 
     setSelected(rowEl);
-    onUpdateUser(project);
+    onUpdateProject(project);
   }
 
   function setSelected(rowEl) {
@@ -309,7 +348,6 @@ function initUsersPage() {
   userRepository.getAll().then(load, error);
 
   function load(users) {
-    console.log(users);
     users.forEach(user => {
       const rowEl = document.createElement('tr');
       const thEl = document.createElement('th');
@@ -340,10 +378,10 @@ function initUsersPage() {
     alert(err);
   }
 
-  function onItemClick(e) {
+  async function onItemClick(e) {
     const rowEl = e.target.parentElement;
     const userId = parseInt(rowEl.dataset.code);
-    const user = userRepository.get(userId);
+    const user = await userRepository.get(userId);
 
     setSelected(rowEl);
     onUpdateUser(user);
