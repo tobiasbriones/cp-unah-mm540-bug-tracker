@@ -8,6 +8,11 @@ import { AuthController } from './auth.controller.mjs';
 import { Strategy } from 'passport-local';
 import { UserModel } from '../admin/user.model.mjs';
 import { ExtractJwt as ExtractJWT, Strategy as JwtStrategy } from 'passport-jwt';
+import { Module } from '../module.mjs';
+
+const ROUTER_CONFIG = Object.freeze({
+  path: '/auth'
+});
 
 const JWT_PRIVATE_KEY = ':D'; // Save it into a safe place
 
@@ -41,15 +46,16 @@ const login = async (req, res, next) => {
   )(req, res, next);
 };
 
-export class AuthModule {
+export class AuthModule extends Module {
   #controller;
 
   constructor() {
+    super(ROUTER_CONFIG);
     this.#controller = new AuthController();
   }
 
-  init(router) {
-    router.post(
+  init() {
+    this.router.post(
       '/login',
       login,
       (req, res) => res.json({
@@ -59,7 +65,7 @@ export class AuthModule {
         uat: req.token
       })
     );
-    router.post('/verify-token', jwtGuard, (req, res) => res.end());
+    this.router.post('/verify-token', jwtGuard, (req, res) => res.end());
 
     passport.use(
       'signup',

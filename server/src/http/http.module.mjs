@@ -3,6 +3,8 @@
  */
 
 import { BugsModule } from './bugs/bugs.module.mjs';
+import { AdminModule } from './admin/admin.module.mjs';
+import { AuthModule } from './auth/auth.module.mjs';
 
 const PATH = '';
 
@@ -11,8 +13,8 @@ export class HttpModule {
 
   constructor() {
     this.#modules = [
-      // new AdminModule(),
-      //new AuthModule(),
+      new AdminModule(),
+      new AuthModule(),
       new BugsModule()
     ];
   }
@@ -27,7 +29,6 @@ function initModule(module, app) {
   const middlewares = module.middlewares;
   const router = module.router;
 
-  console.log('init module '+path);
   app.use(path, middlewares, router);
   module.init();
 }

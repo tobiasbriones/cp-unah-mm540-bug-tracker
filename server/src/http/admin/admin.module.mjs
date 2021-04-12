@@ -4,34 +4,44 @@
 
 import { AdminController } from './admin.controller.mjs';
 import { adminGuard, jwtGuard, signUp } from '../auth/auth.module.mjs';
+import { Module } from '../module.mjs';
 
-export class AdminModule {
+const ROUTER_CONFIG = Object.freeze({
+  path: '/admin',
+  middlewares: [
+    jwtGuard,
+    adminGuard
+  ]
+});
+
+export class AdminModule extends Module {
   #controller;
 
   constructor() {
+    super(ROUTER_CONFIG);
     this.#controller = new AdminController();
   }
 
-  init(router) {
+  init() {
     const controller = this.#controller;
 
-    router.patch('/bugs/:bugId/assign', (req, res) => controller.assignBug(req, res));
+    this.router.patch('/bugs/:bugId/assign', (req, res) => controller.assignBug(req, res));
 
-    router.get('/stats/bugs', (req, res) => controller.readAllBugStats(req, res));
+    this.router.get('/stats/bugs', (req, res) => controller.readAllBugStats(req, res));
 
-    router.post('/dev-team', (req, res) => controller.createDevTeam(req, res));
-    router.get('/dev-team', (req, res) => controller.readAllDevTeams(req, res));
-    router.get('/dev-team/:devTeamId', (req, res) => controller.readDevTeam(req, res));
-    router.put('/dev-team/:devTeamId', (req, res) => controller.updateDevTeam(req, res));
-    router.delete('/dev-team/:devTeamId', (req, res) => controller.deleteDevTeam(req, res));
+    this.router.post('/dev-team', (req, res) => controller.createDevTeam(req, res));
+    this.router.get('/dev-team', (req, res) => controller.readAllDevTeams(req, res));
+    this.router.get('/dev-team/:devTeamId', (req, res) => controller.readDevTeam(req, res));
+    this.router.put('/dev-team/:devTeamId', (req, res) => controller.updateDevTeam(req, res));
+    this.router.delete('/dev-team/:devTeamId', (req, res) => controller.deleteDevTeam(req, res));
 
-    router.post('/projects', (req, res) => controller.createProject(req, res));
-    router.get('/projects', (req, res) => controller.readAllProjects(req, res));
-    router.get('/projects/:projectId', (req, res) => controller.readProject(req, res));
-    router.put('/projects/:projectId', (req, res) => controller.updateProject(req, res));
-    router.delete('/projects/:projectId', (req, res) => controller.deleteProject(req, res));
+    this.router.post('/projects', (req, res) => controller.createProject(req, res));
+    this.router.get('/projects', (req, res) => controller.readAllProjects(req, res));
+    this.router.get('/projects/:projectId', (req, res) => controller.readProject(req, res));
+    this.router.put('/projects/:projectId', (req, res) => controller.updateProject(req, res));
+    this.router.delete('/projects/:projectId', (req, res) => controller.deleteProject(req, res));
 
-    router.post(
+    this.router.post(
       '/users',
       checkUser,
       checkPassword,
@@ -40,10 +50,10 @@ export class AdminModule {
       signUp,
       (req, res) => controller.updateUser(req, res)
     );
-    router.get('/users', (req, res) => controller.readAllUsers(req, res));
-    router.get('/users/:userId', (req, res) => controller.readUser(req, res));
-    router.put('/users/:userId', checkUser, (req, res) => controller.updateUser(req, res));
-    router.delete('/users/:userId', (req, res) => controller.deleteUser(req, res));
+    this.router.get('/users', (req, res) => controller.readAllUsers(req, res));
+    this.router.get('/users/:userId', (req, res) => controller.readUser(req, res));
+    this.router.put('/users/:userId', checkUser, (req, res) => controller.updateUser(req, res));
+    this.router.delete('/users/:userId', (req, res) => controller.deleteUser(req, res));
   }
 }
 
