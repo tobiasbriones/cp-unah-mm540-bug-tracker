@@ -3,7 +3,7 @@
  */
 
 import { AdminController } from './admin.controller.mjs';
-import { signUp } from '../auth/auth.module.mjs';
+import { adminGuard, jwtGuard, signUp } from '../auth/auth.module.mjs';
 
 export class AdminModule {
   #controller;
@@ -33,12 +33,29 @@ export class AdminModule {
 
     router.post(
       '/users',
+      checkUser,
+      jwtGuard,
+      adminGuard,
       signUp,
       (req, res) => controller.updateUser(req, res)
     );
     router.get('/users', (req, res) => controller.readAllUsers(req, res));
     router.get('/users/:userId', (req, res) => controller.readUser(req, res));
-    router.put('/users/:userId', (req, res) => controller.updateUser(req, res));
+    router.put('/users/:userId', checkUser, (req, res) => controller.updateUser(req, res));
     router.delete('/users/:userId', (req, res) => controller.deleteUser(req, res));
   }
+}
+
+function checkUser(req, res, next) {
+  const user = req.body;
+
+  if (!user.id_usuario || !user.nombre_completo || !user.login || !user.rol || !user.password) {
+    res.status(400).send('User must be set');
+    return;
+  }
+  if (user.rol !== 'admin' && user.rol !== 'dev' && user.rol !== 'qa') {
+    res.status(400).send('Invalid role');
+    return;
+  }
+  next();
 }
