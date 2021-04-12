@@ -4,14 +4,17 @@
 
 import { AdminService } from './admin.service.mjs';
 import { UsersService } from '../users/users.service.mjs';
+import { DevTeamService } from '../dev-team/dev-team.service.mjs';
 
 export class AdminController {
   #service;
   #usersService;
+  #devTeamService;
 
   constructor() {
     this.#service = new AdminService();
     this.#usersService = new UsersService();
+    this.#devTeamService = new DevTeamService();
   }
 
   async assignBug(req, res) {
@@ -46,7 +49,7 @@ export class AdminController {
         languages: req.body['languages'],
         tech: req.body['tech']
       };
-      await this.#service.createDevTeam(devTeam);
+      await this.#devTeamService.createDevTeam(devTeam);
 
       res.end();
     }
@@ -57,7 +60,7 @@ export class AdminController {
 
   async readAllDevTeams(req, res) {
     try {
-      const devTeams = await this.#service.readAllDevTeams();
+      const devTeams = await this.#devTeamService.readAllDevTeams();
 
       res.json(devTeams);
     }
@@ -69,7 +72,7 @@ export class AdminController {
   async readDevTeam(req, res) {
     try {
       const id = req.params['devTeamId'];
-      const devTeam = await this.#service.readDevTeam(id);
+      const devTeam = await this.#devTeamService.readDevTeam(id);
 
       res.json(devTeam);
     }
@@ -87,7 +90,7 @@ export class AdminController {
         languages: req.body['languages'],
         tech: req.body['tech']
       };
-      await this.#service.updateDevTeam(id, devTeam);
+      await this.#devTeamService.updateDevTeam(id, devTeam);
 
       res.end();
     }
@@ -99,7 +102,7 @@ export class AdminController {
   async deleteDevTeam(req, res) {
     try {
       const id = req.params['devTeamId'];
-      await this.#service.deleteDevTeam(id);
+      await this.#devTeamService.deleteDevTeam(id);
 
       res.end();
     }
