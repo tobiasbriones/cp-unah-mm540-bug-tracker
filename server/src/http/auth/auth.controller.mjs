@@ -14,8 +14,8 @@ export class AuthController {
   async login(req, res) {
     res.json({
       uid: req.user.login,
-      name: req.user.nombre_completo,
-      rol: req.user.rol,
+      name: req.user.full_name,
+      role: req.user.role,
       uat: req.token
     });
   }

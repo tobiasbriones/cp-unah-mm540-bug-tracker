@@ -45,8 +45,6 @@ export class AdminModule extends Module {
       '/users',
       checkUser,
       checkPassword,
-      jwtGuard,
-      adminGuard,
       signUp,
       (req, res) => controller.updateUser(req, res)
     );
@@ -60,11 +58,11 @@ export class AdminModule extends Module {
 function checkUser(req, res, next) {
   const user = req.body;
 
-  if (!user.id_usuario || !user.nombre_completo || !user.login || !user.rol) {
+  if (!user.id || !user.full_name || !user.login || !user.role) {
     res.status(400).send('User must be set');
     return;
   }
-  if (user.rol !== 'admin' && user.rol !== 'dev' && user.rol !== 'qa') {
+  if (user.role !== 'admin' && user.role !== 'dev' && user.role !== 'qa') {
     res.status(400).send('Invalid role');
     return;
   }
