@@ -4,7 +4,7 @@
 
 import express from 'express';
 import cors from 'cors';
-import { newMongooseDb } from './database/db.mjs';
+import { newMongooseDb } from './database/database.mjs';
 import { HttpModule } from './http/http.module.mjs';
 
 const PORT = 3000;
