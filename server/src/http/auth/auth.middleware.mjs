@@ -37,7 +37,19 @@ export async function login(req, res, next) {
   )(req, res, next);
 }
 
-export const signUp = passport.authenticate('signup', { session: false });
+export function signUp(req, res, next) {
+  passport.authenticate(
+    'signup',
+    async err => {
+      if (err) {
+        res.status(400).send(err);
+      }
+      else {
+        next();
+      }
+    }
+  )(req, res, next);
+}
 
 export const jwtGuard = passport.authenticate('jwt', { session: false });
 

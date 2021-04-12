@@ -40,7 +40,7 @@ export const jwtStrategy = new JwtStrategy(
   },
   async (token, done) => {
     try {
-      return done(null, token.user);
+      done(null, token.user);
     }
     catch (error) {
       done(error);
@@ -57,10 +57,10 @@ export const signupStrategy = new Strategy(
     try {
       const user = await UserModel.create({ login, password });
 
-      return done(null, user);
+      done(null, user);
     }
-    catch (error) {
-      done(error);
+    catch (err) {
+      done(err.message);
     }
   }
 );
