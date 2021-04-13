@@ -4,9 +4,13 @@
 
 import { Module } from '../module.mjs';
 import { BugsController } from './bugs.controller.mjs';
+import { jwtGuard, qaGuard } from '../auth/auth.middleware.mjs';
 
 const ROUTER_CONFIG = Object.freeze({
-  path: '/bugs'
+  path: '/bugs',
+  middlewares: [
+    jwtGuard
+  ]
 });
 
 export class BugsModule extends Module {
@@ -18,7 +22,7 @@ export class BugsModule extends Module {
   }
 
   init() {
-    this.router.post('/', (req, res) => this.#controller.create(req, res));
+    this.router.post('/', qaGuard, (req, res) => this.#controller.create(req, res));
     this.router.get('/', (req, res) => this.#controller.readAll(req, res));
   }
 }
