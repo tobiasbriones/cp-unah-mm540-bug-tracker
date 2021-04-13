@@ -7,10 +7,10 @@ import { setSelected } from './table.mjs';
 
 export class TeamPageController {
   constructor() {
-    this.devTeamRepository = new TeamRepository();
+    this.teamRepository = new TeamRepository();
   }
 
-  get devTeamForCreate() {
+  get teamForCreate() {
     return {
       code: parseInt(document.getElementById('devCreateCodeInput').value),
       name: document.getElementById('devCreateNameInput').value,
@@ -19,7 +19,7 @@ export class TeamPageController {
     };
   }
 
-  get devTeamForUpdate() {
+  get teamForUpdate() {
     return {
       code: parseInt(document.getElementById('devUpdateCodeInput').value),
       name: document.getElementById('devUpdateNameInput').value,
@@ -32,13 +32,13 @@ export class TeamPageController {
     this.pageEl = document.getElementById('devsPage');
 
     document.getElementById('developerCreateForm')
-            .addEventListener('submit', e => this.onCreateDevTeamSubmit(e));
+            .addEventListener('submit', e => this.onCreateTeamSubmit(e));
     document.getElementById('developerUpdateForm')
-            .addEventListener('submit', e => this.onUpdateDevTeamSubmit(e));
+            .addEventListener('submit', e => this.onUpdateTeamSubmit(e));
     document.getElementById('developerDeleteBtn')
             .addEventListener('click', () => this.onDevTeamDelete());
     document.getElementById('addNewDevBtn')
-            .addEventListener('click', () => this.onAddNewDevTeamButtonClick());
+            .addEventListener('click', () => this.onAddNewTeamButtonClick());
   }
 
   async resume() {
@@ -50,7 +50,7 @@ export class TeamPageController {
     updateEl.classList.add('gone');
 
     try {
-      const devTeam = await this.devTeamRepository.getAll();
+      const devTeam = await this.teamRepository.getAll();
 
       this.onLoad(devTeam);
       this.show();
@@ -68,13 +68,13 @@ export class TeamPageController {
     this.pageEl.classList.add('gone');
   }
 
-  onLoad(devTeam) {
+  onLoad(team) {
     const bodyEl = document.querySelector('#developerListContainer tbody');
     const ctx = this;
 
     bodyEl.innerHTML = '';
 
-    devTeam.forEach(dev => {
+    team.forEach(dev => {
       const rowEl = document.createElement('tr');
       const thEl = document.createElement('th');
       const nameEl = document.createElement('td');
@@ -101,43 +101,45 @@ export class TeamPageController {
     async function onItemClick(e) {
       const rowEl = e.target.parentElement;
       const devCode = parseInt(rowEl.dataset.code);
-      const dev = await ctx.devTeamRepository.get(devCode);
+      const dev = await ctx.teamRepository.get(devCode);
 
       setSelected(rowEl);
       ctx.onUpdateDev(dev);
     }
   }
 
-  onAddNewDevTeamButtonClick() {
+  onAddNewTeamButtonClick() {
     document.getElementById('developerCreateContainer').classList.remove('gone');
     document.getElementById('developerUpdateContainer').classList.add('gone');
   }
 
-  async onCreateDevTeamSubmit(e) {
+  async onCreateTeamSubmit(e) {
     e.preventDefault();
-    const devTeam = this.devTeamForCreate;
+    const team = this.teamForCreate;
 
     try {
-      await this.devTeamRepository.add(devTeam);
+      await this.teamRepository.add(team);
 
       await this.resume();
     }
     catch (e) {
-      document.getElementById('devCreateError').innerText = e;
+      const msg = e.response.data ? e.response.data : e;
+      document.getElementById('devCreateError').innerText = msg;
     }
   }
 
-  async onUpdateDevTeamSubmit(e) {
+  async onUpdateTeamSubmit(e) {
     e.preventDefault();
-    const devTeam = this.devTeamForUpdate;
+    const team = this.teamForUpdate;
 
     try {
-      await this.devTeamRepository.set(devTeam);
+      await this.teamRepository.set(team);
 
       await this.resume();
     }
     catch (e) {
-      alert(e);
+      const msg = e.response.data ? e.response.data : e;
+      document.getElementById('devUpdateError').innerText = msg;
     }
   }
 
@@ -145,19 +147,20 @@ export class TeamPageController {
     const id = parseInt(document.getElementById('devUpdateCodeInput').value);
 
     try {
-      await this.devTeamRepository.remove(id);
+      await this.teamRepository.remove(id);
 
       await this.resume();
     }
     catch (e) {
-      alert(e);
+      const msg = e.response.data ? e.response.data : e;
+      document.getElementById('devUpdateError').innerText = msg;
     }
   }
 
   onUpdateDev(dev) {
     const createEl = document.getElementById('developerCreateContainer');
     const updateEl = document.getElementById('developerUpdateContainer');
-    console.log(dev);
+
     createEl.classList.add('gone');
     updateEl.classList.remove('gone');
     document.getElementById('devUpdateCodeInput').value = dev.code;
@@ -171,11 +174,13 @@ export class TeamPageController {
     document.getElementById('devCreateNameInput').value = '';
     document.getElementById('devCreateLanguagesInput').value = '';
     document.getElementById('devCreateTechInput').value = '';
+    document.getElementById('devCreateError').value = '';
 
     document.getElementById('devUpdateCodeInput').value = '';
     document.getElementById('devUpdateNameInput').value = '';
     document.getElementById('devUpdateLanguagesInput').value = '';
     document.getElementById('devUpdateTechInput').value = '';
+    document.getElementById('devUpdateError').value = '';
   }
 }
 
