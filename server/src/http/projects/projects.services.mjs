@@ -3,9 +3,11 @@
  */
 
 import { ProjectModel } from './project.model.mjs';
+import { ProjectBugModel } from './project-bug.model.mjs';
 
 export class ProjectsServices {
-  constructor() {}
+  constructor() {
+  }
 
   async createProject(project) {
     await ProjectModel.create(project);
@@ -19,7 +21,7 @@ export class ProjectsServices {
     const project = await ProjectModel.findOne({ code: id });
 
     if (!project) {
-      throw new Error(`Project ${id} not found`);
+      throw new Error(`Project ${ id } not found`);
     }
     return project;
   }
@@ -30,5 +32,15 @@ export class ProjectsServices {
 
   async deleteProject(id) {
     await ProjectModel.deleteOne({ code: id });
+  }
+
+  async assignBug(projectCode, bugCode) {
+    await ProjectBugModel.create({ projectCode: projectCode, bugCode: bugCode });
+  }
+
+  async readBugs(projectCode) {
+    const bugCodes = await ProjectBugModel.find({ projectCode: projectCode });
+
+    return bugCodes;
   }
 }
