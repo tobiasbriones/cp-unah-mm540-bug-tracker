@@ -74,7 +74,7 @@ export async function qaGuard(req, res, next) {
   }
   const user = await UserModel.findById(req.user._id);
 
-  if (!user || user.role !== 'qa') {
+  if (!user || (user.role !== 'admin' && user.role !== 'qa')) {
     res.status(401).send('Unauthorized');
     return;
   }
