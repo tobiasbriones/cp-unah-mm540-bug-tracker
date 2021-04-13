@@ -4,9 +4,11 @@
 
 import { Module } from '../module.mjs';
 import { ProjectsServices } from './projects.services.mjs';
+import { jwtGuard, qaGuard } from '../auth/auth.middleware.mjs';
 
 const ROUTER_CONFIG = Object.freeze({
-  path: '/projects'
+  path: '/projects',
+  middlewares: [jwtGuard]
 });
 
 export class ProjectsModule extends Module {
@@ -21,6 +23,33 @@ export class ProjectsModule extends Module {
         const projects = await projectsService.readAllProjects();
 
         res.json(projects);
+      }
+      catch (e) {
+        res.status(500).send(e.message);
+      }
+    });
+
+    this.router.get('/:projectId/bugs', qaGuard, async (req, res) => {
+      try {
+        const projectId = req.params['projectId'];
+        const projectsService = new ProjectsServices();
+        const bugs = await projectsService.readBugs(projectId);
+
+        res.json(bugs);
+      }
+      catch (e) {
+        res.status(500).send(e.message);
+      }
+    });
+
+    this.router.post('/:projectId/bugs', qaGuard, async (req, res) => {
+      try {
+        const projectId = req.params['projectId'];
+        const bugCode = req.body.bugCode;
+        const projectsService = new ProjectsServices();
+        await projectsService.assignBug(projectId, bugCode);
+
+        res.end();
       }
       catch (e) {
         res.status(500).send(e.message);

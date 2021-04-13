@@ -4,6 +4,7 @@
 
 import { ProjectModel } from './project.model.mjs';
 import { ProjectBugModel } from './project-bug.model.mjs';
+import { BugModel } from '../bugs/bug.model.mjs';
 
 export class ProjectsServices {
   constructor() {
@@ -40,7 +41,12 @@ export class ProjectsServices {
 
   async readBugs(projectCode) {
     const bugCodes = await ProjectBugModel.find({ projectCode: projectCode });
+    const bugs = [];
 
-    return bugCodes;
+    for (const code of bugCodes) {
+      const bug = await BugModel.findOne({ code: code.bugCode });
+      bugs.push(bug);
+    }
+    return bugs;
   }
 }
