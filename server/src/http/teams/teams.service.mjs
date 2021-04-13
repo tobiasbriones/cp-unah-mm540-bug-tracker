@@ -3,6 +3,7 @@
  */
 
 import { TeamModel } from './team.model.mjs';
+import { TeamProjectModel } from './team-project.model.mjs';
 
 export class TeamsService {
   constructor() {}
@@ -19,7 +20,7 @@ export class TeamsService {
     const devTeam = await TeamModel.findOne({ code: id });
 
     if (!devTeam) {
-      throw new Error(`DevTeam ${id} not found`);
+      throw new Error(`Team ${ id } not found`);
     }
     return devTeam;
   }
@@ -30,5 +31,13 @@ export class TeamsService {
 
   async deleteDevTeam(id) {
     await TeamModel.deleteOne({ code: id });
+  }
+
+  async assignProject(teamCode, projectCode) {
+    await TeamProjectModel.create({ teamCode: teamCode, projectCode: projectCode });
+  }
+
+  async readProjects(teamCode) {
+    return TeamProjectModel.find({ teamCode: teamCode });
   }
 }
