@@ -9,18 +9,28 @@ export class BugsController {
   }
 
   async create(req, res) {
-    const bug = new BugModel({
-      code: req.body.code,
-      description: req.body.description
-    });
-
-    await bug.save();
-    res.send('');
+    try {
+      await BugModel.create({
+        code: req.body.code,
+        description: req.body.description,
+        priority: req.body.priority,
+        state: req.body.state
+      });
+      res.end();
+    }
+    catch (e) {
+      res.status(400).send(e.message);
+    }
   }
 
   async readAll(req, res) {
-    const bugs = await BugModel.find();
+    try {
+      const bugs = await BugModel.find();
 
-    res.send(bugs);
+      res.json(bugs);
+    }
+    catch (e) {
+      res.status(500).send(e.message);
+    }
   }
 }
