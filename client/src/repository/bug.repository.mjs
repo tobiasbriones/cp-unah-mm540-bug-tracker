@@ -38,4 +38,20 @@ export class BugRepository {
     };
     await axios.post(BASE_URL, bug, config);
   }
+
+  async setFinished(bugCode) {
+    const login = this.authService.getLogin();
+    const config = {
+      headers: { Authorization: `Bearer ${ login.uat }` }
+    };
+    await axios.post(BASE_URL + `/${ bugCode }/set-finished`, {}, config);
+  }
+
+  async setAssigned(bugCode) {
+    const login = this.authService.getLogin();
+    const config = {
+      headers: { Authorization: `Bearer ${ login.uat }` }
+    };
+    await axios.post(BASE_URL + `/${ bugCode }/set-assigned`, {}, config);
+  }
 }

@@ -33,4 +33,34 @@ export class BugsController {
       res.status(500).send(e.message);
     }
   }
+
+  async setFinished(req, res) {
+    try {
+      const code = req.params['id'];
+      const bug = await BugModel.findOne({ code: code });
+
+      bug.state = 'Finished';
+      bug.finishDate = new Date().toISOString();
+      await BugModel.updateOne({ code: code }, bug);
+      res.end();
+    }
+    catch (e) {
+      res.status(500).send(e.message);
+    }
+  }
+
+  async setAssigned(req, res) {
+    try {
+      const code = req.params['id'];
+      const bug = await BugModel.findOne({ code: code });
+
+      bug.state = 'Assigned';
+      bug.finishDate = 'En proceso';
+      await BugModel.updateOne({ code: code }, bug);
+      res.end();
+    }
+    catch (e) {
+      res.status(500).send(e.message);
+    }
+  }
 }

@@ -24,6 +24,8 @@ export class BugsModule extends Module {
   init() {
     this.router.post('/', qaGuard, validateBug, (req, res) => this.#controller.create(req, res));
     this.router.get('/', (req, res) => this.#controller.readAll(req, res));
+    this.router.post('/:id/set-finished', (req, res) => this.#controller.setFinished(req, res))
+    this.router.post('/:id/set-assigned', (req, res) => this.#controller.setAssigned(req, res))
   }
 }
 

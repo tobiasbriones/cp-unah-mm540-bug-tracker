@@ -139,23 +139,20 @@ async function setBugs(teamCode) {
   bugsEl.innerHTML = '';
   bugs.forEach(b => addRow(b));
 
-  function onItemClick(e) {
+  async function onItemClick(e) {
     const el = e.target;
     const isChecked = el.checked;
     const parentEl = el.parentElement;
     const code = parseInt(el.dataset.code);
-    const bug = bugRepository.get(code);
 
     if (isChecked) {
       setFinished(parentEl);
-      bug.state = 'Finished';
-      bug.finishDate = new Date(Date.now()).toDateString();
+      await bugRepository.setFinished(code);
     }
     else {
       setUnfinished(parentEl);
-      bug.state = 'Assigned';
+      await bugRepository.setAssigned(code);
     }
-    bugRepository.set(bug);
   }
 
   function setUnfinished(labelEl) {
