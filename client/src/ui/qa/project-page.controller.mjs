@@ -62,51 +62,46 @@ export class ProjectPageController {
   async setProject(projectCode) {
     this.currentProject = await this.projectRepository.get(projectCode);
     const bugs = await this.projectRepository.getAllBugs(this.currentProject.code);
+    const teams = await this.projectRepository.getAllTeams(this.currentProject.code);
     const bodyEl = document.querySelector('#bugs table tbody');
     const devEl = document.getElementById('assignedDevelopers');
     const addRow = bug => {
       const rowEl = document.createElement('tr');
       const thEl = document.createElement('th');
       const descriptionEl = document.createElement('td');
-      const stateEl = document.createElement('td');
       const priorityEl = document.createElement('td');
+      const stateEl = document.createElement('td');
       const finishDateEl = document.createElement('td');
 
       thEl.setAttribute('scope', 'row');
       thEl.innerText = bug.code;
 
       descriptionEl.innerText = bug.description;
-      stateEl.innerText = bug.state;
       priorityEl.innerText = bug.priority;
-      finishDateEl.innerText = bug.finishDate;
+      stateEl.innerText = bug.state;
+      finishDateEl.innerText = bug.finishDate || 'En proceso';
 
       rowEl.dataset.code = bug.code;
       rowEl.appendChild(thEl);
       rowEl.appendChild(descriptionEl);
-      rowEl.appendChild(stateEl);
       rowEl.appendChild(priorityEl);
+      rowEl.appendChild(stateEl);
       rowEl.appendChild(finishDateEl);
       bodyEl.appendChild(rowEl);
 
-      rowEl.addEventListener('click', onItemClick);
+      // rowEl.addEventListener('click', onItemClick);
     };
 
     bodyEl.innerHTML = '';
     devEl.innerHTML = '';
     bugs.forEach(b => addRow(b));
 
-    function onItemClick(e) {
-      const rowEl = e.target.parentElement;
+    teams.forEach(dev => {
+      const liEl = document.createElement('li');
 
-      setSelected(rowEl);
-      devEl.innerHTML = '';
-      // developers.forEach(dev => {
-      //   const liEl = document.createElement('li');
-      //
-      //   liEl.classList.add('list-group-item');
-      //   liEl.innerText = dev.name;
-      //   devEl.appendChild(liEl);
-      // });
-    }
+      liEl.classList.add('list-group-item');
+      liEl.innerText = dev.name;
+      devEl.appendChild(liEl);
+    });
   }
 }

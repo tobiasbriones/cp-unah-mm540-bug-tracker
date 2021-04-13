@@ -3,11 +3,13 @@
  */
 
 import { BugRepository } from '../../repository/bug.repository.mjs';
+import { ProjectRepository } from '../../repository/project.repository.mjs';
 
 export class BugPageController {
   constructor() {
     this.pageEl = document.getElementById('bugsPage');
     this.bugRepository = new BugRepository();
+    this.projectRepository = new ProjectRepository();
   }
 
   get bugForCreate() {
@@ -35,7 +37,7 @@ export class BugPageController {
     try {
       const bugs = await this.bugRepository.getAll();
 
-      this.onLoad(bugs);
+      await this.onLoad(bugs);
       this.show();
     }
     catch (e) {
@@ -51,9 +53,9 @@ export class BugPageController {
     this.pageEl.classList.add('gone');
   }
 
-  onLoad(bugs) {
+  async onLoad(bugs) {
     const bodyEl = document.querySelector('#bugListContainer tbody');
-    const ctx = this;
+    const projects = await this.projectRepository.getAll();
 
     bodyEl.innerHTML = '';
 
@@ -78,15 +80,37 @@ export class BugPageController {
       rowEl.appendChild(stateEl);
       bodyEl.appendChild(rowEl);
     });
+
+    const selectEl = document.getElementById('bugCreateProjectInput');
+    const noneEl = document.createElement('option');
+
+    selectEl.innerHTML = '';
+    noneEl.value = 'none';
+    noneEl.innerText = 'Seleccionar el proyecto';
+    selectEl.appendChild(noneEl);
+
+    projects.forEach(project => {
+      const noneEl = document.createElement('option');
+
+      noneEl.value = project.code;
+      noneEl.innerText = project.name;
+      selectEl.appendChild(noneEl);
+    });
   }
 
   async onCreateBugSubmit(e) {
     e.preventDefault();
     const bug = this.bugForCreate;
+    let projectCode = document.getElementById('bugCreateProjectInput').value;
+
+    if (isNaN(projectCode)) {
+      return;
+    }
+    projectCode = parseInt(projectCode);
 
     try {
       await this.bugRepository.add(bug);
-
+      await this.projectRepository.assignBug(projectCode, bug.code);
       await this.resume();
     }
     catch (e) {

@@ -23,6 +23,15 @@ export class ProjectRepository {
     return res.data;
   }
 
+  async getAllTeams(projectCode) {
+    const login = this.authService.getLogin();
+    const config = {
+      headers: { Authorization: `Bearer ${ login.uat }` }
+    };
+    const res = await axios.get(BASE_URL + `/${projectCode}/teams`, config);
+    return res.data;
+  }
+
   async getAllBugs(code) {
     const login = this.authService.getLogin();
     const config = {
