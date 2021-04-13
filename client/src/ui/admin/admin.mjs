@@ -60,7 +60,6 @@ class AdminController {
   setPage(page) {
     const pageController = this.pages[page];
 
-    console.log(page);
     this.hideAllPages();
     pageController.resume();
   }
