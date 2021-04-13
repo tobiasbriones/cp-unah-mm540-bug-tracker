@@ -2,14 +2,16 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-import { BugRepository, SoftwareProjectRepository } from '../../repository.mjs';
 import 'bootstrap';
 import '../bootstrap/bootstrap.min.css';
 import '../default.css';
 import './qa.html';
 import './qa.css';
+import { BugRepository } from '../../repository.mjs';
+import { ProjectRepository } from '../../repository/project.repository.mjs';
+import { setSelected } from '../admin/table.mjs';
 
-const projectRepository = new SoftwareProjectRepository();
+const projectRepository = new ProjectRepository();
 const bugRepository = new BugRepository();
 let currentProject = null;
 
@@ -22,7 +24,14 @@ function init() {
 }
 
 function initProjectsSelect() {
-  const projects = projectRepository.getAll();
+  projectRepository.getAll().then(onLoad);
+}
+
+function onHeaderClick() {
+  window.location.href = './index.html';
+}
+
+function onLoad(projects) {
   const el = document.getElementById('projectSelect');
 
   projects.forEach(project => {
@@ -34,11 +43,7 @@ function initProjectsSelect() {
   });
 }
 
-function onHeaderClick() {
-  window.location.href = './index.html';
-}
-
-function onProjectSelectChange() {
+async function onProjectSelectChange() {
   const el = document.getElementById('projectSelect');
   const projectCode = parseInt(el.options[el.selectedIndex].value);
 
@@ -47,12 +52,12 @@ function onProjectSelectChange() {
     document.getElementById('assignedDevelopers').innerHTML = '';
   }
   else {
-    setProject(projectCode);
+    await setProject(projectCode);
   }
 }
 
-function setProject(projectCode) {
-  currentProject = projectRepository.get(projectCode);
+async function setProject(projectCode) {
+  currentProject = await projectRepository.get(projectCode);
   const bugs = bugRepository.getByProject(currentProject.code);
   const bodyEl = document.querySelector('#bugs table tbody');
   const devEl = document.getElementById('assignedDevelopers');
@@ -102,11 +107,5 @@ function setProject(projectCode) {
       liEl.innerText = dev.name;
       devEl.appendChild(liEl);
     });
-  }
-
-  function setSelected(rowEl) {
-    document.querySelectorAll('table tr.selected')
-            .forEach(rowEl => rowEl.classList.remove('selected'));
-    rowEl.classList.add('selected');
   }
 }
