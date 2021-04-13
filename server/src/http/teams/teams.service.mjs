@@ -7,6 +7,7 @@ import { TeamProjectModel } from './team-project.model.mjs';
 import { ProjectBugModel } from '../projects/project-bug.model.mjs';
 import { BugModel } from '../bugs/bug.model.mjs';
 import { ProjectModel } from '../projects/project.model.mjs';
+import { TeamBugModel } from './team-bug.model.mjs';
 
 export class TeamsService {
   constructor() {}
@@ -49,5 +50,20 @@ export class TeamsService {
       projects.push(project);
     }
     return projects;
+  }
+
+  async assignBug(teamCode, bugCode) {
+    await TeamBugModel.create({ teamCode: teamCode, bugCode: bugCode });
+  }
+
+  async readBugs(teamCode) {
+    const bugCodes = await TeamBugModel.find({ teamCode: teamCode });
+    const bugs = [];
+
+    for (const code of bugCodes) {
+      const bug = await BugModel.findOne({ code: code.bugCode });
+      bugs.push(bug);
+    }
+    return bugs;
   }
 }
