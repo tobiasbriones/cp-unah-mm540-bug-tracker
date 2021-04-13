@@ -28,6 +28,18 @@ export class ProjectsModule extends Module {
         res.status(500).send(e.message);
       }
     });
+    this.router.get('/:id', async (req, res) => {
+      try {
+        const code = req.params['id'];
+        const projectsService = new ProjectsServices();
+        const project = await projectsService.readProject(code);
+
+        res.json(project);
+      }
+      catch (e) {
+        res.status(500).send(e.message);
+      }
+    });
 
     this.router.get('/:projectId/bugs', qaGuard, async (req, res) => {
       try {
