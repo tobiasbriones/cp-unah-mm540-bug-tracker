@@ -28,7 +28,7 @@ export class TeamRepository {
     const config = {
       headers: { Authorization: `Bearer ${ login.uat }` }
     };
-    const res = await axios.get(BASE_URL + `/${teamCode}/projects`, config);
+    const res = await axios.get(BASE_URL + `/${ teamCode }/projects`, config);
     return res.data;
   }
 
@@ -37,7 +37,7 @@ export class TeamRepository {
     const config = {
       headers: { Authorization: `Bearer ${ login.uat }` }
     };
-    const res = await axios.get(BASE_URL + `/${teamCode}/bugs`, config);
+    const res = await axios.get(BASE_URL + `/${ teamCode }/bugs`, config);
     return res.data;
   }
 
@@ -75,5 +75,17 @@ export class TeamRepository {
     };
     const url = `${ ADMIN_BASE_URL }/${ id }`;
     await axios.delete(url, config);
+  }
+
+  async assignBug(teamCode, bugCode) {
+    const login = this.authService.getLogin();
+    const config = {
+      headers: { Authorization: `Bearer ${ login.uat }` }
+    };
+    const data = {
+      bugCode: bugCode
+    };
+    const res = await axios.post(BASE_URL + `/${ teamCode }/bugs`, data, config);
+    return res.data;
   }
 }

@@ -22,7 +22,7 @@ export class BugPageController {
 
     this.bugsEl.addEventListener('change', () => this.onBugSelectChange());
     document.getElementById('bugForm')
-            .addEventListener('submit', () => this.onAssignBugFormSubmit());
+            .addEventListener('submit', e => this.onAssignBugFormSubmit(e));
     document.getElementById('dismissModalBtn')
             .addEventListener('click', () => this.onDismissModal());
     await this.updateAssignBugsForm();
@@ -145,22 +145,20 @@ export class BugPageController {
 
     this.devTeamEl.innerHTML = '';
     defEl.selected = true;
-    defEl.innerText = 'Seleccionar desarrollador';
+    defEl.innerText = 'Seleccionar equipo';
     this.devTeamEl.appendChild(defEl);
 
     devs.forEach(dev => appendItem(dev));
   }
 
   async assignBug(bugCode, devCode) {
-    const bug = this.bugRepository.get(bugCode);
-    const dev = await this.devTeamRepository.get(devCode);
     const modalTextEl = document.getElementById('modalText');
+    const dev = await this.devTeamRepository.get(devCode);
 
-    bug.developers.push(dev);
-    this.bugRBugepository.set(bug);
-    modalTextEl.innerText = `Bug ${ bug.code } asignado a ${ dev.name }`;
+    await this.devTeamRepository.assignBug(devCode, bugCode);
+    modalTextEl.innerText = `Bug ${ bugCode } asignado a ${ dev.name }`;
     this.modal.show();
-    this.updateAssignBugsForm();
+    //await this.updateAssignBugsForm();
   }
 }
 
