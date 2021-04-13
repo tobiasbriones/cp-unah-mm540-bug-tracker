@@ -5,7 +5,7 @@
 import { TeamRepository } from '../../repository/team.repository.mjs';
 import { setSelected } from './table.mjs';
 
-export class DevTeamPageController {
+export class TeamPageController {
   constructor() {
     this.devTeamRepository = new TeamRepository();
   }

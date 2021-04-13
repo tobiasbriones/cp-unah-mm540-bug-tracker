@@ -10,7 +10,7 @@ import './admin.html';
 import './admin.css';
 import { BugPageController } from './bug-page.controller.js';
 import { UserPageController } from './user-page.controller.mjs';
-import { DevTeamPageController } from './dev-team-page.controller.js';
+import { TeamPageController } from './team-page.controller.js';
 import { ProjectPageController } from './project-page.controller.js';
 
 class AdminController {
@@ -18,7 +18,7 @@ class AdminController {
     this.pages = [
       new BugPageController(),
       new UserPageController(),
-      new DevTeamPageController(),
+      new TeamPageController(),
       new ProjectPageController()
     ];
   }
