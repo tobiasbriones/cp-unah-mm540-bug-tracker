@@ -4,13 +4,11 @@
 
 import { setSelected } from '../admin/table.mjs';
 import { ProjectRepository } from '../../repository/project.repository.mjs';
-import { BugRepository } from '../../repository.mjs';
 
 export class ProjectPageController {
   constructor() {
     this.pageEl = document.getElementById('projectsPage');
     this.projectRepository = new ProjectRepository();
-    this.bugRepository = new BugRepository();
   }
 
   init() {
@@ -63,7 +61,7 @@ export class ProjectPageController {
 
   async setProject(projectCode) {
     this.currentProject = await this.projectRepository.get(projectCode);
-    const bugs = this.bugRepository.getByProject(this.currentProject.code);
+    const bugs = await this.projectRepository.getAllBugs(this.currentProject.code);
     const bodyEl = document.querySelector('#bugs table tbody');
     const devEl = document.getElementById('assignedDevelopers');
     const addRow = bug => {
@@ -99,19 +97,16 @@ export class ProjectPageController {
 
     function onItemClick(e) {
       const rowEl = e.target.parentElement;
-      const bugCode = parseInt(rowEl.dataset.code);
-      const bug = bugRepository.get(bugCode);
-      const developers = bug.developers;
 
       setSelected(rowEl);
       devEl.innerHTML = '';
-      developers.forEach(dev => {
-        const liEl = document.createElement('li');
-
-        liEl.classList.add('list-group-item');
-        liEl.innerText = dev.name;
-        devEl.appendChild(liEl);
-      });
+      // developers.forEach(dev => {
+      //   const liEl = document.createElement('li');
+      //
+      //   liEl.classList.add('list-group-item');
+      //   liEl.innerText = dev.name;
+      //   devEl.appendChild(liEl);
+      // });
     }
   }
 }

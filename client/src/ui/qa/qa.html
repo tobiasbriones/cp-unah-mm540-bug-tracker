@@ -47,7 +47,75 @@
 
       <!-- ----------------------------------------  BUGS PAGE  ---------------------------------------- -->
       <div id="bugsPage" class="row">
-        bugs
+        <!-- ----------------------------------------  LIST OF BUGS  ----------------------------------------
+         -->
+
+        <div id="bugListContainer">
+          <p class="text-center font-weight-bold">
+            <strong>Bugs</strong>
+          </p>
+
+          <button id="addNewBugBtn" class="btn btn-primary" type="button">
+            Nuevo
+          </button>
+
+          <table class="table table-hover mt-4">
+            <thead>
+              <tr>
+                <th scope="col">Código</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Prioridad</th>
+                <th scope="col">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+
+          <!-- ------------------------------  CREATE FORM  ------------------------------ -->
+
+          <div id="bugCreateContainer" class="mt-5">
+            <p class="text-center font-weight-bold">
+              <strong>Crear nuevo bug</strong>
+            </p>
+            <form id="bugCreateForm">
+              <div class="form-group">
+                <label for="bugCreateIdInput">Código</label>
+                <input id="bugCreateIdInput"
+                       class="form-control"
+                       type="number"
+                       aria-describedby="userCreateIdHelp"
+                       placeholder="Ingresar id">
+                <small id="userCreateIdHelp" class="form-text text-muted">
+                  El código de bug debe ser un entero
+                  positivo único
+                </small>
+              </div>
+              <div class="form-group">
+                <label for="bugCreateDescriptionInput">Descripción</label>
+                <input id="bugCreateDescriptionInput" class="form-control" type="text" placeholder="Descripción">
+              </div>
+              <div class="form-group">
+                <label for="bugCreatePriorityInput">Prioridad</label>
+                <input id="bugCreatePriorityInput" class="form-control" type="number"
+                       min="1" max="5"
+                       placeholder="Prioridad">
+              </div>
+              <div class="form-group">
+                <select id="bugCreateStateInput"
+                        class="form-select form-select mb-3"
+                        aria-label=".form-select-lg example"
+                        disabled>
+                  <option value="New" selected>Nuevo</option>
+                </select>
+              </div>
+              <button class="btn btn-primary w-100" type="submit">Registrar</button>
+
+              <div id="bugCreateError" class="text-danger my-4"></div>
+            </form>
+          </div>
+        </div>
+
       </div>
 
       <!-- ----------------------------------------  PROJECTS PAGE  ---------------------------------------- -->

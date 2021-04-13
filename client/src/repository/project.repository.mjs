@@ -15,7 +15,20 @@ export class ProjectRepository {
   }
 
   async getAll() {
-    const res = await axios.get(BASE_URL);
+    const login = this.authService.getLogin();
+    const config = {
+      headers: { Authorization: `Bearer ${ login.uat }` }
+    };
+    const res = await axios.get(BASE_URL, config);
+    return res.data;
+  }
+
+  async getAllBugs(code) {
+    const login = this.authService.getLogin();
+    const config = {
+      headers: { Authorization: `Bearer ${ login.uat }` }
+    };
+    const res = await axios.get(BASE_URL + `/${ code }/bugs`, config);
     return res.data;
   }
 
@@ -53,5 +66,17 @@ export class ProjectRepository {
     };
     const url = `${ ADMIN_BASE_URL }/${ id }`;
     await axios.delete(url, config);
+  }
+
+  async assignBug(projectCode, bugCode) {
+    const login = this.authService.getLogin();
+    const config = {
+      headers: { Authorization: `Bearer ${ login.uat }` }
+    };
+    const data = {
+      bugCode: bugCode
+    };
+    const res = await axios.post(BASE_URL + `/${ projectCode }/bugs`, data, config);
+    return res.data;
   }
 }
