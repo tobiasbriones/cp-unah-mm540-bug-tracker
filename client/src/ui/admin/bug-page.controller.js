@@ -2,9 +2,9 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-import { BugRepository } from '../../repository.mjs';
 import { Modal } from 'bootstrap';
 import { TeamRepository } from '../../repository/team.repository.mjs';
+import { BugRepository } from '../../repository/bug.repository.mjs';
 
 export class BugPageController {
   constructor() {
@@ -12,18 +12,20 @@ export class BugPageController {
     this.devTeamRepository = new TeamRepository();
   }
 
-  init() {
+  async init() {
     this.pageEl = document.getElementById('bugsPage');
     this.bugsEl = document.getElementById('bugsSelect');
     this.devTeamEl = document.getElementById('devsSelect');
     this.modal = new Modal(document.getElementById('modal'));
 
-    this.setupChart();
+    await this.setupChart();
 
-    this.bugsEl.addEventListener('change', () =>this.onBugSelectChange());
-    document.getElementById('bugForm').addEventListener('submit', () =>this.onAssignBugFormSubmit());
-    document.getElementById('dismissModalBtn').addEventListener('click', () => this.onDismissModal());
-    this.updateAssignBugsForm();
+    this.bugsEl.addEventListener('change', () => this.onBugSelectChange());
+    document.getElementById('bugForm')
+            .addEventListener('submit', () => this.onAssignBugFormSubmit());
+    document.getElementById('dismissModalBtn')
+            .addEventListener('click', () => this.onDismissModal());
+    await this.updateAssignBugsForm();
   }
 
   resume() {
@@ -38,8 +40,8 @@ export class BugPageController {
     this.pageEl.classList.add('gone');
   }
 
-  setupChart() {
-    const statistics = this.bugRepository.getStatistics();
+  async setupChart() {
+    const statistics = await this.bugRepository.getStatistics();
     const datasets = this.getDatasets(statistics);
     const ctx = document.getElementById('chart').getContext('2d');
     const chart = new Chart(ctx, {
@@ -67,9 +69,9 @@ export class BugPageController {
       {
         label: '#',
         data: [
-          statistics.newBugs,
-          statistics.assignedBugs,
-          statistics.finishedBugs
+          statistics.new,
+          statistics.assigned,
+          statistics.finished
         ],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -86,21 +88,21 @@ export class BugPageController {
     ];
   }
 
-  onBugSelectChange() {
+  async onBugSelectChange() {
     const bugCode = parseInt(this.bugsEl.options[this.bugsEl.selectedIndex].value);
 
     if (!isNaN(bugCode)) {
-      this.updateDevSelect(bugCode);
+      await this.updateDevSelect(bugCode);
     }
   }
 
-  onAssignBugFormSubmit(e) {
+  async onAssignBugFormSubmit(e) {
     e.preventDefault();
     const bugCode = parseInt(this.bugsEl.options[this.bugsEl.selectedIndex].value);
     const devCode = parseInt(this.devTeamEl.options[this.devTeamEl.selectedIndex].value);
 
     if (!isNaN(bugCode) && !isNaN(devCode)) {
-      this.assignBug(bugCode, devCode);
+      await this.assignBug(bugCode, devCode);
     }
   }
 
@@ -108,14 +110,14 @@ export class BugPageController {
     this.modal.hide();
   }
 
-  updateAssignBugsForm() {
-    this.updateBugSelect();
-    this.updateDevSelect();
+  async updateAssignBugsForm() {
+    await this.updateBugSelect();
+    await this.updateDevSelect();
   }
 
-  updateBugSelect() {
+  async updateBugSelect() {
     const defEl = document.createElement('option');
-    const bugs = this.bugRepository.getAll();
+    const bugs = await this.bugRepository.getAll();
 
     this.bugsEl.innerHTML = '';
     defEl.selected = true;
@@ -131,7 +133,7 @@ export class BugPageController {
     });
   }
 
-  updateDevSelect(bugCode) {
+  async updateDevSelect(bugCode) {
     const defEl = document.createElement('option');
     const appendItem = dev => {
       const el = document.createElement('option');
@@ -139,19 +141,14 @@ export class BugPageController {
       el.innerText = dev.name;
       this.devTeamEl.appendChild(el);
     };
-    const devs = this.devTeamRepository.getAll();
+    const devs = await this.devTeamRepository.getAll();
 
     this.devTeamEl.innerHTML = '';
     defEl.selected = true;
     defEl.innerText = 'Seleccionar desarrollador';
     this.devTeamEl.appendChild(defEl);
 
-    if (bugCode) {
-      const bug = this.bugRepository.get(bugCode);
-
-      devs.filter(dev => !bug.developers.find(bugDev => bugDev.code === dev.code))
-          .forEach(dev => appendItem(dev));
-    }
+    devs.forEach(dev => appendItem(dev));
   }
 
   async assignBug(bugCode, devCode) {
@@ -160,7 +157,7 @@ export class BugPageController {
     const modalTextEl = document.getElementById('modalText');
 
     bug.developers.push(dev);
-    this.bugRepository.set(bug);
+    this.bugRBugepository.set(bug);
     modalTextEl.innerText = `Bug ${ bug.code } asignado a ${ dev.name }`;
     this.modal.show();
     this.updateAssignBugsForm();

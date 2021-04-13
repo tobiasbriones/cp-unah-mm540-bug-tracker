@@ -22,6 +22,15 @@ export class BugRepository {
     return res.data;
   }
 
+  async getStatistics() {
+    const login = this.authService.getLogin();
+    const config = {
+      headers: { Authorization: `Bearer ${ login.uat }` }
+    };
+    const res = await axios.get(API_BASE_URL + '/admin/stats/bugs', config);
+    return res.data;
+  }
+
   async add(bug) {
     const login = this.authService.getLogin();
     const config = {
