@@ -9,7 +9,7 @@ import { setSelected } from './table.mjs';
 export class ProjectPageController {
   constructor() {
     this.projectRepository = new ProjectRepository();
-    this.devTeamRepository = new TeamRepository();
+    this.teamRepository = new TeamRepository();
   }
 
   get projectForCreate() {
@@ -88,8 +88,8 @@ export class ProjectPageController {
       thEl.innerText = project.code;
 
       nameEl.innerText = project.name;
-      startDateEl.innerText = project.startDate;
-      endDateEl.innerText = project.endDate;
+      startDateEl.innerText = toDate(project.startDate);
+      endDateEl.innerText = toDate(project.endDate);
 
       rowEl.dataset.code = project.code;
       rowEl.appendChild(thEl);
@@ -101,10 +101,10 @@ export class ProjectPageController {
       rowEl.addEventListener('click', onItemClick);
     });
 
-    function onItemClick(e) {
+    async function onItemClick(e) {
       const rowEl = e.target.parentElement;
       const projectCode = parseInt(rowEl.dataset.code);
-      const project = ctx.devTeamRepository.get(projectCode);
+      const project = await ctx.projectRepository.get(projectCode);
 
       setSelected(rowEl);
       ctx.onUpdateProject(project);
@@ -121,7 +121,8 @@ export class ProjectPageController {
       await this.resume();
     }
     catch (e) {
-      alert(e);
+      const msg = e.response.data ? e.response.data : e;
+      document.getElementById('projectCreateError').innerText = msg;
     }
   }
 
@@ -130,12 +131,13 @@ export class ProjectPageController {
     const project = this.projectForUpdate;
 
     try {
-      await this.projectRepository.add(project);
+      await this.projectRepository.set(project);
 
       await this.resume();
     }
     catch (e) {
-      alert(e);
+      const msg = e.response.data ? e.response.data : e;
+      document.getElementById('projectUpdateError').innerText = msg;
     }
   }
 
@@ -148,7 +150,8 @@ export class ProjectPageController {
       await this.resume();
     }
     catch (e) {
-      alert(e);
+      const msg = e.response.data ? e.response.data : e;
+      document.getElementById('projectUpdateError').innerText = msg;
     }
   }
 
@@ -160,8 +163,8 @@ export class ProjectPageController {
     updateEl.classList.remove('gone');
     document.getElementById('projectUpdateCodeInput').value = project.code;
     document.getElementById('projectUpdateNameInput').value = project.name;
-    document.getElementById('projectUpdateStartDateInput').value = project.startDate;
-    document.getElementById('projectUpdateEndDateInput').value = project.endDate;
+    document.getElementById('projectUpdateStartDateInput').value = toDate(project.startDate);
+    document.getElementById('projectUpdateEndDateInput').value = toDate(project.endDate);
   }
 
   onAddNewProjectButtonClick() {
@@ -170,9 +173,28 @@ export class ProjectPageController {
   }
 
   reset() {
+    document.getElementById('projectCreateCodeInput').value = '';
+    document.getElementById('projectCreateNameInput').value = '';
+    document.getElementById('projectCreateStartDateInput').value = '';
+    document.getElementById('projectCreateEndDateInput').value = '';
+    document.getElementById('projectCreateError').value = '';
+
     document.getElementById('projectUpdateCodeInput').value = '';
     document.getElementById('projectUpdateNameInput').value = '';
     document.getElementById('projectUpdateStartDateInput').value = '';
     document.getElementById('projectUpdateEndDateInput').value = '';
+    document.getElementById('projectUpdateError').value = '';
   }
+}
+
+function toDate(str) {
+  const date = new Date(str);
+  return getFormattedDate(date);
+}
+
+function getFormattedDate(date) {
+  const year = date.getFullYear();
+  const month = (1 + date.getMonth()).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  return year + '-' + month + '-' + day;
 }
