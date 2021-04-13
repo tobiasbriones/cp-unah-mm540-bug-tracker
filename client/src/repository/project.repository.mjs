@@ -6,7 +6,8 @@ import axios from 'axios';
 import { API_BASE_URL } from '../app.config.mjs';
 import { AuthService } from '../ui/auth/auth.service.mjs';
 
-const BASE_URL = API_BASE_URL + '/admin/projects';
+const BASE_URL = API_BASE_URL + '/projects';
+const ADMIN_BASE_URL = API_BASE_URL + '/admin/projects';
 
 export class ProjectRepository {
   constructor() {
@@ -14,11 +15,7 @@ export class ProjectRepository {
   }
 
   async getAll() {
-    const login = this.authService.getLogin();
-    const config = {
-      headers: { Authorization: `Bearer ${ login.uat }` }
-    };
-    const res = await axios.get(BASE_URL, config);
+    const res = await axios.get(BASE_URL);
     return res.data;
   }
 
@@ -27,7 +24,7 @@ export class ProjectRepository {
     const config = {
       headers: { Authorization: `Bearer ${ login.uat }` }
     };
-    const url = `${ BASE_URL }/${ id }`;
+    const url = `${ ADMIN_BASE_URL }/${ id }`;
     const res = await axios.get(url, config);
     return res.data;
   }
@@ -37,7 +34,7 @@ export class ProjectRepository {
     const config = {
       headers: { Authorization: `Bearer ${ login.uat }` }
     };
-    await axios.post(BASE_URL, project, config);
+    await axios.post(ADMIN_BASE_URL, project, config);
   }
 
   async set(project) {
@@ -45,7 +42,7 @@ export class ProjectRepository {
     const config = {
       headers: { Authorization: `Bearer ${ login.uat }` }
     };
-    const url = `${ BASE_URL }/${ project.code }`;
+    const url = `${ ADMIN_BASE_URL }/${ project.code }`;
     await axios.put(url, project, config);
   }
 
@@ -54,7 +51,7 @@ export class ProjectRepository {
     const config = {
       headers: { Authorization: `Bearer ${ login.uat }` }
     };
-    const url = `${ BASE_URL }/${ id }`;
+    const url = `${ ADMIN_BASE_URL }/${ id }`;
     await axios.delete(url, config);
   }
 }

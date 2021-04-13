@@ -15,52 +15,86 @@
   <body>
 
     <header class="shadow p-3 mb-5 mb-5 rounded">
-      <h1>QA</h1>
       <h2>Bug Tracker</h2>
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">QA</a>
+          <button class="navbar-toggler"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div id="navbarSupportedContent" class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li id="actionProjects" class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Proyectos</a>
+              </li>
+              <li id="actionBugs" class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Bugs</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     </header>
 
     <div id="container" class="container p-sm-5">
-      <div class="row">
-        <div class="col align-self-center">
-          <form id="projectForm" class="row g-3 my-4 mx-4 my-xl-0">
+
+      <!-- ----------------------------------------  BUGS PAGE  ---------------------------------------- -->
+      <div id="bugsPage" class="row">
+        bugs
+      </div>
+
+      <!-- ----------------------------------------  PROJECTS PAGE  ---------------------------------------- -->
+      <div id="projectsPage">
+        <div class="row">
+          <div class="col align-self-center">
+            <form id="projectForm" class="row g-3 my-4 mx-4 my-xl-0">
+              <p class="text-center font-weight-bold">
+                <strong>Proyecto:</strong>
+              </p>
+              <div>
+                <select id="projectSelect" class="form-select form-select-lg mb-3" aria-label="Select project">
+                  <option selected>Seleccionar proyecto</option>
+                </select>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div id="bugs" class="row">
+          <div class="col-0 col-xl-8">
             <p class="text-center font-weight-bold">
-              <strong>Proyecto:</strong>
+              <strong>Bugs</strong>
             </p>
-            <div>
-              <select id="projectSelect" class="form-select form-select-lg mb-3" aria-label="Select project">
-                <option selected>Seleccionar proyecto</option>
-              </select>
-            </div>
-          </form>
+            <table class="table table-hover mt-4">
+              <thead>
+                <tr>
+                  <th scope="col">Código</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Prioridad</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Fecha de Terminado</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-0 col-xl-4 mt-5 mt-xl-0 align-self-center">
+            <p class="text-center font-weight-bold">
+              <strong>Desarrolladores asignados</strong>
+            </p>
+            <ul id="assignedDevelopers" class="list-group">
+            </ul>
+          </div>
         </div>
       </div>
-      <div id="bugs" class="row">
-        <div class="col-0 col-xl-8">
-          <p class="text-center font-weight-bold">
-            <strong>Bugs</strong>
-          </p>
-          <table class="table table-hover mt-4">
-            <thead>
-              <tr>
-                <th scope="col">Código</th>
-                <th scope="col">Descripción</th>
-                <th scope="col">Prioridad</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Fecha de Terminado</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-        </div>
-        <div class="col-0 col-xl-4 mt-5 mt-xl-0 align-self-center">
-          <p class="text-center font-weight-bold">
-            <strong>Desarrolladores asignados</strong>
-          </p>
-          <ul id="assignedDevelopers" class="list-group">
-          </ul>
-        </div>
-      </div>
+
     </div>
 
   </body>
