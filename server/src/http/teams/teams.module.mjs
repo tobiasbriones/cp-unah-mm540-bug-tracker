@@ -54,5 +54,18 @@ export class TeamsModule extends Module {
         res.status(500).send(e.message);
       }
     });
+
+    this.router.get('/:teamId/projects', async (req, res) => {
+      try {
+        const teamCode = req.params['teamId'];
+        const service = new TeamsService();
+        const projects = await service.readProjects(teamCode);
+
+        res.send(projects);
+      }
+      catch (e) {
+        res.status(500).send(e.message);
+      }
+    });
   }
 }
