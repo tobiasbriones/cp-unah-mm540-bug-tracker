@@ -46,7 +46,7 @@ export class ProjectRepository {
     const config = {
       headers: { Authorization: `Bearer ${ login.uat }` }
     };
-    const url = `${ ADMIN_BASE_URL }/${ id }`;
+    const url = `${ BASE_URL }/${ id }`;
     const res = await axios.get(url, config);
     return res.data;
   }

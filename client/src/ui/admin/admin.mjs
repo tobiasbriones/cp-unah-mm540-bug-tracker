@@ -12,6 +12,7 @@ import { BugPageController } from './bug-page.controller.js';
 import { UserPageController } from './user-page.controller.mjs';
 import { TeamPageController } from './team-page.controller.js';
 import { ProjectPageController } from './project-page.controller.js';
+import { AuthService } from '../auth/auth.service.mjs';
 
 class AdminController {
   constructor() {
@@ -71,4 +72,14 @@ class AdminController {
 
 const controller = new AdminController();
 
+check();
 controller.init();
+
+function check() {
+  const authService = new AuthService();
+  const login = authService.getLogin();
+
+  if (!login || login.role !== 'admin') {
+    window.location.href = '/';
+  }
+}

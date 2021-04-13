@@ -9,6 +9,7 @@ import './qa.html';
 import './qa.css';
 import { ProjectPageController } from './project-page.controller.mjs';
 import { BugPageController } from './bug-page.controller.mjs';
+import { AuthService } from '../auth/auth.service.mjs';
 
 class QaController {
   constructor() {
@@ -54,4 +55,14 @@ class QaController {
 
 const controller = new QaController();
 
+check();
 controller.init();
+
+function check() {
+  const authService = new AuthService();
+  const login = authService.getLogin();
+
+  if (!login || (login.role !== 'admin' && login.role !== 'qa')) {
+    window.location.href = '/';
+  }
+}

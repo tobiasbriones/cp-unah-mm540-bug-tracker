@@ -2,17 +2,19 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-import { BugRepository, DevTeamRepository, SoftwareProjectRepository } from '../../repository.mjs';
 import 'bootstrap';
 import '../bootstrap/bootstrap.min.css';
 import './developer.html';
 import '../default.css';
 import '../admin/admin.css';
+import { TeamRepository } from '../../repository/team.repository.mjs';
+import { ProjectRepository } from '../../repository/project.repository.mjs';
+import { BugRepository } from '../../repository/bug.repository.mjs';
+import { AuthService } from '../auth/auth.service.mjs';
 
-const devRepository = new DevTeamRepository();
-const projectRepository = new SoftwareProjectRepository();
+const devRepository = new TeamRepository();
+const projectRepository = new ProjectRepository();
 const bugRepository = new BugRepository();
-const devs = devRepository.getAll();
 let currentDev = null;
 
 init();
@@ -20,19 +22,38 @@ init();
 function init() {
   document.querySelector('header > h2').addEventListener('click', onHeaderClick);
   document.getElementById('devSelect').addEventListener('change', onDevSelectChange);
+
+  check();
+  initTeam();
   initDeveloperSelect();
+}
+
+function check() {
+  const authService = new AuthService();
+  const login = authService.getLogin();
+
+  if (!login || login.role !== 'dev') {
+    window.location.href = '/';
+  }
+}
+
+function initTeam() {
+
 }
 
 function initDeveloperSelect() {
   const el = document.getElementById('devSelect');
+  devRepository.getAll().then(
+    team => {
+      team.forEach(dev => {
+        const opEl = document.createElement('option');
 
-  devs.forEach(dev => {
-    const opEl = document.createElement('option');
-
-    opEl.setAttribute('value', dev.code);
-    opEl.innerText = dev.name;
-    el.appendChild(opEl);
-  });
+        opEl.setAttribute('value', dev.code);
+        opEl.innerText = dev.name;
+        el.appendChild(opEl);
+      });
+    }
+  );
 }
 
 function onHeaderClick() {
