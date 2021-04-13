@@ -55,5 +55,18 @@ export class ProjectsModule extends Module {
         res.status(500).send(e.message);
       }
     });
+
+    this.router.get('/:projectId/teams', qaGuard, async (req, res) => {
+      try {
+        const projectId = req.params['projectId'];
+        const projectsService = new ProjectsServices();
+        const teams = await projectsService.readTeams(projectId);
+
+        res.json(teams);
+      }
+      catch (e) {
+        res.status(500).send(e.message);
+      }
+    });
   }
 }
