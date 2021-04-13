@@ -22,7 +22,19 @@ export class BugsModule extends Module {
   }
 
   init() {
-    this.router.post('/', qaGuard, (req, res) => this.#controller.create(req, res));
+    this.router.post('/', qaGuard, validateBug, (req, res) => this.#controller.create(req, res));
     this.router.get('/', (req, res) => this.#controller.readAll(req, res));
   }
+}
+
+function validateBug(req, res, next) {
+  const bug = req.body;
+
+  if (!bug) {
+    return res.status(400).send('Fill all the fields');
+  }
+  if (!bug.code || !bug.description || !bug.priority || !bug.state) {
+    return res.status(400).send('Fill all the fields');
+  }
+  next();
 }
