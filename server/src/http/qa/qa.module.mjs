@@ -4,9 +4,14 @@
 
 import { Module } from '../module.mjs';
 import { QaController } from './qa.controller.mjs';
+import { jwtGuard, qaGuard } from '../auth/auth.middleware.mjs';
 
 const ROUTER_CONFIG = Object.freeze({
-  path: '/qa'
+  path: '/qa',
+  middlewares: [
+    jwtGuard,
+    qaGuard
+  ]
 });
 
 export class QaModule extends Module {

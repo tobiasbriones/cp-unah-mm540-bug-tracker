@@ -66,3 +66,17 @@ export async function adminGuard(req, res, next) {
   }
   next();
 }
+
+export async function qaGuard(req, res, next) {
+  if (!req.user || !req.user._id) {
+    res.status(401).send('Unauthorized');
+    return;
+  }
+  const user = await UserModel.findById(req.user._id);
+
+  if (!user || user.role !== 'qa') {
+    res.status(401).send('Unauthorized');
+    return;
+  }
+  next();
+}
