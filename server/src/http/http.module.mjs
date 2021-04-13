@@ -5,6 +5,7 @@
 import { BugsModule } from './bugs/bugs.module.mjs';
 import { AdminModule } from './admin/admin.module.mjs';
 import { AuthModule } from './auth/auth.module.mjs';
+import { QaModule } from './qa/qa.module.mjs';
 
 const PATH = '';
 
@@ -15,7 +16,8 @@ export class HttpModule {
     this.#modules = [
       new AdminModule(),
       new AuthModule(),
-      new BugsModule()
+      new BugsModule(),
+      new QaModule()
     ];
   }
 
