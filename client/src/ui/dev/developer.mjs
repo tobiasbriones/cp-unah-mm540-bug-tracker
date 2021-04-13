@@ -12,10 +12,10 @@ import { ProjectRepository } from '../../repository/project.repository.mjs';
 import { BugRepository } from '../../repository/bug.repository.mjs';
 import { AuthService } from '../auth/auth.service.mjs';
 
-const devRepository = new TeamRepository();
+const teamRepository = new TeamRepository();
 const projectRepository = new ProjectRepository();
 const bugRepository = new BugRepository();
-let currentDev = null;
+let currentTeam = null;
 
 init();
 
@@ -24,7 +24,6 @@ function init() {
   document.getElementById('devSelect').addEventListener('change', onDevSelectChange);
 
   check();
-  initTeam();
   initDeveloperSelect();
 }
 
@@ -37,13 +36,13 @@ function check() {
   }
 }
 
-function initTeam() {
-
+function onHeaderClick() {
+  window.location.href = './index.html';
 }
 
 function initDeveloperSelect() {
   const el = document.getElementById('devSelect');
-  devRepository.getAll().then(
+  teamRepository.getAll().then(
     team => {
       team.forEach(dev => {
         const opEl = document.createElement('option');
@@ -56,11 +55,7 @@ function initDeveloperSelect() {
   );
 }
 
-function onHeaderClick() {
-  window.location.href = './index.html';
-}
-
-function onDevSelectChange() {
+async function onDevSelectChange() {
   const el = document.getElementById('devSelect');
   const devCode = parseInt(el.options[el.selectedIndex].value);
 
@@ -68,22 +63,22 @@ function onDevSelectChange() {
     setEmptyPage();
   }
   else {
-    setDevPage(devCode);
+    await setTeamPage(devCode);
   }
 }
 
-function setDevPage(devCode) {
-  currentDev = devRepository.get(devCode);
+async function setTeamPage(teamCode) {
+  currentTeam = await teamRepository.get(teamCode);
   const emptyEl = document.getElementById('empty');
   const panelEl = document.getElementById('panel');
-  const projects = projectRepository.getByDeveloper(devCode);
+  const projects = await teamRepository.getAllProjects(teamCode);
 
   emptyEl.classList.remove('visible');
   emptyEl.classList.add('invisible');
   panelEl.classList.remove('invisible');
   panelEl.classList.add('visible');
   setProjects(projects);
-  setBugs();
+  setBugs(teamCode);
 }
 
 function setProjects(projects) {
@@ -113,9 +108,9 @@ function setProjects(projects) {
   projects.forEach(p => addRow(p));
 }
 
-function setBugs() {
+async function setBugs(teamCode) {
   const bugsEl = document.querySelector('#bugList');
-  const bugs = bugRepository.getByDeveloper(currentDev.code);
+  const bugs = await teamRepository.getAllBugs(teamCode);
   const addRow = bug => {
     const text = `#${ bug.code } - ${ bug.description }`;
     const labelEl = document.createElement('label');
