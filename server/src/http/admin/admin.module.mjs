@@ -6,6 +6,8 @@ import { AdminController } from './admin.controller.mjs';
 import { adminGuard, jwtGuard, signUp } from '../auth/auth.middleware.mjs';
 import { Module } from '../module.mjs';
 import { UsersService } from '../users/users.service.mjs';
+import { teamValidate } from '../teams/teams.middleware.mjs';
+import { projectValidate } from '../projects/projects.middleware.mjs';
 
 const ROUTER_CONFIG = Object.freeze({
   path: '/admin',
@@ -30,13 +32,13 @@ export class AdminModule extends Module {
 
     this.router.get('/stats/bugs', (req, res) => controller.readAllBugStats(req, res));
 
-    this.router.post('/teams', (req, res) => controller.createDevTeam(req, res));
+    this.router.post('/teams', teamValidate, (req, res) => controller.createDevTeam(req, res));
     this.router.get('/teams', (req, res) => controller.readAllDevTeams(req, res));
     this.router.get('/teams/:devTeamId', (req, res) => controller.readDevTeam(req, res));
     this.router.put('/teams/:devTeamId', (req, res) => controller.updateDevTeam(req, res));
     this.router.delete('/teams/:devTeamId', (req, res) => controller.deleteDevTeam(req, res));
 
-    this.router.post('/projects', (req, res) => controller.createProject(req, res));
+    this.router.post('/projects', projectValidate, (req, res) => controller.createProject(req, res));
     this.router.get('/projects', (req, res) => controller.readAllProjects(req, res));
     this.router.get('/projects/:projectId', (req, res) => controller.readProject(req, res));
     this.router.put('/projects/:projectId', (req, res) => controller.updateProject(req, res));
