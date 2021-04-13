@@ -6,6 +6,7 @@ import { ProjectModel } from './project.model.mjs';
 import { ProjectBugModel } from './project-bug.model.mjs';
 import { BugModel } from '../bugs/bug.model.mjs';
 import { TeamProjectModel } from '../teams/team-project.model.mjs';
+import { TeamModel } from '../teams/team.model.mjs';
 
 export class ProjectsServices {
   constructor() {
@@ -56,7 +57,7 @@ export class ProjectsServices {
     const teams = [];
 
     for (const code of teamCodes) {
-      const team = await ProjectModel.findOne({ code: code.teamCode });
+      const team = await TeamModel.findOne({ code: code.teamCode });
       teams.push(team);
     }
     return teams;
