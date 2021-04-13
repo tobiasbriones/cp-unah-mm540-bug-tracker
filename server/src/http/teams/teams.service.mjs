@@ -4,6 +4,9 @@
 
 import { TeamModel } from './team.model.mjs';
 import { TeamProjectModel } from './team-project.model.mjs';
+import { ProjectBugModel } from '../projects/project-bug.model.mjs';
+import { BugModel } from '../bugs/bug.model.mjs';
+import { ProjectModel } from '../projects/project.model.mjs';
 
 export class TeamsService {
   constructor() {}
@@ -38,6 +41,13 @@ export class TeamsService {
   }
 
   async readProjects(teamCode) {
-    return TeamProjectModel.find({ teamCode: teamCode });
+    const projectCodes = await TeamProjectModel.find({ teamCode: teamCode });
+    const projects = [];
+
+    for (const code of projectCodes) {
+      const project = await ProjectModel.findOne({ code: code.projectCode });
+      projects.push(project);
+    }
+    return projects;
   }
 }

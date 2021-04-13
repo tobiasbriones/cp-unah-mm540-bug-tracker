@@ -7,6 +7,7 @@ import { AdminModule } from './admin/admin.module.mjs';
 import { AuthModule } from './auth/auth.module.mjs';
 import { QaModule } from './qa/qa.module.mjs';
 import { ProjectsModule } from './projects/projects.module.mjs';
+import { TeamsModule } from './teams/teams.module.mjs';
 
 const PATH = '';
 
@@ -19,7 +20,8 @@ export class HttpModule {
       new AuthModule(),
       new BugsModule(),
       new QaModule(),
-      new ProjectsModule()
+      new ProjectsModule(),
+      new TeamsModule()
     ];
   }
 
