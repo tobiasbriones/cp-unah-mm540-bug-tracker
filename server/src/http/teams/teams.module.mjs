@@ -17,6 +17,30 @@ export class TeamsModule extends Module {
   }
 
   init() {
+    this.router.get('/', async (req, res) => {
+      try {
+        const devTeamService = new TeamsService();
+        const devTeams = await devTeamService.readAllDevTeams();
+
+        res.json(devTeams);
+      }
+      catch (err) {
+        res.status(400).send(err.message);
+      }
+    });
+    this.router.get('/:devTeamId', async (req, res) => {
+      try {
+        const id = req.params['devTeamId'];
+        const devTeamService = new TeamsService();
+        const devTeam = await devTeamService.readDevTeam(id);
+
+        res.json(devTeam);
+      }
+      catch (err) {
+        res.status(400).send(err.message);
+      }
+    });
+
     this.router.post('/:teamId/projects', qaGuard, async (req, res) => {
       try {
         const teamCode = req.params['teamId'];
