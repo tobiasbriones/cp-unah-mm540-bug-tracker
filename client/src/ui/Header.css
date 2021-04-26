@@ -1,0 +1,15 @@
+/*
+ * Copyright (c) 2021 Tobias Briones. All rights reserved.
+ */
+
+.nav-item {
+  background: aliceblue;
+  border-radius: 8px;
+}
+
+@media(min-width: 960px) {
+  .collapse {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
