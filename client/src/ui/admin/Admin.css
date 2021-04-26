@@ -1,0 +1,15 @@
+/*
+ * Copyright (c) 2021 Tobias Briones. All rights reserved.
+ */
+
+.admin-nav {
+  transform: translateY(-48px);
+}
+
+table tr {
+  cursor: pointer;
+}
+
+table tr.selected {
+  background-color: #B3E5FC;
+}

@@ -8,6 +8,7 @@ import Header from './Header';
 import Home from './Home';
 import Login from './login/Login';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Admin from './admin/Admin';
 
 class App extends React.Component {
   render() {
@@ -18,6 +19,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={ Home } />
           <Route path="/login" component={ Login } />
+          <Route path="/admin" component={ Admin } />
         </Switch>
       </Router>
     );
