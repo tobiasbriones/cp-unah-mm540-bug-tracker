@@ -20,35 +20,37 @@ class Admin extends React.Component {
 
   render() {
     return (
-      <div className="shadow p-3 mb-5 admin-nav">
-        <nav className="navbar navbar-light">
-          <form className="form-inline mx-auto">
-            <button
-              className="btn btn-outline-success bg-primary text-white m-2"
-              type="button"
-              onClick={ this.onUsersActionClick.bind(this) }>
-              Usuarios
-            </button>
-            <button
-              className="btn btn-outline-success bg-primary text-white m-2"
-              type="button"
-              onClick={ this.onBugsActionClick.bind(this) }>
-              Bugs
-            </button>
-            <button
-              className="btn btn-outline-success bg-primary text-white m-2"
-              type="button"
-              onClick={ this.onDevsActionClick.bind(this) }>
-              Desarrolladores
-            </button>
-            <button
-              className="btn btn-outline-success bg-primary text-white m-2"
-              type="button"
-              onClick={ this.onProjectsActionClick.bind(this) }>
-              Proyectos de Software
-            </button>
-          </form>
-        </nav>
+      <div>
+        <div className="shadow p-2 mb-2 admin-nav">
+          <nav className="navbar navbar-light admin-nav">
+            <form className="form-inline mx-auto">
+              <button
+                className="btn btn-outline-success bg-primary text-white m-2"
+                type="button"
+                onClick={ this.onUsersActionClick.bind(this) }>
+                Usuarios
+              </button>
+              <button
+                className="btn btn-outline-success bg-primary text-white m-2"
+                type="button"
+                onClick={ this.onBugsActionClick.bind(this) }>
+                Bugs
+              </button>
+              <button
+                className="btn btn-outline-success bg-primary text-white m-2"
+                type="button"
+                onClick={ this.onDevsActionClick.bind(this) }>
+                Desarrolladores
+              </button>
+              <button
+                className="btn btn-outline-success bg-primary text-white m-2"
+                type="button"
+                onClick={ this.onProjectsActionClick.bind(this) }>
+                Proyectos de Software
+              </button>
+            </form>
+          </nav>
+        </div>
 
         <Users ref={ users => {
           this.users = users;

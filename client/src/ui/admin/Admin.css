@@ -2,14 +2,30 @@
  * Copyright (c) 2021 Tobias Briones. All rights reserved.
  */
 
-.admin-nav {
-  transform: translateY(-48px);
-}
-
 table tr {
   cursor: pointer;
 }
 
 table tr.selected {
   background-color: #B3E5FC;
+}
+
+.page {
+  min-height: 75vh;
+  padding: 33px 16px;
+  margin: 32px;
+  background-color: #FAFAFA;
+}
+
+form {
+  background-color: #FAFAFA;
+  border-radius: 8px;
+}
+
+form .form-group {
+  margin: 16px 0;
+}
+
+form button[type=submit] {
+  width: 100%;
 }
