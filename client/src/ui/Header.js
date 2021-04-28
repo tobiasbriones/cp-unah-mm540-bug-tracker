@@ -19,8 +19,7 @@ class Header extends React.Component {
 
   render() {
     return (
-      <header className="shadow p-5 mb-5 mb-5 rounded">
-
+      <header className="shadow p-5 mb-2 rounded">
         <Navbar className="nav" expand="lg">
           <Navbar.Brand className="text-white">Bug Tracker</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
