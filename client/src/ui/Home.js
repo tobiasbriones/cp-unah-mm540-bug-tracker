@@ -4,7 +4,7 @@
 
 import './Home.css';
 import React from 'react';
-import { AuthService } from './login/auth.service.mjs';
+import { AuthService } from '../model/auth/auth.service.mjs';
 
 class Home extends React.Component {
   constructor(props) {

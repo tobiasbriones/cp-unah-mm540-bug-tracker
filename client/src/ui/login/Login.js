@@ -4,7 +4,7 @@
 
 import './Login.css';
 import React from 'react';
-import { AuthService } from './auth.service.mjs';
+import { AuthService } from '../../model/auth/auth.service.mjs';
 
 class Login extends React.Component {
   constructor(props) {
