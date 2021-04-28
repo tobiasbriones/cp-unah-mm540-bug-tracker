@@ -4,6 +4,8 @@
 
 import './Bugs.css';
 import React from 'react';
+import { BugRepository } from '../../../model/bug/bug.repository.mjs';
+import { TeamRepository } from '../../../model/team/team.repository.mjs';
 
 class Bugs extends React.Component {
   constructor(props) {
@@ -11,6 +13,8 @@ class Bugs extends React.Component {
     this.state = {
       displayClass: ''
     };
+    this.bugRepository = new BugRepository();
+    this.devTeamRepository = new TeamRepository();
   }
 
   render() {

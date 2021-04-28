@@ -4,13 +4,15 @@
 
 import './Devs.css';
 import React from 'react';
+import { TeamRepository } from '../../../model/team/team.repository.mjs';
 
 class Devs extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       displayClass: ''
-    }
+    };
+    this.teamRepository = new TeamRepository();
   }
 
   render() {

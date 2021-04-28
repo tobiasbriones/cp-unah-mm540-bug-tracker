@@ -4,13 +4,17 @@
 
 import './Projects.css';
 import React from 'react';
+import { ProjectRepository } from '../../../model/project/project.repository.mjs';
+import { TeamRepository } from '../../../model/team/team.repository.mjs';
 
 class Projects extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       displayClass: ''
-    }
+    };
+    this.projectRepository = new ProjectRepository();
+    this.teamRepository = new TeamRepository();
   }
 
   render() {
