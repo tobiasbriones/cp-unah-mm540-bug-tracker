@@ -20,6 +20,10 @@ class Users extends React.Component {
       <div className={ `row ${ this.state.displayClass }` }>Users</div>
     );
   }
+
+  onPageShowed() {
+  }
+
 }
 
 export default Users;

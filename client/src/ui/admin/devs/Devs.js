@@ -20,6 +20,10 @@ class Devs extends React.Component {
       <div className={ `row ${ this.state.displayClass }` }>Devs</div>
     );
   }
+
+  onPageShowed() {
+
+  }
 }
 
 export default Devs;

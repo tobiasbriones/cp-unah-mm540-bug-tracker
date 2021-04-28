@@ -22,6 +22,10 @@ class Projects extends React.Component {
       <div className={ `row ${ this.state.displayClass }` }>Projects</div>
     );
   }
+
+  onPageShowed() {
+
+  }
 }
 
 export default Projects;

@@ -22,6 +22,10 @@ class Bugs extends React.Component {
       <div className={ `row ${ this.state.displayClass }` }>Bugs</div>
     );
   }
+
+  onPageShowed() {
+
+  }
 }
 
 export default Bugs;
