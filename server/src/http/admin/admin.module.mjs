@@ -59,7 +59,7 @@ export class AdminModule extends Module {
     );
     this.router.get('/users', (req, res) => controller.readAllUsers(req, res));
     this.router.get('/users/:userId', (req, res) => controller.readUser(req, res));
-    this.router.put('/users/:userId', checkUser, (req, res) => controller.updateUser(req, res));
+    this.router.put('/users/:userId', checkUserPut, (req, res) => controller.updateUser(req, res));
     this.router.delete('/users/:userId', (req, res) => controller.deleteUser(req, res));
   }
 }
@@ -83,6 +83,20 @@ async function checkUser(req, res, next) {
   catch (e) {
     console.log(e);
     res.status(500).send('Fail to generate user ID');
+    return;
+  }
+  next();
+}
+
+async function checkUserPut(req, res, next) {
+  const user = req.body;
+
+  if (!user.id || !user.full_name || !user.login || !user.role) {
+    res.status(400).send('User must be set');
+    return;
+  }
+  if (user.role !== 'admin' && user.role !== 'dev' && user.role !== 'qa') {
+    res.status(400).send('Invalid role');
     return;
   }
   next();
