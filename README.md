@@ -8,7 +8,7 @@ Bug tracker web app.
 
 Bug tracker web app.
 
-Copyright (c) 2021 Tobias Briones. All rights reserved.
+Copyright © 2021 Tobias Briones. All rights reserved.
 
 ---
 
