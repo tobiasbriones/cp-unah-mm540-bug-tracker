@@ -1,0 +1,13 @@
+/*
+ * Copyright (c) 2021 Tobias Briones. All rights reserved.
+ */
+
+.Category {
+  width: 240px;
+  display: inline-block;
+  margin-right: 32px;
+}
+
+.Category > select {
+  width: 100%;
+}

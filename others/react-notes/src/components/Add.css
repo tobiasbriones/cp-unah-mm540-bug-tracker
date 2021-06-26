@@ -1,0 +1,11 @@
+/*
+ * Copyright (c) 2021 Tobias Briones. All rights reserved.
+ */
+
+.Add {
+  flex-grow: 1;
+}
+
+form {
+  margin: 16px 0;
+}
