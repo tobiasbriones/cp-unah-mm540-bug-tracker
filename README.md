@@ -1,10 +1,10 @@
-# MM540 Course: Bug Tracker
+# Course Project at UNAH-MM540: Bug Tracker
 
 Bug tracker web app.
 
 ## About
 
-**MM540 Course: Bug Tracker**
+**Course Project at UNAH-MM540: Bug Tracker**
 
 Bug tracker web app.
 
