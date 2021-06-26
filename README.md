@@ -9,3 +9,7 @@ Bug tracker web app.
 Bug tracker web app.
 
 Copyright (c) 2021 Tobias Briones. All rights reserved.
+
+---
+
+This project's original specification is provided "AS IS" at [./docs/course](./docs/course).
