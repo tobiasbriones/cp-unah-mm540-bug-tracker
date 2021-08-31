@@ -14,7 +14,7 @@ import './Admin.css';
 import React from 'react';
 import Users from './users/Users';
 import Bugs from './bugs/Bugs';
-import Devs from './teams/Devs';
+import Teams from './teams/Teams';
 import Projects from './projects/Projects';
 
 class Admin extends React.Component {
@@ -66,7 +66,7 @@ class Admin extends React.Component {
         <Bugs ref={ bugs => {
           this.bugs = bugs;
         } } />
-        <Devs ref={ devs => {
+        <Teams ref={ devs => {
           this.devs = devs;
         } } />
         <Projects ref={ projects => {
