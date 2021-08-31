@@ -17,6 +17,7 @@ import { UsersService } from '../users/users.service.mjs';
 import { teamValidate } from '../teams/teams.middleware.mjs';
 import { projectValidate } from '../projects/projects.middleware.mjs';
 import { UserModel } from '../users/user.model.mjs';
+import { TeamModel } from '../teams/team.model.mjs';
 
 const ROUTER_CONFIG = Object.freeze({
   path: '/admin',
@@ -41,7 +42,12 @@ export class AdminModule extends Module {
 
     this.router.get('/stats/bugs', (req, res) => controller.readAllBugStats(req, res));
 
-    this.router.post('/teams', teamValidate, (req, res) => controller.createDevTeam(req, res));
+    this.router.post(
+      '/teams',
+      teamValidate,
+      setTeamId,
+      (req, res) => controller.createDevTeam(req, res)
+    );
     this.router.get('/teams', (req, res) => controller.readAllDevTeams(req, res));
     this.router.get('/teams/:devTeamId', (req, res) => controller.readDevTeam(req, res));
     this.router.put('/teams/:devTeamId', (req, res) => controller.updateDevTeam(req, res));
@@ -137,10 +143,22 @@ async function checkUserExists(req, res, next) {
   }
 }
 
+async function setTeamId(req, res, next) {
+  req.body.code = await getNewTeamCode();
+  next();
+}
+
 // Temporal way of generating unique user IDs
 async function getNewUserId() {
   const users = await UserModel.find();
   const user = users.sort((a, b) => (a.id < b.id ? 1 : -1))[0];
   const max = user.id;
+  return max + 1;
+}
+
+async function getNewTeamCode() {
+  const teams = await TeamModel.find();
+  const team = teams.sort((a, b) => (a.code < b.code ? 1 : -1))[0];
+  const max = team.code;
   return max + 1;
 }

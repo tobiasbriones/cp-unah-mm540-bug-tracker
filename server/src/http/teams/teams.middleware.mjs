@@ -16,7 +16,7 @@ export function teamValidate(req, res, next) {
   if (!team) {
     return res.status(400).send('Fill all the fields');
   }
-  if (!team.code || !team.name || !team.languages || !team.tech) {
+  if (!team.name || !team.languages || !team.tech) {
     return res.status(400).send('Fill all the fields');
   }
   next();
