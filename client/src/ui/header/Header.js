@@ -14,7 +14,7 @@ import './Header.css';
 import React from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Nav, Navbar } from 'react-bootstrap-v5';
-import { AuthService } from '../model/auth/auth.service.mjs';
+import { AuthService } from '../../model/auth/auth.service.mjs';
 
 class Header extends React.Component {
   constructor(props) {

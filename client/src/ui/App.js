@@ -12,7 +12,7 @@
 
 import './App.css';
 import React from 'react';
-import Header from './Header';
+import Header from './header/Header';
 import Home from './Home';
 import Login from './login/Login';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
