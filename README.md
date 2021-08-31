@@ -4,7 +4,7 @@
 
 [![Project GitHub License](https://img.shields.io/github/license/tobiasbriones/cp-unah-mm540-bug-tracker.svg?style=flat-square)](https://github.com/tobiasbriones/cp-unah-mm540-bug-tracker/blob/main/LICENSE)
 
-Course project for a ReactJS bug tracker web app.
+Course project for a full-stack MongoDB + Express.js + React.js bug tracker web app.
 
 ### Bonus
 
@@ -22,7 +22,7 @@ Tobias Briones: [GitHub](https://github.com/tobiasbriones)
 
 **Course Project at UNAH-MM540: Bug Tracker**
 
-Course project for a ReactJS bug tracker web app.
+Course project for a full-stack MongoDB + Express.js + React.js bug tracker web app.
 
 Copyright © 2021 Tobias Briones. All rights reserved.
 
