@@ -13,7 +13,7 @@
 import './App.css';
 import React from 'react';
 import Header from './header/Header';
-import Home from './Home';
+import Home from './home/Home';
 import Login from './login/Login';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Admin from './admin/Admin';
