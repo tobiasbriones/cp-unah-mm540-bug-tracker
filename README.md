@@ -1,5 +1,9 @@
 # Course Project at UNAH-MM540: Bug Tracker
 
+[![GitHub Repository](https://raw.githubusercontent.com/tobiasbriones/general-images/main/example-projects/badges/ep-gh-repo-badge.svg)](https://github.com/tobiasbriones/cp-unah-mm540-bug-tracker)
+
+[![Project GitHub License](https://img.shields.io/github/license/tobiasbriones/cp-unah-mm540-bug-tracker.svg?style=flat-square)](https://github.com/tobiasbriones/cp-unah-mm540-bug-tracker/blob/main/LICENSE)
+
 Course project for a ReactJS bug tracker web app.
 
 ### Bonus
