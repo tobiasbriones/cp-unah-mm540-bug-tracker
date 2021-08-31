@@ -14,7 +14,7 @@ import './Admin.css';
 import React from 'react';
 import Users from './users/Users';
 import Bugs from './bugs/Bugs';
-import Devs from './devs/Devs';
+import Devs from './teams/Devs';
 import Projects from './projects/Projects';
 
 class Admin extends React.Component {
