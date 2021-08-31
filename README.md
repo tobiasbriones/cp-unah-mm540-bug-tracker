@@ -2,6 +2,11 @@
 
 Course project for a ReactJS bug tracker web app.
 
+### Bonus
+
+This other app is a bonus. It was a test I did for the course, and it's also a
+React app: [React Notes](./others/react-notes).
+
 ## Contact
 
 This project: [Docs](https://tobiasbriones.github.io/cp-unah-mm540-bug-tracker),
