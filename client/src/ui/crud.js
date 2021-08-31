@@ -24,7 +24,7 @@ export function getTable({ ctx, title, cols, getRow }) {
         Nuevo
       </button>
 
-      <table className="table table-hover mt-4">
+      <table className="table table-hover d-block w-100 mt-4 overflow-auto">
         <thead>
           <tr>
             { cols.map(col => (
