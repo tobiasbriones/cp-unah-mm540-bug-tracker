@@ -4,6 +4,8 @@ React app to manage in-memory user notes.
 
 ## Getting started
 
+Run `npm i` to install the dependencies.
+
 Run `npm run start` to run the app in development mode.
 
 ## Screenshots
