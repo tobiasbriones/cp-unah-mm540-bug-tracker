@@ -13,7 +13,7 @@
 import './Users.css';
 import React from 'react';
 import { UserRepository } from '../../../model/user/user.repository.mjs';
-import { getCreateForm, getTable, getUpdateForm } from '../../crud';
+import { getCreateForm, getTable, getUpdateForm } from '../../../crud';
 
 class Users extends React.Component {
   constructor(props) {

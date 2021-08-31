@@ -13,7 +13,7 @@
 import './Teams.css';
 import React from 'react';
 import { TeamRepository } from '../../../model/team/team.repository.mjs';
-import { getCreateForm, getTable, getUpdateForm } from '../../crud';
+import { getCreateForm, getTable, getUpdateForm } from '../../../crud';
 
 class Teams extends React.Component {
   constructor(props) {
