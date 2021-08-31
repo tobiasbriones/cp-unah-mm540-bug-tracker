@@ -9,7 +9,7 @@ Course project for a full-stack MongoDB + Express.js + React.js bug tracker web 
 ### Bonus
 
 This other app is a bonus. It was a test I did for the course, and it's also a
-React app: [React Notes](./others/react-notes).
+React app: [React Notes](./react-notes).
 
 ## Contact
 
