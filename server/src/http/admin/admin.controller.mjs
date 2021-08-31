@@ -96,7 +96,6 @@ export class AdminController {
     try {
       const id = req.params['devTeamId'];
       const devTeam = {
-        code: req.body['code'],
         name: req.body['name'],
         languages: req.body['languages'],
         tech: req.body['tech']
