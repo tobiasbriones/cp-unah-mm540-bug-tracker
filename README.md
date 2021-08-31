@@ -1,14 +1,25 @@
 # Course Project at UNAH-MM540: Bug Tracker
 
-Bug tracker web app.
+Course project for a ReactJS bug tracker web app.
+
+## Contact
+
+This project: [Docs](https://tobiasbriones.github.io/cp-unah-mm540-bug-tracker),
+[Repository](https://github.com/tobiasbriones/cp-unah-mm540-bug-tracker)
+
+Tobias Briones: [GitHub](https://github.com/tobiasbriones)
 
 ## About
 
 **Course Project at UNAH-MM540: Bug Tracker**
 
-Bug tracker web app.
+Course project for a ReactJS bug tracker web app.
 
 Copyright © 2021 Tobias Briones. All rights reserved.
+
+### License
+
+This project implementation is licensed under the [BSD 3-Clause LICENSE](./LICENSE).
 
 ---
 
