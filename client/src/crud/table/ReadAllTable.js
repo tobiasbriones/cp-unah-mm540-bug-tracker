@@ -23,15 +23,18 @@ class ReadAllTable extends React.Component {
   render() {
     const getRow = item => (
       <TableRow
+        key={ getId(item) }
         cols={ this.props.cols }
         value={ item }
         onClick={ this.props.onItemClick }
       />
     );
 
+    const getId = item => item.id || item.code || -1;
+
     return (
       <table className="table table-hover d-block w-100 mt-4 overflow-auto">
-        <TableHeader cols={this.props.cols}/>
+        <TableHeader cols={ this.props.cols } />
 
         <tbody>
           { this.props.items.map(getRow) }
