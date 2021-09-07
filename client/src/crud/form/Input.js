@@ -62,7 +62,9 @@ class Input extends React.Component {
 
   getSelectInputComponent = () => {
     const { id, name, value, label } = this.props;
-    const getOptionComponent = option => <option value={ option.value }>{ option.label }</option>;
+    const getOptionComponent = option => (
+      <option key={ option.value } value={ option.value }>{ option.label }</option>
+    );
     return (
       <div className="form-group">
         <label htmlFor={ id }>{ label }</label>
