@@ -12,13 +12,16 @@
 
 import React from 'react';
 import ReadAllTable from './table/ReadAllTable';
+import UpdateForm from './form/UpdateForm';
 
 class Crud extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      createFormDisplayClass: 'd-none',
-      updateFormDisplayClass: 'd-none'
+      showCreateForm: false,
+      showUpdateForm: false,
+      selectedItem: {},
+      updateItem: {}
     };
   }
 
@@ -32,22 +35,60 @@ class Crud extends React.Component {
         <button
           className="btn btn-primary"
           type="button"
-          onClick={ this.onAddNewItemButtonClick }>
+          onClick={ this.onAddNewItemButtonClick.bind(this) }
+        >
           Nuevo
         </button>
 
         <ReadAllTable
           cols={ this.props.readAllTable.cols }
           items={ this.props.readAllTable.items }
-          onItemClick={ this.props.readAllTable.onItemClick }
+          onItemClick={ this.onItemClick.bind(this) }
+        />
+
+        <UpdateForm
+          show={ this.state.showUpdateForm }
+          title={ this.props.title }
+          inputs={ this.props.updateForm.inputs }
+          state={ this.state.selectedItem }
+          onChange={ this.onUpdateFormChange.bind(this) }
+          onSubmitClick={ this.onUpdateClick.bind(this) }
+          onDeleteClick={ this.onDeleteClick.bind(this) }
         />
       </div>
     );
   }
 
   onAddNewItemButtonClick() {
-    const value = this.state.createFormDisplayClass ? '' : 'd-none';
-    this.setState({ createFormDisplayClass: value, updateFormDisplayClass: 'd-none' });
+    this.setState({ showCreateForm: !this.state.showCreateForm, showUpdateForm: false });
+  }
+
+  onItemClick(item) {
+    this.setState({
+      showUpdateForm: true,
+      showCreateForm: false,
+      selectedItem: item,
+      updateItem: item
+    });
+  }
+
+  onUpdateFormChange(name, value) {
+    const obj = this.state.updateItem;
+
+    obj[name] = value;
+    this.setState({ updateItem: obj });
+  }
+
+  onUpdateClick() {
+    if (this.props.onUpdate) {
+      this.props.onUpdate(this.state.updateItem);
+    }
+  }
+
+  onDeleteClick() {
+    if (this.props.onDelete) {
+      this.props.onDelete(this.state.updateItem);
+    }
   }
 }
 
