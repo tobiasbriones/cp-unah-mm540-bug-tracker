@@ -25,14 +25,14 @@ class UpdateForm extends React.Component {
 
   render() {
     const getInput = input => {
-      const { isId, name, value, type, label, placeholder, smallText, options } = input;
+      const { isId, name, type, label, placeholder, smallText, options } = input;
       const inputId = `${ name }-update-input`;
       return (
         <Input
           id={ inputId }
           name={ name }
           type={ type }
-          value={ value }
+          value={ this.props.state[name] }
           disabled={ isId }
           label={ label }
           placeholder={ placeholder }
@@ -78,13 +78,21 @@ class UpdateForm extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
+    if (this.props.onSubmitClick) {
+      this.props.onSubmitClick();
+    }
   }
 
   onDeleteButtonClick() {
+    if (this.props.onDeleteClick) {
+      this.props.onDeleteClick();
+    }
   }
 
   onChange(name, value) {
-    console.log(name, value);
+    if (this.props.onChange) {
+      this.props.onChange(name, value);
+    }
   }
 }
 
