@@ -30,6 +30,7 @@ class UpdateForm extends React.Component {
       return (
         <Input
           id={ inputId }
+          key={ inputId }
           name={ name }
           type={ type }
           value={ this.props.state[name] }
