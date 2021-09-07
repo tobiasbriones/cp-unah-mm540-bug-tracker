@@ -10,6 +10,7 @@
  * https://opensource.org/licenses/BSD-3-Clause.
  */
 
+import './TableRow.css'
 import React from 'react';
 
 class TableRow extends React.Component {
@@ -30,7 +31,7 @@ class TableRow extends React.Component {
 
     return (
       <tr
-        className={ this.props.selectedId === id ? 'bg-primary' : '' }
+        className={ this.props.selectedId === id ? 'active' : '' }
         onClick={ this.onClick.bind(this) }>
         { this.props.cols.map(col => getEl(col.name)) }
       </tr>
