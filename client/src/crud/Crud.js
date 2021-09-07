@@ -48,7 +48,7 @@ class Crud extends React.Component {
 
         <UpdateForm
           show={ this.state.showUpdateForm }
-          title={ this.props.title }
+          title={ this.props.updateForm.title }
           inputs={ this.props.updateForm.inputs }
           state={ this.state.selectedItem }
           onChange={ this.onUpdateFormChange.bind(this) }
@@ -101,6 +101,7 @@ Crud.defaultProps = {
     items: []
   },
   updateForm: {
+    title: 'Update',
     inputs: []
   }
 };

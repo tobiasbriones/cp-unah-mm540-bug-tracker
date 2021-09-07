@@ -52,6 +52,7 @@ class Users extends React.Component {
       items: this.state.values,
     };
     const updateForm = {
+      title: 'Actualizar Usuario',
       inputs: [
         {
           isId: true,
