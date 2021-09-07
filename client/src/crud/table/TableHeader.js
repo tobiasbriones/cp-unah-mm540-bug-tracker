@@ -23,7 +23,7 @@ class TableHeader extends React.Component {
       <thead>
         <tr>
           { this.props.cols.map(col => (
-            <th scope="col">{ col.value }</th>
+            <th scope="col" key={ col.name }>{ col.value }</th>
           )) }
         </tr>
       </thead>
