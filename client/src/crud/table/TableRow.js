@@ -20,16 +20,25 @@ class TableRow extends React.Component {
 
   render() {
     const value = this.props.value;
-    const thEl = <th scope="row">{ value.id }</th>;
+    const id = value.id || value.code;
+    const getTdKey = name => `${ id }Td${ name }`;
+
+    const thEl = <th scope="row" key={ getTdKey('id') }>{ id }</th>;
 
     const getEl = attr => attr === 'id' ? thEl : getTdEl(attr);
-    const getTdEl = attr => <td>{ value[attr] }</td>;
+    const getTdEl = attr => <td key={ getTdKey(attr) }>{ value[attr] }</td>;
 
     return (
-      <tr key={ value.id } data-key={ value.id } onClick={ this.props.onClick }>
+      <tr onClick={ this.onClick.bind(this) }>
         { this.props.cols.map(col => getEl(col.name)) }
       </tr>
     );
+  }
+
+  onClick() {
+    if (this.props.onClick) {
+      this.props.onClick(this.props.value);
+    }
   }
 }
 
