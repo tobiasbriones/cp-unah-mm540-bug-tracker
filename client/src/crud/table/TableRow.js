@@ -29,7 +29,9 @@ class TableRow extends React.Component {
     const getTdEl = attr => <td key={ getTdKey(attr) }>{ value[attr] }</td>;
 
     return (
-      <tr onClick={ this.onClick.bind(this) }>
+      <tr
+        className={ this.props.selectedId === id ? 'bg-primary' : '' }
+        onClick={ this.onClick.bind(this) }>
         { this.props.cols.map(col => getEl(col.name)) }
       </tr>
     );
