@@ -93,3 +93,14 @@ class Crud extends React.Component {
 }
 
 export default Crud;
+
+Crud.defaultProps = {
+  title: '',
+  readAllTable: {
+    cols: [],
+    items: []
+  },
+  updateForm: {
+    inputs: []
+  }
+};
