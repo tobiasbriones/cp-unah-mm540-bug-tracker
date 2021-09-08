@@ -131,7 +131,7 @@ class Users extends React.Component {
       this.crudRef.current.collapse();
     }
     catch (e) {
-      const msg = e.response.data ? e.response.data : e;
+      const msg = this.getErrorMessage(e);
       this.setState({ updateError: msg });
     }
   }
@@ -151,7 +151,7 @@ class Users extends React.Component {
       });
     }
     catch (e) {
-      const msg = e.response.data ? e.response.data : e;
+      const msg = this.getErrorMessage(e);
       alert(msg);
     }
   }
@@ -163,7 +163,7 @@ class Users extends React.Component {
       this.crudRef.current.collapse();
     }
     catch (e) {
-      const msg = e.response.data ? e.response.data : e;
+      const msg = this.getErrorMessage(e);
       this.setState({ createError: msg });
     }
   }
@@ -175,9 +175,19 @@ class Users extends React.Component {
       this.crudRef.current.collapse();
     }
     catch (e) {
-      const msg = e.response.data ? e.response.data : e;
+      const msg = this.getErrorMessage(e);
       this.setState({ updateError: msg });
     }
+  }
+
+  getErrorMessage(e) {
+    if (e.response) {
+      return e.response.data ? e.response.data : e;
+    }
+    if (e.message) {
+      return e.message;
+    }
+    return JSON.stringify(e);
   }
 }
 
