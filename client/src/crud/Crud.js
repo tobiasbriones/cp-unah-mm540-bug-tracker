@@ -43,7 +43,7 @@ class Crud extends React.Component {
         <ReadAllTable
           cols={ this.props.readAllTable.cols }
           items={ this.props.readAllTable.items }
-          selectedId={this.state.selectedId}
+          selectedId={ this.state.selectedId }
           onItemClick={ this.onItemClick.bind(this) }
         />
 
@@ -66,12 +66,16 @@ class Crud extends React.Component {
   }
 
   onItemClick(item) {
-    this.setState({
-      showUpdateForm: true,
-      showCreateForm: false,
-      selectedId: item.id || item.code,
-      updateItem: { ...item }
-    });
+    const isSelected = () =>
+      item.id === this.state.selectedId ||
+      item.code === this.state.selectedId;
+
+    if (isSelected()) {
+      this.collapse();
+    }
+    else {
+      this.selectItem(item);
+    }
   }
 
   onUpdateFormChange(name, value) {
@@ -93,8 +97,22 @@ class Crud extends React.Component {
     }
   }
 
+  selectItem(item) {
+    this.setState({
+      showUpdateForm: true,
+      showCreateForm: false,
+      selectedId: item.id || item.code,
+      updateItem: { ...item }
+    });
+  }
+
   collapse() {
-    this.setState({ showCreateForm: false, showUpdateForm: false, selectedId: -1 });
+    this.setState({
+      showCreateForm: false,
+      showUpdateForm: false,
+      selectedId: -1,
+      updateItem: {}
+    });
   }
 }
 
