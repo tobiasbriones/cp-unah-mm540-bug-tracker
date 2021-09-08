@@ -20,7 +20,6 @@ class Crud extends React.Component {
     this.state = {
       showCreateForm: false,
       showUpdateForm: false,
-      selectedItem: {},
       updateItem: {}
     };
   }
@@ -51,7 +50,7 @@ class Crud extends React.Component {
           title={ this.props.updateForm.title }
           inputs={ this.props.updateForm.inputs }
           error={ this.props.updateForm.error }
-          state={ this.state.selectedItem }
+          state={ this.state.updateItem }
           onChange={ this.onUpdateFormChange.bind(this) }
           onSubmitClick={ this.onUpdateClick.bind(this) }
           onDeleteClick={ this.onDeleteClick.bind(this) }
@@ -68,8 +67,7 @@ class Crud extends React.Component {
     this.setState({
       showUpdateForm: true,
       showCreateForm: false,
-      selectedItem: item,
-      updateItem: item
+      updateItem: { ...item }
     });
   }
 
