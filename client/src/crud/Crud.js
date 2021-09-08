@@ -50,6 +50,7 @@ class Crud extends React.Component {
           show={ this.state.showUpdateForm }
           title={ this.props.updateForm.title }
           inputs={ this.props.updateForm.inputs }
+          error={ this.props.updateForm.error }
           state={ this.state.selectedItem }
           onChange={ this.onUpdateFormChange.bind(this) }
           onSubmitClick={ this.onUpdateClick.bind(this) }
