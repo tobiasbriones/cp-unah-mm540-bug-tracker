@@ -63,6 +63,7 @@ class UpdateForm extends React.Component {
             </button>
             <button
               className="btn btn-danger ms-2"
+              type="button"
               onClick={ this.onDeleteButtonClick.bind(this) }
             >
               Eliminar
