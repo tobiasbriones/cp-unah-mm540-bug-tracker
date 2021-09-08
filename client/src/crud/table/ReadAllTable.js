@@ -34,7 +34,7 @@ class ReadAllTable extends React.Component {
     const getId = item => item.id || item.code || -1;
 
     return (
-      <table className="table table-hover d-block w-100 mt-4 overflow-auto">
+      <table className="table table-hover w-100 mt-4 overflow-auto">
         <TableHeader cols={ this.props.cols } />
 
         <tbody>

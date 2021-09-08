@@ -32,31 +32,33 @@ class Crud extends React.Component {
           <strong>{ this.props.title }</strong>
         </p>
 
-        <button
-          className="btn btn-primary"
-          type="button"
-          onClick={ this.onAddNewItemButtonClick.bind(this) }
-        >
-          Nuevo
-        </button>
+        <div className="col col-lg-8 col-xxl-4 m-auto">
+          <button
+            className="btn btn-primary"
+            type="button"
+            onClick={ this.onAddNewItemButtonClick.bind(this) }
+          >
+            Nuevo
+          </button>
 
-        <ReadAllTable
-          cols={ this.props.readAllTable.cols }
-          items={ this.props.readAllTable.items }
-          selectedId={ this.state.selectedId }
-          onItemClick={ this.onItemClick.bind(this) }
-        />
+          <ReadAllTable
+            cols={ this.props.readAllTable.cols }
+            items={ this.props.readAllTable.items }
+            selectedId={ this.state.selectedId }
+            onItemClick={ this.onItemClick.bind(this) }
+          />
 
-        <UpdateForm
-          show={ this.state.showUpdateForm }
-          title={ this.props.updateForm.title }
-          inputs={ this.props.updateForm.inputs }
-          error={ this.props.updateForm.error }
-          state={ this.state.updateItem }
-          onChange={ this.onUpdateFormChange.bind(this) }
-          onSubmitClick={ this.onUpdateClick.bind(this) }
-          onDeleteClick={ this.onDeleteClick.bind(this) }
-        />
+          <UpdateForm
+            show={ this.state.showUpdateForm }
+            title={ this.props.updateForm.title }
+            inputs={ this.props.updateForm.inputs }
+            error={ this.props.updateForm.error }
+            state={ this.state.updateItem }
+            onChange={ this.onUpdateFormChange.bind(this) }
+            onSubmitClick={ this.onUpdateClick.bind(this) }
+            onDeleteClick={ this.onDeleteClick.bind(this) }
+          />
+        </div>
       </div>
     );
   }
