@@ -20,6 +20,7 @@ class Crud extends React.Component {
     this.state = {
       showCreateForm: false,
       showUpdateForm: false,
+      selectedId: -1,
       updateItem: {}
     };
   }
@@ -42,6 +43,7 @@ class Crud extends React.Component {
         <ReadAllTable
           cols={ this.props.readAllTable.cols }
           items={ this.props.readAllTable.items }
+          selectedId={this.state.selectedId}
           onItemClick={ this.onItemClick.bind(this) }
         />
 
@@ -67,6 +69,7 @@ class Crud extends React.Component {
     this.setState({
       showUpdateForm: true,
       showCreateForm: false,
+      selectedId: item.id || item.code,
       updateItem: { ...item }
     });
   }
@@ -91,7 +94,7 @@ class Crud extends React.Component {
   }
 
   collapse() {
-    this.setState({ showCreateForm: false, showUpdateForm: false });
+    this.setState({ showCreateForm: false, showUpdateForm: false, selectedId: -1 });
   }
 }
 

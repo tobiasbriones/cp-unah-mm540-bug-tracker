@@ -17,9 +17,7 @@ import TableHeader from './TableHeader';
 class ReadAllTable extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selectedId: -1
-    };
+    this.state = {};
   }
 
   render() {
@@ -28,7 +26,7 @@ class ReadAllTable extends React.Component {
         key={ getId(item) }
         cols={ this.props.cols }
         value={ item }
-        selectedId={ this.state.selectedId }
+        selectedId={ this.props.selectedId }
         onClick={ this.onItemClick.bind(this) }
       />
     );
@@ -47,7 +45,6 @@ class ReadAllTable extends React.Component {
   }
 
   onItemClick(item) {
-    this.setState({ selectedId: item.id || item.code });
     if (this.props.onItemClick) {
       this.props.onItemClick(item);
     }
