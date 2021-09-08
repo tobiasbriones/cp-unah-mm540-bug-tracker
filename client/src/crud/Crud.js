@@ -91,6 +91,10 @@ class Crud extends React.Component {
       this.props.onDelete(this.state.updateItem);
     }
   }
+
+  collapse() {
+    this.setState({ showCreateForm: false, showUpdateForm: false });
+  }
 }
 
 export default Crud;

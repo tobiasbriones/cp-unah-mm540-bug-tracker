@@ -24,9 +24,11 @@ class Users extends React.Component {
       updateId: -1,
       updateFullName: '',
       updateLogin: '',
-      updateRole: 'admin'
+      updateRole: 'admin',
+      crudAvoidCollapse: false
     };
     this.userRepository = new UserRepository();
+    this.crudRef = React.createRef();
   }
 
   render() {
@@ -49,10 +51,11 @@ class Users extends React.Component {
           value: 'Rol'
         }
       ],
-      items: this.state.values,
+      items: this.state.values
     };
     const updateForm = {
       title: 'Actualizar Usuario',
+      error: this.state.updateError,
       inputs: [
         {
           isId: true,
@@ -92,7 +95,7 @@ class Users extends React.Component {
             {
               value: 'qa',
               label: 'QA'
-            },
+            }
           ],
           value: this.state.updateRole
         }
@@ -107,6 +110,7 @@ class Users extends React.Component {
           updateForm={ updateForm }
           onUpdate={ this.onUpdate.bind(this) }
           onDelete={ this.onDelete.bind(this) }
+          ref={ this.crudRef }
         />
       </div>
     );
@@ -121,10 +125,10 @@ class Users extends React.Component {
   }
 
   async onUpdate(user) {
-    console.log(user);
     try {
       await this.userRepository.set(user);
       await this.loadUsers();
+      this.crudRef.current.collapse();
     }
     catch (e) {
       const msg = e.response.data ? e.response.data : e;
@@ -134,8 +138,7 @@ class Users extends React.Component {
 
   async onDelete(user) {
     const { id } = user;
-    console.log(user);
-    //await this.deleteUser(id);
+    await this.deleteUser(id);
   }
 
   async loadUsers() {
@@ -143,8 +146,6 @@ class Users extends React.Component {
       const users = await this.userRepository.getAll();
       this.setState({
         values: users,
-        createFormDisplayClass: 'd-none',
-        updateFormDisplayClass: 'd-none',
         createError: '',
         updateError: ''
       });
@@ -159,6 +160,7 @@ class Users extends React.Component {
     try {
       await this.userRepository.add(user);
       await this.loadUsers();
+      this.crudRef.current.collapse();
     }
     catch (e) {
       const msg = e.response.data ? e.response.data : e;
@@ -170,6 +172,7 @@ class Users extends React.Component {
     try {
       await this.userRepository.remove(id);
       await this.loadUsers();
+      this.crudRef.current.collapse();
     }
     catch (e) {
       const msg = e.response.data ? e.response.data : e;
