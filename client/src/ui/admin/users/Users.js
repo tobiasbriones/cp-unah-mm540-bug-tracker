@@ -120,6 +120,7 @@ class Users extends React.Component {
     return (
       <div className={ `row page ${ this.state.displayClass }` }>
         <Crud
+          name="users"
           title="Usuarios"
           readAllTable={ readAllTable }
           createForm={ createForm }

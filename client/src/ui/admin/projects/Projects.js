@@ -97,6 +97,7 @@ class Projects extends React.Component {
     return (
       <div className={ `row page ${ this.state.displayClass }` }>
         <Crud
+          name="projects"
           title="Proyectos"
           readAllTable={ readAllTable }
           createForm={ createForm }

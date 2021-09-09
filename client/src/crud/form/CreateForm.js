@@ -26,7 +26,7 @@ class CreateForm extends React.Component {
   render() {
     const getInput = input => {
       const { name, type, label, placeholder, smallText, options } = input;
-      const inputId = `${ name }-create-input`;
+      const inputId = `${ this.props.name }-${ name }-create-input`;
       return (
         <Input
           id={ inputId }

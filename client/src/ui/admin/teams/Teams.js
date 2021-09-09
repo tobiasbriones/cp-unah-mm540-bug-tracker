@@ -99,6 +99,7 @@ class Teams extends React.Component {
     return (
       <div className={ `row page ${ this.state.displayClass }` }>
         <Crud
+          name="teams"
           title="Desarrolladores"
           readAllTable={ readAllTable }
           createForm={ createForm }

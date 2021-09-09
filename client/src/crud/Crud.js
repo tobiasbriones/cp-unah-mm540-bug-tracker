@@ -54,6 +54,7 @@ class Crud extends React.Component {
           </div>
 
           <CreateForm
+            name={ this.props.name }
             show={ this.state.showCreateForm }
             title={ this.props.createForm.title }
             inputs={ this.props.createForm.inputs }
@@ -64,6 +65,7 @@ class Crud extends React.Component {
           />
 
           <UpdateForm
+            name={ this.props.name }
             show={ this.state.showUpdateForm }
             title={ this.props.updateForm.title }
             inputs={ this.props.updateForm.inputs }

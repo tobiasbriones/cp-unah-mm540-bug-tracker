@@ -26,7 +26,7 @@ class UpdateForm extends React.Component {
   render() {
     const getInput = input => {
       const { isId, name, type, label, placeholder, smallText, options } = input;
-      const inputId = `${ name }-update-input`;
+      const inputId = `${ this.props.name }-${ name }-update-input`;
       return (
         <Input
           id={ inputId }
