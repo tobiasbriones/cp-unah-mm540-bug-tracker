@@ -27,21 +27,34 @@ class Header extends React.Component {
 
   render() {
     return (
-      <header className="shadow p-5 mb-2 rounded">
+      <header className="shadow px-4 py-2 mb-2 rounded">
         <Navbar className="nav" expand="lg">
-          <Navbar.Brand className="text-white">Bug Tracker</Navbar.Brand>
+          <Navbar.Brand className="text-white">
+            Bug Tracker
+          </Navbar.Brand>
+
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
           <Navbar.Collapse className="collapse">
             <LinkContainer className={ this.state.isLogged ? '' : 'd-none' } to="/">
-              <Nav.Link className="nav-item p-2 m-3">{ this.state.name }</Nav.Link>
+              <Nav.Link className="nav-item p-2 m-3">
+                { this.state.name }
+              </Nav.Link>
             </LinkContainer>
+
             <LinkContainer className={ this.state.isLogged ? 'd-none' : '' } to="/login">
-              <Nav.Link className="nav-item p-2 m-3">Login</Nav.Link>
+              <Nav.Link className="nav-item p-2 m-3">
+                Login
+              </Nav.Link>
             </LinkContainer>
-            <LinkContainer className={ this.state.isLogged ? '' : 'd-none' }
-                           to="/"
-                           onClick={ this.onLogout.bind(this) }>
-              <Nav.Link className="nav-item p-2 m-3">Logout</Nav.Link>
+
+            <LinkContainer
+              className={ this.state.isLogged ? '' : 'd-none' }
+              to="/"
+              onClick={ this.onLogout.bind(this) }>
+              <Nav.Link className="nav-item p-2 m-3">
+                Logout
+              </Nav.Link>
             </LinkContainer>
           </Navbar.Collapse>
         </Navbar>
