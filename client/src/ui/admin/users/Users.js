@@ -20,7 +20,9 @@ class Users extends React.Component {
     super(props);
     this.state = {
       displayClass: '',
-      values: []
+      values: [],
+      createError: '',
+      updateError: ''
     };
     this.userRepository = new UserRepository();
     this.crudRef = React.createRef();
