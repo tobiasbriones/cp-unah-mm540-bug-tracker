@@ -119,7 +119,6 @@ function setPageVisible(component, visible) {
     component.setState({
       displayClass: ''
     });
-    component.onPageShowed();
   }
   else {
     component.setState({

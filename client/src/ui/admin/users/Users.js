@@ -134,10 +134,6 @@ class Users extends React.Component {
     await this.loadUsers();
   }
 
-  async onPageShowed() {
-    await this.loadUsers();
-  }
-
   async onCreate(user) {
     try {
       await this.userRepository.add(user);
