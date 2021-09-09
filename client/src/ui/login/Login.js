@@ -24,7 +24,11 @@ class Login extends React.Component {
 
   render() {
     return (
-      <form id="form" onSubmit={ this.onSubmit.bind(this) }>
+      <form
+        id="form"
+        className="m-2 m-sm-5 mx-md-auto col-md-8 col-lg-4"
+        onSubmit={ this.onSubmit.bind(this) }
+      >
         <div className="form-group mb-4">
           <label htmlFor="loginInput">Login</label>
           <input
