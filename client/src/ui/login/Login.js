@@ -71,8 +71,12 @@ class Login extends React.Component {
       this.onLoggedIn();
     }
     catch (err) {
-      console.log(err);
-      this.setError('Invalid credentials');
+      if (err.response && err.response.status === 401) {
+        this.setError('Invalid credentials');
+      }
+      else {
+        this.setError(err.message);
+      }
     }
   }
 
