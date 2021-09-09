@@ -32,21 +32,23 @@ class Crud extends React.Component {
           <strong>{ this.props.title }</strong>
         </p>
 
-        <div className="col col-lg-8 col-xxl-4 m-auto">
-          <button
-            className="btn btn-primary"
-            type="button"
-            onClick={ this.onAddNewItemButtonClick.bind(this) }
-          >
-            Nuevo
-          </button>
+        <div className="d-xxl-flex align-items-xxl-baseline justify-content-xxl-center col col-lg-8 col-xxl-6 m-auto">
+          <div>
+            <button
+              className="btn btn-primary"
+              type="button"
+              onClick={ this.onAddNewItemButtonClick.bind(this) }
+            >
+              Nuevo
+            </button>
 
-          <ReadAllTable
-            cols={ this.props.readAllTable.cols }
-            items={ this.props.readAllTable.items }
-            selectedId={ this.state.selectedId }
-            onItemClick={ this.onItemClick.bind(this) }
-          />
+            <ReadAllTable
+              cols={ this.props.readAllTable.cols }
+              items={ this.props.readAllTable.items }
+              selectedId={ this.state.selectedId }
+              onItemClick={ this.onItemClick.bind(this) }
+            />
+          </div>
 
           <UpdateForm
             show={ this.state.showUpdateForm }
