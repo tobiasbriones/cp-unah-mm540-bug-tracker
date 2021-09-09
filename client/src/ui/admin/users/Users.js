@@ -13,6 +13,7 @@
 import './Users.css';
 import React from 'react';
 import Crud from '../../../crud/Crud';
+import { getErrorMessage } from '../../../crud/errors';
 import { UserRepository } from '../../../model/user/user.repository.mjs';
 
 class Users extends React.Component {
@@ -143,7 +144,7 @@ class Users extends React.Component {
       this.crudRef.current.collapse();
     }
     catch (e) {
-      const msg = this.getErrorMessage(e);
+      const msg = getErrorMessage(e);
       this.setState({ createError: msg });
     }
   }
@@ -155,7 +156,7 @@ class Users extends React.Component {
       this.crudRef.current.collapse();
     }
     catch (e) {
-      const msg = this.getErrorMessage(e);
+      const msg = getErrorMessage(e);
       this.setState({ updateError: msg });
     }
   }
@@ -175,7 +176,7 @@ class Users extends React.Component {
       });
     }
     catch (e) {
-      const msg = this.getErrorMessage(e);
+      const msg = getErrorMessage(e);
       alert(msg);
     }
   }
@@ -187,19 +188,9 @@ class Users extends React.Component {
       this.crudRef.current.collapse();
     }
     catch (e) {
-      const msg = this.getErrorMessage(e);
+      const msg = getErrorMessage(e);
       this.setState({ updateError: msg });
     }
-  }
-
-  getErrorMessage(e) {
-    if (e.response) {
-      return e.response.data ? e.response.data : e;
-    }
-    if (e.message) {
-      return e.message;
-    }
-    return JSON.stringify(e);
   }
 }
 
