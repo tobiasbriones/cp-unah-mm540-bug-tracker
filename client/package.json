@@ -1,12 +1,12 @@
 {
   "name": "bug-tracker-web",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.12.0",
-    "@testing-library/react": "^11.2.6",
-    "@testing-library/user-event": "^12.8.3",
-    "bootstrap": "^5.0.0-beta3",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^13.2.1",
+    "bootstrap": "^5.1.1",
     "react": "^17.0.2",
     "react-bootstrap-v5": "^1.4.0",
     "react-dom": "^17.0.2",
@@ -14,9 +14,9 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.1",
-    "axios": "^0.21.1",
-    "chart.js": "^3.1.0",
-    "js-cookie": "^2.2.1"
+    "axios": "^0.21.4",
+    "chart.js": "^3.5.1",
+    "js-cookie": "^3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
