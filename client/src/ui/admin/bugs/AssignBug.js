@@ -28,8 +28,15 @@ class AssignBug extends React.Component {
   }
 
   render() {
-    const getBugOptionComponent = bug => <option value={ bug.code }>{ bug.description }</option>;
-    const getTeamOptionComponent = team => <option value={ team.code }>{ team.name }</option>;
+    const getBugOptionComponent = bug =>
+      <option value={ bug.code } key={ bug.code }>
+        { bug.description }
+      </option>;
+    const getTeamOptionComponent = team =>
+      <option value={ team.code } key={ team.code }>
+        { team.name }
+      </option>;
+
     return (
       <div className="col-xl-4 align-self-center">
         <form className="row g-3 my-4 mx-4 my-xl-0" onSubmit={ this.onSubmit.bind(this) }>
