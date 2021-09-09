@@ -20,12 +20,7 @@ class Users extends React.Component {
     super(props);
     this.state = {
       displayClass: '',
-      values: [],
-      updateId: -1,
-      updateFullName: '',
-      updateLogin: '',
-      updateRole: 'admin',
-      crudAvoidCollapse: false
+      values: []
     };
     this.userRepository = new UserRepository();
     this.crudRef = React.createRef();
@@ -113,7 +108,7 @@ class Users extends React.Component {
           name: 'id',
           type: 'number',
           label: 'Id de Usuario',
-          value: this.state.updateId
+          value: -1
         },
         ...commonInputs
       ]
