@@ -14,6 +14,8 @@ import './Bugs.css';
 import React from 'react';
 import { BugRepository } from '../../../model/bug/bug.repository.mjs';
 import { TeamRepository } from '../../../model/team/team.repository.mjs';
+import AssignBug from './AssignBug';
+import Stats from './Stats';
 
 class Bugs extends React.Component {
   constructor(props) {
@@ -22,17 +24,27 @@ class Bugs extends React.Component {
       displayClass: ''
     };
     this.bugRepository = new BugRepository();
-    this.devTeamRepository = new TeamRepository();
+    this.teamRepository = new TeamRepository();
   }
 
   render() {
     return (
-      <div className={ `row ${ this.state.displayClass }` }>Bugs</div>
+      <div className={ `row page ${ this.state.displayClass }` }>
+        <div className="d-xl-flex col-xxl-9 m-auto">
+          <Stats />
+          <AssignBug onAssignBug={ this.onAssignBug.bind(this) } />
+        </div>
+      </div>
     );
   }
 
-  onPageShowed() {
-
+  async onAssignBug(bugCode, teamCode) {
+    try {
+      await this.teamRepository.assignBug(teamCode, bugCode);
+    }
+    catch (e) {
+      console.log(e);
+    }
   }
 }
 
