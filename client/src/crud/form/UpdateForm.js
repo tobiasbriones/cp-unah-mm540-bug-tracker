@@ -33,7 +33,7 @@ class UpdateForm extends React.Component {
           key={ inputId }
           name={ name }
           type={ type }
-          value={ this.props.state[name] }
+          value={ this.props.state[name] || '' }
           disabled={ isId }
           label={ label }
           placeholder={ placeholder }

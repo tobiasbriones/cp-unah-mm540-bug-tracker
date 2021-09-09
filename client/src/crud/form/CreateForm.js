@@ -33,7 +33,7 @@ class CreateForm extends React.Component {
           key={ inputId }
           name={ name }
           type={ type }
-          value={ this.props.state[name] }
+          value={ this.props.state[name] || '' }
           label={ label }
           placeholder={ placeholder }
           smallText={ smallText }
