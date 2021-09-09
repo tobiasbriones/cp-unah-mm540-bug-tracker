@@ -27,25 +27,33 @@ class Login extends React.Component {
       <form id="form" onSubmit={ this.onSubmit.bind(this) }>
         <div className="form-group mb-4">
           <label htmlFor="loginInput">Login</label>
-          <input id="loginInput"
-                 className="form-control"
-                 type="text"
-                 aria-describedby="loginHelp"
-                 placeholder="Enter username" />
+          <input
+            id="loginInput"
+            className="form-control"
+            type="text"
+            aria-describedby="loginHelp"
+            placeholder="Enter username"
+          />
           <small id="loginHelp" className="form-text text-muted">
             Enter your username in the login field
           </small>
         </div>
         <div className="form-group mb-4">
           <label htmlFor="passwordInput">Password</label>
-          <input id="passwordInput"
-                 className="form-control"
-                 type="password"
-                 placeholder="Password" />
+          <input
+            id="passwordInput"
+            className="form-control"
+            type="password"
+            placeholder="Password"
+          />
         </div>
-        <button className="btn btn-primary w-100" type="submit">Login</button>
+        <button className="btn btn-primary w-100" type="submit">
+          Login
+        </button>
 
-        <div id="error" className="pt-5 text-danger">{ this.state.error }</div>
+        <div id="error" className="pt-5 text-danger">
+          { this.state.error }
+        </div>
       </form>
     );
   }
