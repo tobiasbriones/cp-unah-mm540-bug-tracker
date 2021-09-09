@@ -16,7 +16,7 @@ export function projectValidate(req, res, next) {
   if (!project) {
     return res.status(400).send('Fill all the fields');
   }
-  if (!project.code || !project.name || !project.startDate || !project.endDate) {
+  if (!project.name || !project.startDate || !project.endDate) {
     return res.status(400).send('Fill all the fields');
   }
   next();

@@ -18,6 +18,7 @@ import { teamValidate } from '../teams/teams.middleware.mjs';
 import { projectValidate } from '../projects/projects.middleware.mjs';
 import { UserModel } from '../users/user.model.mjs';
 import { TeamModel } from '../teams/team.model.mjs';
+import { ProjectModel } from '../projects/project.model.mjs';
 
 const ROUTER_CONFIG = Object.freeze({
   path: '/admin',
@@ -56,6 +57,7 @@ export class AdminModule extends Module {
     this.router.post(
       '/projects',
       projectValidate,
+      setProjectId,
       (req, res) => controller.createProject(req, res)
     );
     this.router.get('/projects', (req, res) => controller.readAllProjects(req, res));
@@ -148,6 +150,11 @@ async function setTeamId(req, res, next) {
   next();
 }
 
+async function setProjectId(req, res, next) {
+  req.body.code = await getNewProjectCode();
+  next();
+}
+
 // Temporal way of generating unique user IDs
 async function getNewUserId() {
   const users = await UserModel.find();
@@ -160,5 +167,12 @@ async function getNewTeamCode() {
   const teams = await TeamModel.find();
   const team = teams.sort((a, b) => (a.code < b.code ? 1 : -1))[0];
   const max = team.code;
+  return max + 1;
+}
+
+async function getNewProjectCode() {
+  const projects = await ProjectModel.find();
+  const project = projects.sort((a, b) => (a.code < b.code ? 1 : -1))[0];
+  const max = project.code;
   return max + 1;
 }

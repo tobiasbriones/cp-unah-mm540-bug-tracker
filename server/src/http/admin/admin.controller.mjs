@@ -165,7 +165,6 @@ export class AdminController {
     try {
       const id = req.params['projectId'];
       const project = {
-        code: req.body['code'],
         name: req.body['name'],
         startDate: req.body['startDate'],
         endDate: req.body['endDate']
