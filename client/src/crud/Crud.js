@@ -13,6 +13,7 @@
 import React from 'react';
 import ReadAllTable from './table/ReadAllTable';
 import UpdateForm from './form/UpdateForm';
+import CreateForm from './form/CreateForm';
 
 class Crud extends React.Component {
   constructor(props) {
@@ -21,8 +22,10 @@ class Crud extends React.Component {
       showCreateForm: false,
       showUpdateForm: false,
       selectedId: -1,
+      createItem: {},
       updateItem: {}
     };
+    this.defaultCreateItem = {};
   }
 
   render() {
@@ -50,6 +53,16 @@ class Crud extends React.Component {
             />
           </div>
 
+          <CreateForm
+            show={ this.state.showCreateForm }
+            title={ this.props.createForm.title }
+            inputs={ this.props.createForm.inputs }
+            error={ this.props.createForm.error }
+            state={ this.state.createItem }
+            onChange={ this.onCreateFormChange.bind(this) }
+            onSubmitClick={ this.onCreateClick.bind(this) }
+          />
+
           <UpdateForm
             show={ this.state.showUpdateForm }
             title={ this.props.updateForm.title }
@@ -63,6 +76,10 @@ class Crud extends React.Component {
         </div>
       </div>
     );
+  }
+
+  componentDidMount() {
+    this.updateCreateItem();
   }
 
   onAddNewItemButtonClick() {
@@ -79,6 +96,19 @@ class Crud extends React.Component {
     }
     else {
       this.selectItem(item);
+    }
+  }
+
+  onCreateFormChange(name, value) {
+    const obj = this.state.createItem;
+
+    obj[name] = value;
+    this.setState({ createItem: obj });
+  }
+
+  onCreateClick() {
+    if (this.props.onCreate) {
+      this.props.onCreate(this.state.createItem);
     }
   }
 
@@ -101,11 +131,22 @@ class Crud extends React.Component {
     }
   }
 
+  updateCreateItem() {
+    const reducer = (acc, cur) => {
+      acc[cur['name']] = cur['value'];
+      return acc;
+    };
+    this.defaultCreateItem = this.props.createForm.inputs.reduce(reducer, {});
+
+    this.setState({ createItem: this.defaultCreateItem });
+  }
+
   selectItem(item) {
     this.setState({
       showUpdateForm: true,
       showCreateForm: false,
       selectedId: item.id || item.code,
+      createItem: {...this.defaultCreateItem},
       updateItem: { ...item }
     });
   }
@@ -115,6 +156,7 @@ class Crud extends React.Component {
       showCreateForm: false,
       showUpdateForm: false,
       selectedId: -1,
+      createItem: { ...this.defaultCreateItem},
       updateItem: {}
     });
   }
@@ -127,6 +169,10 @@ Crud.defaultProps = {
   readAllTable: {
     cols: [],
     items: []
+  },
+  createForm: {
+    title: 'Create',
+    inputs: []
   },
   updateForm: {
     title: 'Update',

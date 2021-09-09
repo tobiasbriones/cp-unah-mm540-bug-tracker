@@ -32,6 +32,43 @@ class Users extends React.Component {
   }
 
   render() {
+    const commonInputs = [
+      {
+        name: 'full_name',
+        type: 'text',
+        label: 'Nombre Completo',
+        placeholder: 'Nombre Completo',
+        value: ''
+      },
+      {
+        name: 'login',
+        type: 'text',
+        label: 'Login',
+        placeholder: 'Login',
+        smallText: 'Nombre de usuario para iniciar sesión',
+        value: ''
+      },
+      {
+        name: 'role',
+        type: 'select',
+        label: 'Role',
+        options: [
+          {
+            value: 'admin',
+            label: 'Administrador'
+          },
+          {
+            value: 'dev',
+            label: 'Desarrollador'
+          },
+          {
+            value: 'qa',
+            label: 'QA'
+          }
+        ],
+        value: 'admin'
+      }
+    ];
     const readAllTable = {
       cols: [
         {
@@ -53,6 +90,20 @@ class Users extends React.Component {
       ],
       items: this.state.values
     };
+    const createForm = {
+      title: 'Crear Usuario',
+      error: this.state.createError,
+      inputs: [
+        ...commonInputs,
+        {
+          name: 'password',
+          type: 'password',
+          label: 'Contraseña',
+          placeholder: 'Contraseña',
+          value: ''
+        }
+      ]
+    };
     const updateForm = {
       title: 'Actualizar Usuario',
       error: this.state.updateError,
@@ -64,41 +115,7 @@ class Users extends React.Component {
           label: 'Id de Usuario',
           value: this.state.updateId
         },
-        {
-          name: 'full_name',
-          type: 'text',
-          label: 'Nombre Completo',
-          placeholder: 'Nombre Completo',
-          value: this.state.updateFullName
-        },
-        {
-          name: 'login',
-          type: 'text',
-          label: 'Login',
-          placeholder: 'Login',
-          smallText: 'Nombre de usuario para iniciar sesión',
-          value: this.state.updateLogin
-        },
-        {
-          name: 'role',
-          type: 'select',
-          label: 'Role',
-          options: [
-            {
-              value: 'admin',
-              label: 'Administrador'
-            },
-            {
-              value: 'dev',
-              label: 'Desarrollador'
-            },
-            {
-              value: 'qa',
-              label: 'QA'
-            }
-          ],
-          value: this.state.updateRole
-        }
+        ...commonInputs
       ]
     };
 
@@ -107,7 +124,9 @@ class Users extends React.Component {
         <Crud
           title="Usuarios"
           readAllTable={ readAllTable }
+          createForm={ createForm }
           updateForm={ updateForm }
+          onCreate={ this.onCreate.bind(this) }
           onUpdate={ this.onUpdate.bind(this) }
           onDelete={ this.onDelete.bind(this) }
           ref={ this.crudRef }
@@ -122,6 +141,18 @@ class Users extends React.Component {
 
   async onPageShowed() {
     await this.loadUsers();
+  }
+
+  async onCreate(user) {
+    try {
+      await this.userRepository.add(user);
+      await this.loadUsers();
+      this.crudRef.current.collapse();
+    }
+    catch (e) {
+      const msg = this.getErrorMessage(e);
+      this.setState({ createError: msg });
+    }
   }
 
   async onUpdate(user) {
@@ -153,18 +184,6 @@ class Users extends React.Component {
     catch (e) {
       const msg = this.getErrorMessage(e);
       alert(msg);
-    }
-  }
-
-  async createUser(user) {
-    try {
-      await this.userRepository.add(user);
-      await this.loadUsers();
-      this.crudRef.current.collapse();
-    }
-    catch (e) {
-      const msg = this.getErrorMessage(e);
-      this.setState({ createError: msg });
     }
   }
 
