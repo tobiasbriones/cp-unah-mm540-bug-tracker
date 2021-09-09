@@ -40,9 +40,10 @@ class AssignBug extends React.Component {
             <select
               className="form-select form-select-lg mb-3"
               aria-label="Select bug"
+              defaultValue="-1"
               onChange={ this.onBugChange.bind(this) }
             >
-              <option selected>Seleccionar bug</option>
+              <option value="-1">Seleccionar bug</option>
               { this.state.bugs.map(getBugOptionComponent) }
             </select>
           </div>
@@ -50,9 +51,10 @@ class AssignBug extends React.Component {
             <select
               className="form-select form-select-lg mb-3"
               aria-label="Select developer"
+              defaultValue="-1"
               onChange={ this.onTeamChange.bind(this) }
             >
-              <option selected>Seleccionar desarrollador</option>
+              <option value="-1">Seleccionar desarrollador</option>
               { this.state.teams.map(getTeamOptionComponent) }
             </select>
           </div>
