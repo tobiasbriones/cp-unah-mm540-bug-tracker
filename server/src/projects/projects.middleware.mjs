@@ -10,14 +10,16 @@
  * https://opensource.org/licenses/BSD-3-Clause.
  */
 
+import { Status } from '../http.mjs';
+
 export function projectValidate(req, res, next) {
   const project = req.body;
 
   if (!project) {
-    return res.status(400).send('Fill all the fields');
+    return res.status(Status.BAD_REQUEST).send('Fill all the fields');
   }
   if (!project.name || !project.startDate || !project.endDate) {
-    return res.status(400).send('Fill all the fields');
+    return res.status(Status.BAD_REQUEST).send('Fill all the fields');
   }
   next();
 }

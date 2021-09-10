@@ -10,14 +10,16 @@
  * https://opensource.org/licenses/BSD-3-Clause.
  */
 
+import { Status } from '../http.mjs';
+
 export function teamValidate(req, res, next) {
   const team = req.body;
 
   if (!team) {
-    return res.status(400).send('Fill all the fields');
+    return res.status(Status.BAD_REQUEST).send('Fill all the fields');
   }
   if (!team.name || !team.languages || !team.tech) {
-    return res.status(400).send('Fill all the fields');
+    return res.status(Status.BAD_REQUEST).send('Fill all the fields');
   }
   next();
 }

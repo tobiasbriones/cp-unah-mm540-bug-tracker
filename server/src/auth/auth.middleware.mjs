@@ -14,6 +14,7 @@ import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import { UserModel } from '../users/user.model.mjs';
 import { JWT_PRIVATE_KEY } from './auth.secret.mjs';
+import { Status } from '../http.mjs';
 
 export async function login(req, res, next) {
   passport.authenticate(
@@ -21,7 +22,7 @@ export async function login(req, res, next) {
     async (err, user, info) => {
       try {
         if (err || !user) {
-          return res.status(401).send(err);
+          return res.status(Status.UNAUTHORIZED).send(err);
         }
 
         req.login(
@@ -50,7 +51,7 @@ export function signUp(req, res, next) {
     'signup',
     async err => {
       if (err) {
-        res.status(400).send(err);
+        res.status(Status.INTERNAL_SERVER_ERROR).send(err);
       }
       else {
         next();
@@ -63,13 +64,13 @@ export const jwtGuard = passport.authenticate('jwt', { session: false });
 
 export async function adminGuard(req, res, next) {
   if (!req.user || !req.user._id) {
-    res.status(401).send('Unauthorized');
+    res.status(Status.UNAUTHORIZED).send('Unauthorized');
     return;
   }
   const user = await UserModel.findById(req.user._id);
 
   if (!user || user.role !== 'admin') {
-    res.status(401).send('Unauthorized');
+    res.status(Status.UNAUTHORIZED).send('Unauthorized');
     return;
   }
   next();
@@ -77,13 +78,13 @@ export async function adminGuard(req, res, next) {
 
 export async function qaGuard(req, res, next) {
   if (!req.user || !req.user._id) {
-    res.status(401).send('Unauthorized');
+    res.status(Status.UNAUTHORIZED).send('Unauthorized');
     return;
   }
   const user = await UserModel.findById(req.user._id);
 
   if (!user || (user.role !== 'admin' && user.role !== 'qa')) {
-    res.status(401).send('Unauthorized');
+    res.status(Status.UNAUTHORIZED).send('Unauthorized');
     return;
   }
   next();
