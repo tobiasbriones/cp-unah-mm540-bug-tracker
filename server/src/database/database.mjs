@@ -12,12 +12,8 @@
 
 import mongoose from 'mongoose';
 
-const HOST = '127.0.0.1';
-const PORT = '27017';
-const DOC = 'bug_tracker';
-const URI = `mongodb://${ HOST }:${ PORT }/${ DOC }`;
-
 export function newMongooseDb() {
+  const URI = getUri();
   const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -25,4 +21,11 @@ export function newMongooseDb() {
     useCreateIndex: true
   };
   return mongoose.connect(URI, options);
+}
+
+function getUri() {
+  const HOST = process.env.DB_HOST;
+  const PORT = process.env.DB_PORT;
+  const DOC = process.env.DB_DOC;
+  return `mongodb://${ HOST }:${ PORT }/${ DOC }`;
 }
