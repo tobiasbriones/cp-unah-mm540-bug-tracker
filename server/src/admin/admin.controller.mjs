@@ -13,7 +13,7 @@
 import { AdminService } from './admin.service.mjs';
 import { UsersService } from '../users/users.service.mjs';
 import { TeamsService } from '../teams/teams.service.mjs';
-import { ProjectsServices } from '../projects/projects.services.mjs';
+import { ProjectsService } from '../projects/projects.service.mjs';
 
 export class AdminController {
   #service;
@@ -25,19 +25,19 @@ export class AdminController {
     this.#service = new AdminService();
     this.#usersService = new UsersService();
     this.#teamsService = new TeamsService();
-    this.#projectsService = new ProjectsServices();
+    this.#projectsService = new ProjectsService();
   }
 
   async assignBug(req, res) {
     try {
       const bugId = req.params['bugId'];
-      const devTeamId = req.body['devTeamId'];
+      const teamId = req.body['teamId'];
 
-      await this.#service.assignBug(bugId, devTeamId);
+      await this.#service.assignBug(bugId, teamId);
       res.end();
     }
-    catch (err) {
-      res.status(400).send(err.message);
+    catch (e) {
+      res.status(400).send(e.message);
     }
   }
 
@@ -47,77 +47,77 @@ export class AdminController {
 
       res.json(stats);
     }
-    catch (err) {
-      res.status(400).send(err.message);
+    catch (e) {
+      res.status(400).send(e.message);
     }
   }
 
   async createTeam(req, res) {
     try {
-      const devTeam = {
+      const team = {
         code: req.body['code'],
         name: req.body['name'],
         languages: req.body['languages'],
         tech: req.body['tech']
       };
-      await this.#teamsService.createTeam(devTeam);
+      await this.#teamsService.createTeam(team);
 
       res.end();
     }
-    catch (err) {
-      res.status(400).send(err.message);
+    catch (e) {
+      res.status(400).send(e.message);
     }
   }
 
   async readAllTeams(req, res) {
     try {
-      const devTeams = await this.#teamsService.readAllTeams();
+      const teams = await this.#teamsService.readAllTeams();
 
-      res.json(devTeams);
+      res.json(teams);
     }
-    catch (err) {
-      res.status(400).send(err.message);
+    catch (e) {
+      res.status(400).send(e.message);
     }
   }
 
   async readTeam(req, res) {
     try {
-      const id = req.params['devTeamId'];
-      const devTeam = await this.#teamsService.readTeam(id);
+      const id = req.params['teamId'];
+      const team = await this.#teamsService.readTeam(id);
 
-      res.json(devTeam);
+      res.json(team);
     }
-    catch (err) {
-      res.status(400).send(err.message);
+    catch (e) {
+      res.status(400).send(e.message);
     }
   }
 
   async updateTeam(req, res) {
     try {
-      const id = req.params['devTeamId'];
-      const devTeam = {
+      const id = req.params['teamId'];
+      const team = {
         name: req.body['name'],
         languages: req.body['languages'],
         tech: req.body['tech']
       };
-      await this.#teamsService.updateTeam(id, devTeam);
+      await this.#teamsService.updateTeam(id, team);
 
       res.end();
     }
-    catch (err) {
-      res.status(400).send(err.message);
+    catch (e) {
+      res.status(400).send(e.message);
     }
   }
 
   async deleteTeam(req, res) {
     try {
-      const id = req.params['devTeamId'];
+      const id = req.params['teamId'];
       await this.#teamsService.deleteTeam(id);
 
       res.end();
     }
-    catch (err) {
-      res.status(400).send(err.message);
+    catch (e) {
+      res.status(400).send(e.message);
     }
   }
 
@@ -133,8 +133,8 @@ export class AdminController {
 
       res.end();
     }
-    catch (err) {
-      res.status(400).send(err.message);
+    catch (e) {
+      res.status(400).send(e.message);
     }
   }
 
@@ -144,8 +144,8 @@ export class AdminController {
 
       res.json(projects);
     }
-    catch (err) {
-      res.status(400).send(err.message);
+    catch (e) {
+      res.status(400).send(e.message);
     }
   }
 
@@ -156,8 +156,8 @@ export class AdminController {
 
       res.json(project);
     }
-    catch (err) {
-      res.status(400).send(err.message);
+    catch (e) {
+      res.status(400).send(e.message);
     }
   }
 
@@ -173,8 +173,8 @@ export class AdminController {
 
       res.end();
     }
-    catch (err) {
-      res.status(400).send(err.message);
+    catch (e) {
+      res.status(400).send(e.message);
     }
   }
 
@@ -185,8 +185,8 @@ export class AdminController {
 
       res.end();
     }
-    catch (err) {
-      res.status(400).send(err.message);
+    catch (e) {
+      res.status(400).send(e.message);
     }
   }
 
@@ -196,8 +196,8 @@ export class AdminController {
 
       res.json(users);
     }
-    catch (err) {
-      res.status(400).send(err.message);
+    catch (e) {
+      res.status(400).send(e.message);
     }
   }
 
@@ -208,8 +208,8 @@ export class AdminController {
 
       res.json(user);
     }
-    catch (err) {
-      res.status(400).send(err.message);
+    catch (e) {
+      res.status(400).send(e.message);
     }
   }
 
@@ -226,8 +226,8 @@ export class AdminController {
 
       res.end();
     }
-    catch (err) {
-      res.status(400).send(err.message);
+    catch (e) {
+      res.status(400).send(e.message);
     }
   }
 
@@ -238,8 +238,8 @@ export class AdminController {
 
       res.end();
     }
-    catch (err) {
-      res.status(400).send(err.message);
+    catch (e) {
+      res.status(400).send(e.message);
     }
   }
 }

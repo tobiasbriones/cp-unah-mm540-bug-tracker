@@ -11,7 +11,7 @@
  */
 
 import { Module } from '../module.mjs';
-import { ProjectsServices } from './projects.services.mjs';
+import { ProjectsService } from './projects.service.mjs';
 import { jwtGuard, qaGuard } from '../auth/auth.middleware.mjs';
 import { ProjectsController } from './projects.controller.mjs';
 

@@ -16,9 +16,8 @@ import { BugModel } from '../bugs/bug.model.mjs';
 import { TeamProjectModel } from '../teams/team-project.model.mjs';
 import { TeamModel } from '../teams/team.model.mjs';
 
-export class ProjectsServices {
-  constructor() {
-  }
+export class ProjectsService {
+  constructor() {}
 
   async createProject(project) {
     await ProjectModel.create(project);

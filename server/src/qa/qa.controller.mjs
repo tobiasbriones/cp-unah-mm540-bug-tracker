@@ -10,13 +10,13 @@
  * https://opensource.org/licenses/BSD-3-Clause.
  */
 
-import { ProjectsServices } from '../projects/projects.services.mjs';
+import { ProjectsService } from '../projects/projects.service.mjs';
 
 export class QaController {
   #projectsService;
 
   constructor() {
-    this.#projectsService = new ProjectsServices();
+    this.#projectsService = new ProjectsService();
   }
 
   async assignBug(req, res) {

@@ -52,9 +52,9 @@ export class AdminModule extends Module {
       controller.createTeam.bind(c)
     );
     router.get('/teams', controller.readAllTeams.bind(c));
-    router.get('/teams/:devTeamId', controller.readTeam.bind(c));
-    router.put('/teams/:devTeamId', controller.updateTeam.bind(c));
-    router.delete('/teams/:devTeamId', controller.deleteTeam.bind(c));
+    router.get('/teams/:teamId', controller.readTeam.bind(c));
+    router.put('/teams/:teamId', controller.updateTeam.bind(c));
+    router.delete('/teams/:teamId', controller.deleteTeam.bind(c));
 
     router.post(
       '/projects',

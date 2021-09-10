@@ -10,13 +10,13 @@
  * https://opensource.org/licenses/BSD-3-Clause.
  */
 
-import { ProjectsServices } from './projects.services.mjs';
+import { ProjectsService } from './projects.service.mjs';
 
 export class ProjectsController {
   #service;
 
   constructor() {
-    this.#service = new ProjectsServices();
+    this.#service = new ProjectsService();
   }
 
   async readAll(req, res) {
