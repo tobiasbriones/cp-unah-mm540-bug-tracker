@@ -9,3 +9,9 @@
  * LICENSE file in the root directory of this source tree or at
  * https://opensource.org/licenses/BSD-3-Clause.
  */
+
+export const Status = Object.freeze({
+  OK: 200,
+  NOT_FOUND: 404,
+  BAD_REQUEST: 400
+});
