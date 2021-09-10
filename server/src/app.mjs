@@ -12,13 +12,13 @@
 
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
+import { config } from 'dotenv';
 import { newMongooseDb } from './database/database.mjs';
 import { HttpModule } from './http/http.module.mjs';
 
 const PORT = 3000;
 
-dotenv.config();
+config();
 newMongooseDb().then(listen, onDbError);
 
 async function listen() {
