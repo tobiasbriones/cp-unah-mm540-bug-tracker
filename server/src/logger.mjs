@@ -9,3 +9,36 @@
  * LICENSE file in the root directory of this source tree or at
  * https://opensource.org/licenses/BSD-3-Clause.
  */
+
+export class Logger {
+  /**
+   * It logs an error message with the following format:
+   *
+   * `${msg} ${object || ''}: ${exception}`
+   *
+   * For example:
+   *
+   * "Failed to connect to the database { "username":"admin",
+   * "host":"https://example.com", ... }: { "name":"DatabaseException",
+   * "usingPassword":"YES", ... }"
+   *
+   * This is intended for server failures, for instance, before throwing
+   * an `InternalServerErrorException` from a service or controller.
+   *
+   * @param exception exception that caused a server failure to respond to the
+   *        client
+   * @param message optional message about the underlying action
+   * @param object optional object to give context to the message param
+   */
+  static internalError(exception, message, object) {
+    console.log();
+
+    if (message) {
+      console.error(message, object || '', ': ', exception);
+    }
+    else {
+      console.error(exception);
+    }
+    console.log();
+  }
+}
