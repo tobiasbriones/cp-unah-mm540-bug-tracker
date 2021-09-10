@@ -19,6 +19,12 @@ import { projectValidate } from '../projects/projects.middleware.mjs';
 import { UserModel } from '../users/user.model.mjs';
 import { TeamModel } from '../teams/team.model.mjs';
 import { ProjectModel } from '../projects/project.model.mjs';
+import {
+  userAddNewId, userExistsValidate,
+  userPasswordValidate,
+  userSignUpValidate, userUpdateValidate
+} from '../users/users.middleware.mjs';
+import { Status } from '../http.mjs';
 
 const ROUTER_CONFIG = Object.freeze({
   path: '/admin',
@@ -69,81 +75,17 @@ export class AdminModule extends Module {
 
     router.post(
       '/users',
-      checkUser,
-      checkPassword,
-      checkUserExists,
+      userSignUpValidate,
+      userAddNewId,
+      userPasswordValidate,
+      userExistsValidate,
       signUp,
       controller.updateUser.bind(c)
     );
     router.get('/users', controller.readAllUsers.bind(c));
     router.get('/users/:userId', controller.readUser.bind(c));
-    router.put('/users/:userId', checkUserPut, controller.updateUser.bind(c));
+    router.put('/users/:userId', userUpdateValidate, controller.updateUser.bind(c));
     router.delete('/users/:userId', controller.deleteUser.bind(c));
-  }
-}
-
-async function checkUser(req, res, next) {
-  const user = req.body;
-
-  if (!user.full_name || !user.login || !user.role) {
-    res.status(400).send('User must be set');
-    return;
-  }
-  if (user.role !== 'admin' && user.role !== 'dev' && user.role !== 'qa') {
-    res.status(400).send('Invalid role');
-    return;
-  }
-
-  try {
-    const uid = await getNewUserId();
-    req.body.id = uid;
-  }
-  catch (e) {
-    console.log(e);
-    res.status(500).send('Fail to generate user ID');
-    return;
-  }
-  next();
-}
-
-async function checkUserPut(req, res, next) {
-  const user = req.body;
-
-  if (!user.id || !user.full_name || !user.login || !user.role) {
-    res.status(400).send('User must be set');
-    return;
-  }
-  if (user.role !== 'admin' && user.role !== 'dev' && user.role !== 'qa') {
-    res.status(400).send('Invalid role');
-    return;
-  }
-  next();
-}
-
-function checkPassword(req, res, next) {
-  const user = req.body;
-
-  if (!user.password) {
-    res.status(400).send('User password must be set');
-    return;
-  }
-  next();
-}
-
-async function checkUserExists(req, res, next) {
-  try {
-    const usersService = new UsersService();
-    const exists = await usersService.exists(req.body);
-
-    if (exists) {
-      res.status(400).send('User already exists');
-    }
-    else {
-      next();
-    }
-  }
-  catch (err) {
-    res.status(500).send(err);
   }
 }
 
@@ -155,14 +97,6 @@ async function setTeamId(req, res, next) {
 async function setProjectId(req, res, next) {
   req.body.code = await getNewProjectCode();
   next();
-}
-
-// Temporal way of generating unique user IDs
-async function getNewUserId() {
-  const users = await UserModel.find();
-  const user = users.sort((a, b) => (a.id < b.id ? 1 : -1))[0];
-  const max = user.id;
-  return max + 1;
 }
 
 async function getNewTeamCode() {
