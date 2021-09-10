@@ -21,7 +21,7 @@ export class TeamsController {
 
   async readAll(req, res) {
     try {
-      const teams = await this.#service.readAllDevTeams();
+      const teams = await this.#service.readAllTeams();
 
       res.json(teams);
     }
@@ -33,7 +33,7 @@ export class TeamsController {
   async read(req, res) {
     try {
       const id = req.params['teamId'];
-      const team = await this.#service.readDevTeam(id);
+      const team = await this.#service.readTeam(id);
 
       res.json(team);
     }
@@ -68,7 +68,6 @@ export class TeamsController {
   }
 
   async assignBug(req, res) {
-
     try {
       const teamCode = req.params['teamId'];
       const bugCode = req.body.bugCode;

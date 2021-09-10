@@ -20,15 +20,15 @@ import { TeamBugModel } from './team-bug.model.mjs';
 export class TeamsService {
   constructor() {}
 
-  async createDevTeam(devTeam) {
+  async createTeam(devTeam) {
     await TeamModel.create(devTeam);
   }
 
-  async readAllDevTeams() {
+  async readAllTeams() {
     return TeamModel.find();
   }
 
-  async readDevTeam(id) {
+  async readTeam(id) {
     const devTeam = await TeamModel.findOne({ code: id });
 
     if (!devTeam) {
@@ -37,11 +37,11 @@ export class TeamsService {
     return devTeam;
   }
 
-  async updateDevTeam(id, devTeam) {
+  async updateTeam(id, devTeam) {
     await TeamModel.updateOne({ code: id }, devTeam);
   }
 
-  async deleteDevTeam(id) {
+  async deleteTeam(id) {
     await TeamModel.deleteOne({ code: id });
   }
 

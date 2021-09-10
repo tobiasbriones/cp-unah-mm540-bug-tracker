@@ -49,12 +49,12 @@ export class AdminModule extends Module {
       '/teams',
       teamValidate,
       setTeamId,
-      controller.createDevTeam.bind(c)
+      controller.createTeam.bind(c)
     );
-    router.get('/teams', controller.readAllDevTeams.bind(c));
-    router.get('/teams/:devTeamId', controller.readDevTeam.bind(c));
-    router.put('/teams/:devTeamId', controller.updateDevTeam.bind(c));
-    router.delete('/teams/:devTeamId', controller.deleteDevTeam.bind(c));
+    router.get('/teams', controller.readAllTeams.bind(c));
+    router.get('/teams/:devTeamId', controller.readTeam.bind(c));
+    router.put('/teams/:devTeamId', controller.updateTeam.bind(c));
+    router.delete('/teams/:devTeamId', controller.deleteTeam.bind(c));
 
     router.post(
       '/projects',

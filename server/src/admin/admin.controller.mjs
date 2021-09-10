@@ -18,13 +18,13 @@ import { ProjectsServices } from '../projects/projects.services.mjs';
 export class AdminController {
   #service;
   #usersService;
-  #devTeamService;
+  #teamsService;
   #projectsService;
 
   constructor() {
     this.#service = new AdminService();
     this.#usersService = new UsersService();
-    this.#devTeamService = new TeamsService();
+    this.#teamsService = new TeamsService();
     this.#projectsService = new ProjectsServices();
   }
 
@@ -52,7 +52,7 @@ export class AdminController {
     }
   }
 
-  async createDevTeam(req, res) {
+  async createTeam(req, res) {
     try {
       const devTeam = {
         code: req.body['code'],
@@ -60,7 +60,7 @@ export class AdminController {
         languages: req.body['languages'],
         tech: req.body['tech']
       };
-      await this.#devTeamService.createDevTeam(devTeam);
+      await this.#teamsService.createTeam(devTeam);
 
       res.end();
     }
@@ -69,9 +69,9 @@ export class AdminController {
     }
   }
 
-  async readAllDevTeams(req, res) {
+  async readAllTeams(req, res) {
     try {
-      const devTeams = await this.#devTeamService.readAllDevTeams();
+      const devTeams = await this.#teamsService.readAllTeams();
 
       res.json(devTeams);
     }
@@ -80,10 +80,10 @@ export class AdminController {
     }
   }
 
-  async readDevTeam(req, res) {
+  async readTeam(req, res) {
     try {
       const id = req.params['devTeamId'];
-      const devTeam = await this.#devTeamService.readDevTeam(id);
+      const devTeam = await this.#teamsService.readTeam(id);
 
       res.json(devTeam);
     }
@@ -92,7 +92,7 @@ export class AdminController {
     }
   }
 
-  async updateDevTeam(req, res) {
+  async updateTeam(req, res) {
     try {
       const id = req.params['devTeamId'];
       const devTeam = {
@@ -100,7 +100,7 @@ export class AdminController {
         languages: req.body['languages'],
         tech: req.body['tech']
       };
-      await this.#devTeamService.updateDevTeam(id, devTeam);
+      await this.#teamsService.updateTeam(id, devTeam);
 
       res.end();
     }
@@ -109,10 +109,10 @@ export class AdminController {
     }
   }
 
-  async deleteDevTeam(req, res) {
+  async deleteTeam(req, res) {
     try {
       const id = req.params['devTeamId'];
-      await this.#devTeamService.deleteDevTeam(id);
+      await this.#teamsService.deleteTeam(id);
 
       res.end();
     }
