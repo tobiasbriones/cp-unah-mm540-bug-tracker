@@ -13,18 +13,17 @@
 import { AdminController } from './admin.controller.mjs';
 import { adminGuard, jwtGuard, signUp } from '../auth/auth.middleware.mjs';
 import { Module } from '../module.mjs';
-import { UsersService } from '../users/users.service.mjs';
 import { teamValidate } from '../teams/teams.middleware.mjs';
 import { projectValidate } from '../projects/projects.middleware.mjs';
-import { UserModel } from '../users/user.model.mjs';
 import { TeamModel } from '../teams/team.model.mjs';
 import { ProjectModel } from '../projects/project.model.mjs';
 import {
-  userAddNewId, userExistsValidate,
+  userAddNewId,
+  userExistsValidate,
   userPasswordValidate,
-  userSignUpValidate, userUpdateValidate
+  userSignUpValidate,
+  userUpdateValidate
 } from '../users/users.middleware.mjs';
-import { Status } from '../http.mjs';
 
 const ROUTER_CONFIG = Object.freeze({
   path: '/admin',
