@@ -25,7 +25,9 @@ export class ProjectsModule extends Module {
   }
 
   init() {
-    this.router.get('/', async (req, res) => {
+    const router = this.router;
+
+    router.get('/', async (req, res) => {
       try {
         const projectsService = new ProjectsServices();
         const projects = await projectsService.readAllProjects();
@@ -36,7 +38,7 @@ export class ProjectsModule extends Module {
         res.status(500).send(e.message);
       }
     });
-    this.router.get('/:id', async (req, res) => {
+    router.get('/:id', async (req, res) => {
       try {
         const code = req.params['id'];
         const projectsService = new ProjectsServices();
@@ -62,7 +64,7 @@ export class ProjectsModule extends Module {
       }
     });
 
-    this.router.post('/:projectId/bugs', qaGuard, async (req, res) => {
+    router.post('/:projectId/bugs', qaGuard, async (req, res) => {
       try {
         const projectId = req.params['projectId'];
         const bugCode = req.body.bugCode;
@@ -76,7 +78,7 @@ export class ProjectsModule extends Module {
       }
     });
 
-    this.router.get('/:projectId/teams', qaGuard, async (req, res) => {
+    router.get('/:projectId/teams', qaGuard, async (req, res) => {
       try {
         const projectId = req.params['projectId'];
         const projectsService = new ProjectsServices();

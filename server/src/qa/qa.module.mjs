@@ -31,13 +31,16 @@ export class QaModule extends Module {
   }
 
   init() {
-    this.router.post(
+    const router = this.router;
+    const controller = this.#controller;
+
+    router.post(
       '/projects/:projectId/bugs',
-      (req, res) => this.#controller.assignBug(req, res)
+      controller.assignBug.bind(controller)
     );
-    this.router.get(
+    router.get(
       '/projects/:projectId/bugs',
-      (req, res) => this.#controller.readAllProjectBugs(req, res)
+      controller.readAllProjectBugs.bind(controller)
     );
   }
 }

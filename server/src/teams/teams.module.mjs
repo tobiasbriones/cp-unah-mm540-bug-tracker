@@ -25,7 +25,9 @@ export class TeamsModule extends Module {
   }
 
   init() {
-    this.router.get('/', async (req, res) => {
+    const router = this.router;
+
+    router.get('/', async (req, res) => {
       try {
         const devTeamService = new TeamsService();
         const devTeams = await devTeamService.readAllDevTeams();
@@ -36,7 +38,7 @@ export class TeamsModule extends Module {
         res.status(400).send(err.message);
       }
     });
-    this.router.get('/:devTeamId', async (req, res) => {
+    router.get('/:devTeamId', async (req, res) => {
       try {
         const id = req.params['devTeamId'];
         const devTeamService = new TeamsService();
@@ -49,7 +51,7 @@ export class TeamsModule extends Module {
       }
     });
 
-    this.router.post('/:teamId/projects', qaGuard, async (req, res) => {
+    router.post('/:teamId/projects', qaGuard, async (req, res) => {
       try {
         const teamCode = req.params['teamId'];
         const projectCode = req.body.projectCode;
@@ -63,7 +65,7 @@ export class TeamsModule extends Module {
       }
     });
 
-    this.router.get('/:teamId/projects', async (req, res) => {
+    router.get('/:teamId/projects', async (req, res) => {
       try {
         const teamCode = req.params['teamId'];
         const service = new TeamsService();
@@ -76,7 +78,7 @@ export class TeamsModule extends Module {
       }
     });
 
-    this.router.post('/:teamId/bugs', async (req, res) => {
+    router.post('/:teamId/bugs', async (req, res) => {
       try {
         const teamCode = req.params['teamId'];
         const bugCode = req.body.bugCode;
@@ -90,7 +92,7 @@ export class TeamsModule extends Module {
       }
     });
 
-    this.router.get('/:teamId/bugs', async (req, res) => {
+    router.get('/:teamId/bugs', async (req, res) => {
       try {
         const teamCode = req.params['teamId'];
         const service = new TeamsService();

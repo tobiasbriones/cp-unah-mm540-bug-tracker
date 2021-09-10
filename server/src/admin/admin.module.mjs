@@ -37,46 +37,48 @@ export class AdminModule extends Module {
   }
 
   init() {
+    const router = this.router;
     const controller = this.#controller;
+    const c = controller;
 
-    this.router.patch('/bugs/:bugId/assign', (req, res) => controller.assignBug(req, res));
+    router.patch('/bugs/:bugId/assign', controller.assignBug.bind(c));
 
-    this.router.get('/stats/bugs', (req, res) => controller.readAllBugStats(req, res));
+    router.get('/stats/bugs', controller.readAllBugStats.bind(c));
 
-    this.router.post(
+    router.post(
       '/teams',
       teamValidate,
       setTeamId,
-      (req, res) => controller.createDevTeam(req, res)
+      controller.createDevTeam.bind(c)
     );
-    this.router.get('/teams', (req, res) => controller.readAllDevTeams(req, res));
-    this.router.get('/teams/:devTeamId', (req, res) => controller.readDevTeam(req, res));
-    this.router.put('/teams/:devTeamId', (req, res) => controller.updateDevTeam(req, res));
-    this.router.delete('/teams/:devTeamId', (req, res) => controller.deleteDevTeam(req, res));
+    router.get('/teams', controller.readAllDevTeams.bind(c));
+    router.get('/teams/:devTeamId', controller.readDevTeam.bind(c));
+    router.put('/teams/:devTeamId', controller.updateDevTeam.bind(c));
+    router.delete('/teams/:devTeamId', controller.deleteDevTeam.bind(c));
 
-    this.router.post(
+    router.post(
       '/projects',
       projectValidate,
       setProjectId,
-      (req, res) => controller.createProject(req, res)
+      controller.createProject.bind(c)
     );
-    this.router.get('/projects', (req, res) => controller.readAllProjects(req, res));
-    this.router.get('/projects/:projectId', (req, res) => controller.readProject(req, res));
-    this.router.put('/projects/:projectId', (req, res) => controller.updateProject(req, res));
-    this.router.delete('/projects/:projectId', (req, res) => controller.deleteProject(req, res));
+    router.get('/projects', controller.readAllProjects.bind(c));
+    router.get('/projects/:projectId', controller.readProject.bind(c));
+    router.put('/projects/:projectId', controller.updateProject.bind(c));
+    router.delete('/projects/:projectId', controller.deleteProject.bind(c));
 
-    this.router.post(
+    router.post(
       '/users',
       checkUser,
       checkPassword,
       checkUserExists,
       signUp,
-      (req, res) => controller.updateUser(req, res)
+      controller.updateUser.bind(c)
     );
-    this.router.get('/users', (req, res) => controller.readAllUsers(req, res));
-    this.router.get('/users/:userId', (req, res) => controller.readUser(req, res));
-    this.router.put('/users/:userId', checkUserPut, (req, res) => controller.updateUser(req, res));
-    this.router.delete('/users/:userId', (req, res) => controller.deleteUser(req, res));
+    router.get('/users', controller.readAllUsers.bind(c));
+    router.get('/users/:userId', controller.readUser.bind(c));
+    router.put('/users/:userId', checkUserPut, controller.updateUser.bind(c));
+    router.delete('/users/:userId', controller.deleteUser.bind(c));
   }
 }
 

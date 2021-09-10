@@ -29,15 +29,18 @@ export class AuthModule extends Module {
   }
 
   init() {
-    this.router.post(
+    const router = this.router;
+    const controller = this.#controller;
+
+    router.post(
       '/login',
       login,
-      (req, res) => this.#controller.login(req, res)
+      controller.login.bind(controller)
     );
-    this.router.post(
+    router.post(
       '/verify-token',
       jwtGuard,
-      (req, res) => this.#controller.verifyToken(req, res)
+      controller.verifyToken.bind(controller)
     );
 
     setupPassport();

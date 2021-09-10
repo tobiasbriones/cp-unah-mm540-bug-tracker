@@ -30,10 +30,13 @@ export class BugsModule extends Module {
   }
 
   init() {
-    this.router.post('/', qaGuard, validateBug, (req, res) => this.#controller.create(req, res));
-    this.router.get('/', (req, res) => this.#controller.readAll(req, res));
-    this.router.post('/:id/set-finished', (req, res) => this.#controller.setFinished(req, res))
-    this.router.post('/:id/set-assigned', (req, res) => this.#controller.setAssigned(req, res))
+    const router = this.router;
+    const controller = this.#controller;
+
+    router.post('/', qaGuard, validateBug, controller.create.bind(controller));
+    router.get('/', controller.readAll.bind(controller));
+    router.post('/:id/set-finished', controller.setFinished.bind(controller));
+    router.post('/:id/set-assigned', controller.setAssigned.bind(controller));
   }
 }
 
