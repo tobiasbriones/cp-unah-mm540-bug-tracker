@@ -13,8 +13,8 @@
 import express from 'express';
 import cors from 'cors';
 import { config as dotenv } from 'dotenv';
-import { newMongooseDb } from './database/database.mjs';
-import { HttpModule } from './http/http.module.mjs';
+import { newMongooseDb } from './database.config.mjs';
+import { AppModule } from './app.module.mjs';
 
 const PORT = 3000;
 
@@ -23,7 +23,7 @@ newMongooseDb().then(listen, onDbError);
 
 async function listen() {
   const app = express();
-  const httpModule = new HttpModule();
+  const httpModule = new AppModule();
 
   app.use(express.json());
   app.use(cors());

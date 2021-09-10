@@ -19,7 +19,7 @@ import { TeamsModule } from './teams/teams.module.mjs';
 
 const PATH = '';
 
-export class HttpModule {
+export class AppModule {
   #modules;
 
   constructor() {
