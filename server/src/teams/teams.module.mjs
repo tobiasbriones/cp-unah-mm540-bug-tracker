@@ -13,6 +13,7 @@
 import { jwtGuard, qaGuard } from '../auth/auth.middleware.mjs';
 import { Module } from '../module.mjs';
 import { TeamsService } from './teams.service.mjs';
+import { TeamsController } from './teams.controller.mjs';
 
 const ROUTER_CONFIG = Object.freeze({
   path: '/teams',
@@ -20,89 +21,24 @@ const ROUTER_CONFIG = Object.freeze({
 });
 
 export class TeamsModule extends Module {
+  #controller;
+
   constructor() {
     super(ROUTER_CONFIG);
+    this.#controller = new TeamsController();
   }
 
   init() {
     const router = this.router;
+    const controller = this.#controller;
 
-    router.get('/', async (req, res) => {
-      try {
-        const devTeamService = new TeamsService();
-        const devTeams = await devTeamService.readAllDevTeams();
+    router.get('/', controller.readAll.bind(controller));
+    router.get('/:teamId', controller.read.bind(controller));
 
-        res.json(devTeams);
-      }
-      catch (err) {
-        res.status(400).send(err.message);
-      }
-    });
-    router.get('/:devTeamId', async (req, res) => {
-      try {
-        const id = req.params['devTeamId'];
-        const devTeamService = new TeamsService();
-        const devTeam = await devTeamService.readDevTeam(id);
+    router.post('/:teamId/projects', qaGuard, controller.createProject.bind(controller));
+    router.get('/:teamId/projects', controller.readAllProjects.bind(controller));
 
-        res.json(devTeam);
-      }
-      catch (err) {
-        res.status(400).send(err.message);
-      }
-    });
-
-    router.post('/:teamId/projects', qaGuard, async (req, res) => {
-      try {
-        const teamCode = req.params['teamId'];
-        const projectCode = req.body.projectCode;
-        const service = new TeamsService();
-        await service.assignProject(teamCode, projectCode);
-
-        res.end();
-      }
-      catch (e) {
-        res.status(500).send(e.message);
-      }
-    });
-
-    router.get('/:teamId/projects', async (req, res) => {
-      try {
-        const teamCode = req.params['teamId'];
-        const service = new TeamsService();
-        const projects = await service.readProjects(teamCode);
-
-        res.send(projects);
-      }
-      catch (e) {
-        res.status(500).send(e.message);
-      }
-    });
-
-    router.post('/:teamId/bugs', async (req, res) => {
-      try {
-        const teamCode = req.params['teamId'];
-        const bugCode = req.body.bugCode;
-        const service = new TeamsService();
-        const projects = await service.assignBug(teamCode, bugCode);
-
-        res.send(projects);
-      }
-      catch (e) {
-        res.status(500).send(e.message);
-      }
-    });
-
-    router.get('/:teamId/bugs', async (req, res) => {
-      try {
-        const teamCode = req.params['teamId'];
-        const service = new TeamsService();
-        const projects = await service.readBugs(teamCode);
-
-        res.send(projects);
-      }
-      catch (e) {
-        res.status(500).send(e.message);
-      }
-    });
+    router.post('/:teamId/bugs', controller.assignBug.bind(controller));
+    router.get('/:teamId/bugs', controller.readAllBugs.bind(controller));
   }
 }
