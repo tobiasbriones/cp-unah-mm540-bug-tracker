@@ -11,6 +11,7 @@
  */
 
 import { ProjectsService } from './projects.service.mjs';
+import { Status } from '../http.mjs';
 
 export class ProjectsController {
   #service;
@@ -26,7 +27,7 @@ export class ProjectsController {
       res.json(projects);
     }
     catch (e) {
-      res.status(500).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -38,7 +39,7 @@ export class ProjectsController {
       res.json(project);
     }
     catch (e) {
-      res.status(500).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -50,7 +51,7 @@ export class ProjectsController {
       res.json(bugs);
     }
     catch (e) {
-      res.status(500).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
 
   }
@@ -64,7 +65,7 @@ export class ProjectsController {
       res.end();
     }
     catch (e) {
-      res.status(500).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -76,7 +77,7 @@ export class ProjectsController {
       res.json(teams);
     }
     catch (e) {
-      res.status(500).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 }

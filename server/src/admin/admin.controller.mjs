@@ -14,6 +14,7 @@ import { AdminService } from './admin.service.mjs';
 import { UsersService } from '../users/users.service.mjs';
 import { TeamsService } from '../teams/teams.service.mjs';
 import { ProjectsService } from '../projects/projects.service.mjs';
+import { Status } from '../http.mjs';
 
 export class AdminController {
   #service;
@@ -37,7 +38,7 @@ export class AdminController {
       res.end();
     }
     catch (e) {
-      res.status(400).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -48,7 +49,7 @@ export class AdminController {
       res.json(stats);
     }
     catch (e) {
-      res.status(400).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -65,7 +66,7 @@ export class AdminController {
       res.end();
     }
     catch (e) {
-      res.status(400).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -76,7 +77,7 @@ export class AdminController {
       res.json(teams);
     }
     catch (e) {
-      res.status(400).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -88,7 +89,7 @@ export class AdminController {
       res.json(team);
     }
     catch (e) {
-      res.status(400).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -105,7 +106,7 @@ export class AdminController {
       res.end();
     }
     catch (e) {
-      res.status(400).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -117,7 +118,7 @@ export class AdminController {
       res.end();
     }
     catch (e) {
-      res.status(400).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -134,7 +135,7 @@ export class AdminController {
       res.end();
     }
     catch (e) {
-      res.status(400).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -145,7 +146,7 @@ export class AdminController {
       res.json(projects);
     }
     catch (e) {
-      res.status(400).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -157,7 +158,7 @@ export class AdminController {
       res.json(project);
     }
     catch (e) {
-      res.status(400).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -174,7 +175,7 @@ export class AdminController {
       res.end();
     }
     catch (e) {
-      res.status(400).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -186,7 +187,7 @@ export class AdminController {
       res.end();
     }
     catch (e) {
-      res.status(400).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -197,7 +198,7 @@ export class AdminController {
       res.json(users);
     }
     catch (e) {
-      res.status(400).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -209,7 +210,7 @@ export class AdminController {
       res.json(user);
     }
     catch (e) {
-      res.status(400).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -227,7 +228,7 @@ export class AdminController {
       res.end();
     }
     catch (e) {
-      res.status(400).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -239,7 +240,7 @@ export class AdminController {
       res.end();
     }
     catch (e) {
-      res.status(400).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 }

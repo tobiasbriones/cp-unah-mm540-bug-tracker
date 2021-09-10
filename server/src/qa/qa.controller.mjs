@@ -11,6 +11,7 @@
  */
 
 import { ProjectsService } from '../projects/projects.service.mjs';
+import { Status } from '../http.mjs';
 
 export class QaController {
   #projectsService;
@@ -28,7 +29,7 @@ export class QaController {
       res.end();
     }
     catch (e) {
-      res.status(500).send(e);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e);
     }
   }
 
@@ -40,7 +41,7 @@ export class QaController {
       res.json(bugs);
     }
     catch (e) {
-      res.status(500).send(e);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e);
     }
   }
 }

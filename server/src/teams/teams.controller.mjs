@@ -11,6 +11,7 @@
  */
 
 import { TeamsService } from './teams.service.mjs';
+import { Status } from '../http.mjs';
 
 export class TeamsController {
   #service;
@@ -26,7 +27,7 @@ export class TeamsController {
       res.json(teams);
     }
     catch (e) {
-      res.status(400).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -38,7 +39,7 @@ export class TeamsController {
       res.json(team);
     }
     catch (e) {
-      res.status(400).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -51,7 +52,7 @@ export class TeamsController {
       res.end();
     }
     catch (e) {
-      res.status(500).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -63,7 +64,7 @@ export class TeamsController {
       res.send(projects);
     }
     catch (e) {
-      res.status(500).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -76,7 +77,7 @@ export class TeamsController {
       res.send(projects);
     }
     catch (e) {
-      res.status(500).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 
@@ -88,7 +89,7 @@ export class TeamsController {
       res.send(projects);
     }
     catch (e) {
-      res.status(500).send(e.message);
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
     }
   }
 }
