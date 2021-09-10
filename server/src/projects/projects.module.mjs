@@ -13,6 +13,7 @@
 import { Module } from '../module.mjs';
 import { ProjectsServices } from './projects.services.mjs';
 import { jwtGuard, qaGuard } from '../auth/auth.middleware.mjs';
+import { ProjectsController } from './projects.controller.mjs';
 
 const ROUTER_CONFIG = Object.freeze({
   path: '/projects',
@@ -20,75 +21,23 @@ const ROUTER_CONFIG = Object.freeze({
 });
 
 export class ProjectsModule extends Module {
+  #controller;
+
   constructor() {
     super(ROUTER_CONFIG);
+    this.#controller = new ProjectsController();
   }
 
   init() {
     const router = this.router;
+    const controller = this.#controller;
 
-    router.get('/', async (req, res) => {
-      try {
-        const projectsService = new ProjectsServices();
-        const projects = await projectsService.readAllProjects();
+    router.get('/', controller.readAll.bind(controller));
+    router.get('/:id', controller.read.bind(controller));
 
-        res.json(projects);
-      }
-      catch (e) {
-        res.status(500).send(e.message);
-      }
-    });
-    router.get('/:id', async (req, res) => {
-      try {
-        const code = req.params['id'];
-        const projectsService = new ProjectsServices();
-        const project = await projectsService.readProject(code);
+    router.get('/:projectId/bugs', qaGuard, controller.readAllBugs.bind(controller));
+    router.post('/:projectId/bugs', qaGuard, controller.assignBug.bind(controller));
 
-        res.json(project);
-      }
-      catch (e) {
-        res.status(500).send(e.message);
-      }
-    });
-
-    this.router.get('/:projectId/bugs', qaGuard, async (req, res) => {
-      try {
-        const projectId = req.params['projectId'];
-        const projectsService = new ProjectsServices();
-        const bugs = await projectsService.readBugs(projectId);
-
-        res.json(bugs);
-      }
-      catch (e) {
-        res.status(500).send(e.message);
-      }
-    });
-
-    router.post('/:projectId/bugs', qaGuard, async (req, res) => {
-      try {
-        const projectId = req.params['projectId'];
-        const bugCode = req.body.bugCode;
-        const projectsService = new ProjectsServices();
-        await projectsService.assignBug(projectId, bugCode);
-
-        res.end();
-      }
-      catch (e) {
-        res.status(500).send(e.message);
-      }
-    });
-
-    router.get('/:projectId/teams', qaGuard, async (req, res) => {
-      try {
-        const projectId = req.params['projectId'];
-        const projectsService = new ProjectsServices();
-        const teams = await projectsService.readTeams(projectId);
-
-        res.json(teams);
-      }
-      catch (e) {
-        res.status(500).send(e.message);
-      }
-    });
+    router.get('/:projectId/teams', qaGuard, controller.readAllTeams.bind(controller));
   }
 }
