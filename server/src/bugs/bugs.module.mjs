@@ -13,6 +13,7 @@
 import { Module } from '../module.mjs';
 import { BugsController } from './bugs.controller.mjs';
 import { jwtGuard, qaGuard } from '../auth/auth.middleware.mjs';
+import { bugValidate } from './bugs.middleware.mjs';
 
 const ROUTER_CONFIG = Object.freeze({
   path: '/bugs',
@@ -33,21 +34,9 @@ export class BugsModule extends Module {
     const router = this.router;
     const controller = this.#controller;
 
-    router.post('/', qaGuard, validateBug, controller.create.bind(controller));
+    router.post('/', qaGuard, bugValidate, controller.create.bind(controller));
     router.get('/', controller.readAll.bind(controller));
     router.post('/:id/set-finished', controller.setFinished.bind(controller));
     router.post('/:id/set-assigned', controller.setAssigned.bind(controller));
   }
-}
-
-function validateBug(req, res, next) {
-  const bug = req.body;
-
-  if (!bug) {
-    return res.status(400).send('Fill all the fields');
-  }
-  if (!bug.code || !bug.description || !bug.priority || !bug.state) {
-    return res.status(400).send('Fill all the fields');
-  }
-  next();
 }
