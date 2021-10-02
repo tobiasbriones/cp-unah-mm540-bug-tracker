@@ -10,7 +10,6 @@
  * https://opensource.org/licenses/BSD-3-Clause.
  */
 
-import './Bugs.css';
 import React from 'react';
 import { BugRepository } from '../../../model/bug/bug.repository.mjs';
 import { TeamRepository } from '../../../model/team/team.repository.mjs';

@@ -10,7 +10,6 @@
  * https://opensource.org/licenses/BSD-3-Clause.
  */
 
-import './Teams.css';
 import React from 'react';
 import { TeamRepository } from '../../../model/team/team.repository.mjs';
 import Crud from '../../../crud/Crud';

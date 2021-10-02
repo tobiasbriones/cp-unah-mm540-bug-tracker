@@ -10,7 +10,6 @@
  * https://opensource.org/licenses/BSD-3-Clause.
  */
 
-import './Qa.css';
 import React from 'react';
 import Projects from './projects/Projects';
 import Bugs from './bugs/Bugs';

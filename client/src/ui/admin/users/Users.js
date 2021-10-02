@@ -10,7 +10,6 @@
  * https://opensource.org/licenses/BSD-3-Clause.
  */
 
-import './Users.css';
 import React from 'react';
 import Crud from '../../../crud/Crud';
 import { getErrorMessage } from '../../../crud/errors';

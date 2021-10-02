@@ -10,7 +10,6 @@
  * https://opensource.org/licenses/BSD-3-Clause.
  */
 
-import './Projects.css';
 import React from 'react';
 import Crud from '../../../crud/Crud';
 import { ProjectRepository } from '../../../model/project/project.repository.mjs';

@@ -10,7 +10,6 @@
  * https://opensource.org/licenses/BSD-3-Clause.
  */
 
-import './App.css';
 import React from 'react';
 import Header from './header/Header';
 import Home from './home/Home';

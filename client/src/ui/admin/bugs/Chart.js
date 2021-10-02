@@ -10,7 +10,6 @@
  * https://opensource.org/licenses/BSD-3-Clause.
  */
 
-import './Bugs.css';
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
 import { BugRepository } from '../../../model/bug/bug.repository.mjs';
