@@ -19,6 +19,7 @@ class BugTeams extends React.Component {
   }
 
   render() {
+    const size = this.props.items.length;
     const mapItem = item =>
       <li key={ item.code } className="list-group-item">{ item.name }</li>;
 
@@ -28,7 +29,7 @@ class BugTeams extends React.Component {
     return (
       <div className="col-0 col-xl-4 mt-5 mt-xl-0 align-self-center">
         <p className="text-center font-weight-bold">
-          <strong>Desarrolladores asignados</strong>
+          <strong>Desarrolladores asignados ({ size })</strong>
         </p>
         <ul className="list-group">
           { this.props.items.map(mapItem) }
@@ -39,3 +40,7 @@ class BugTeams extends React.Component {
 }
 
 export default BugTeams;
+
+BugTeams.defaultProps = {
+  items: []
+};

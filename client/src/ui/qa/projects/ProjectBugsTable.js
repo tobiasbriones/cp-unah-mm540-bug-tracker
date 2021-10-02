@@ -42,13 +42,15 @@ class ProjectBugsTable extends React.Component {
         value: 'Fecha de Terminado'
       }
     ];
+    const size = this.props.items.length;
+
     if (this.props.projectCode === -1) {
       return <div />;
     }
     return (
       <div className="col-0 col-xl-8 overflow-auto">
         <p className="text-center font-weight-bold">
-          <strong>Bugs</strong>
+          <strong>Bugs ({ size })</strong>
         </p>
         <ReadAllTable
           cols={ cols }
