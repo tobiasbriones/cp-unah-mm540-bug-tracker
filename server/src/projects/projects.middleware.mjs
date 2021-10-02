@@ -11,6 +11,8 @@
  */
 
 import { Status } from '../http.mjs';
+import { ProjectModel } from './project.model.mjs';
+import { Logger } from '../logger.mjs';
 
 export function projectValidate(req, res, next) {
   const project = req.body;
@@ -22,4 +24,18 @@ export function projectValidate(req, res, next) {
     return res.status(Status.BAD_REQUEST).send('Fill all the fields');
   }
   next();
+}
+
+export async function generateProjectCode(req, res, next) {
+  try {
+    const result = await ProjectModel.find({}).sort({ code: -1 });
+    const maxCode = result[0].code;
+    req.body['code'] = maxCode + 1;
+
+    next();
+  }
+  catch (e) {
+    Logger.internalError(e);
+    res.sendStatus(Status.INTERNAL_SERVER_ERROR);
+  }
 }

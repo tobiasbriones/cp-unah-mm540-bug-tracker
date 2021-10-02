@@ -14,7 +14,7 @@ import { AdminController } from './admin.controller.mjs';
 import { adminGuard, jwtGuard, signUp } from '../auth/auth.middleware.mjs';
 import { Module } from '../module.mjs';
 import { teamValidate } from '../teams/teams.middleware.mjs';
-import { projectValidate } from '../projects/projects.middleware.mjs';
+import { generateProjectCode, projectValidate } from '../projects/projects.middleware.mjs';
 import { TeamModel } from '../teams/team.model.mjs';
 import { ProjectModel } from '../projects/project.model.mjs';
 import {
@@ -64,7 +64,7 @@ export class AdminModule extends Module {
     router.post(
       '/projects',
       projectValidate,
-      setProjectId,
+      generateProjectCode,
       controller.createProject.bind(c)
     );
     router.get('/projects', controller.readAllProjects.bind(c));
@@ -93,21 +93,9 @@ async function setTeamId(req, res, next) {
   next();
 }
 
-async function setProjectId(req, res, next) {
-  req.body.code = await getNewProjectCode();
-  next();
-}
-
 async function getNewTeamCode() {
   const teams = await TeamModel.find();
   const team = teams.sort((a, b) => (a.code < b.code ? 1 : -1))[0];
   const max = team.code;
-  return max + 1;
-}
-
-async function getNewProjectCode() {
-  const projects = await ProjectModel.find();
-  const project = projects.sort((a, b) => (a.code < b.code ? 1 : -1))[0];
-  const max = project.code;
   return max + 1;
 }
