@@ -20,13 +20,16 @@ class Users extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayClass: '',
       values: [],
       createError: '',
       updateError: ''
     };
     this.userRepository = new UserRepository();
     this.crudRef = React.createRef();
+  }
+
+  get displayClass() {
+    return this.props.visiblePage === 'users' ? '' : 'd-none';
   }
 
   render() {
@@ -118,7 +121,7 @@ class Users extends React.Component {
     };
 
     return (
-      <div className={ `row page ${ this.state.displayClass }` }>
+      <div className={ `row page ${ this.displayClass }` }>
         <Crud
           name="users"
           title="Usuarios"

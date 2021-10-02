@@ -20,13 +20,16 @@ class Projects extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayClass: '',
       values: [],
       createError: '',
       updateError: ''
     };
     this.projectRepository = new ProjectRepository();
     this.crudRef = React.createRef();
+  }
+
+  get displayClass() {
+    return this.props.visiblePage === 'projects' ? '' : 'd-none';
   }
 
   render() {
@@ -95,7 +98,7 @@ class Projects extends React.Component {
     };
 
     return (
-      <div className={ `row page ${ this.state.displayClass }` }>
+      <div className={ `row page ${ this.displayClass }` }>
         <Crud
           name="projects"
           title="Proyectos"

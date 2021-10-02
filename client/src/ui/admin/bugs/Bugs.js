@@ -27,9 +27,13 @@ class Bugs extends React.Component {
     this.teamRepository = new TeamRepository();
   }
 
+  get displayClass() {
+    return this.props.visiblePage === 'bugs' ? '' : 'd-none';
+  }
+
   render() {
     return (
-      <div className={ `row page ${ this.state.displayClass }` }>
+      <div className={ `row page ${ this.displayClass }` }>
         <div className="d-xl-flex col-xxl-9 m-auto">
           <Stats />
           <AssignBug onAssignBug={ this.onAssignBug.bind(this) } />
