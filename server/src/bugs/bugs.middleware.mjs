@@ -26,6 +26,11 @@ export function bugValidate(req, res, next) {
   next();
 }
 
+export function bugAddNewState(req, res, next) {
+  req.body.state = 'New';
+  next();
+}
+
 export async function generateBugCode(req, res, next) {
   try {
     const result = await BugModel.find({}).sort({ code: -1 });
