@@ -11,13 +11,22 @@
  */
 
 import React from 'react';
+import ProjectBugsTable from './ProjectBugsTable';
+import ProjectSelect from './ProjectSelect';
+import BugTeams from './BugTeams';
+import { ProjectRepository } from '../../../model/project/project.repository.mjs';
 
 class Projects extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayClass: ''
+      displayClass: '',
+      projects: [],
+      selectedProjectCode: -1,
+      selectedProjectBugs: [],
+      selectedProjectTeams: []
     };
+    this.repository = new ProjectRepository();
   }
 
   get displayClass() {
@@ -28,10 +37,76 @@ class Projects extends React.Component {
     return (
       <div className={ `row page ${ this.displayClass }` }>
         <div className="d-xl-flex col-xxl-9 m-auto">
-          Projects
+          <div className="row">
+            <div className="col align-self-center">
+              <ProjectSelect
+                items={ this.state.projects }
+                onChange={ this.onProjectChange.bind(this) }
+              />
+            </div>
+          </div>
+          <div className="row">
+            <ProjectBugsTable
+              projectCode={ this.state.selectedProjectCode }
+              items={ this.state.selectedProjectBugs }
+            />
+            <BugTeams
+              projectCode={ this.state.selectedProjectCode }
+              items={ this.state.selectedProjectTeams }
+            />
+          </div>
         </div>
       </div>
     );
+  }
+
+  async componentDidMount() {
+    await this.loadProjects();
+  }
+
+  async onProjectChange(projectCode) {
+    this.setState({ selectedProjectCode: projectCode });
+
+    if (projectCode === -1) {
+      this.setState({ selectedProjectBugs: [], selectedProjectTeams: [] });
+    }
+    else {
+      await this.loadProjectBugs(projectCode);
+      await this.loadProjectTeams(projectCode);
+    }
+  }
+
+  async loadProjects() {
+    try {
+      const projects = await this.repository.getAll();
+
+      this.setState({ projects: projects });
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
+
+  async loadProjectBugs(projectCode) {
+    try {
+      const bugs = await this.repository.getAllBugs(projectCode);
+
+      this.setState({ selectedProjectBugs: bugs });
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
+
+  async loadProjectTeams(projectCode) {
+    try {
+      const teams = await this.repository.getAllTeams(projectCode);
+
+      this.setState({ selectedProjectTeams: teams });
+    }
+    catch (e) {
+      console.log(e);
+    }
   }
 }
 
