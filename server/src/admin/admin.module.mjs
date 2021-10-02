@@ -13,7 +13,7 @@
 import { AdminController } from './admin.controller.mjs';
 import { adminGuard, jwtGuard, signUp } from '../auth/auth.middleware.mjs';
 import { Module } from '../module.mjs';
-import { teamValidate } from '../teams/teams.middleware.mjs';
+import { generateTeamCode, teamValidate } from '../teams/teams.middleware.mjs';
 import { generateProjectCode, projectValidate } from '../projects/projects.middleware.mjs';
 import { TeamModel } from '../teams/team.model.mjs';
 import { ProjectModel } from '../projects/project.model.mjs';
@@ -53,7 +53,7 @@ export class AdminModule extends Module {
     router.post(
       '/teams',
       teamValidate,
-      setTeamId,
+      generateTeamCode,
       controller.createTeam.bind(c)
     );
     router.get('/teams', controller.readAllTeams.bind(c));
@@ -86,16 +86,4 @@ export class AdminModule extends Module {
     router.put('/users/:userId', userValidateUpdate, controller.updateUser.bind(c));
     router.delete('/users/:userId', controller.deleteUser.bind(c));
   }
-}
-
-async function setTeamId(req, res, next) {
-  req.body.code = await getNewTeamCode();
-  next();
-}
-
-async function getNewTeamCode() {
-  const teams = await TeamModel.find();
-  const team = teams.sort((a, b) => (a.code < b.code ? 1 : -1))[0];
-  const max = team.code;
-  return max + 1;
 }

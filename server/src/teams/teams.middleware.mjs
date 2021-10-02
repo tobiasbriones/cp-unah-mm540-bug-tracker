@@ -11,6 +11,8 @@
  */
 
 import { Status } from '../http.mjs';
+import { Logger } from '../logger.mjs';
+import { TeamModel } from './team.model.mjs';
 
 export function teamValidate(req, res, next) {
   const team = req.body;
@@ -22,4 +24,18 @@ export function teamValidate(req, res, next) {
     return res.status(Status.BAD_REQUEST).send('Fill all the fields');
   }
   next();
+}
+
+export async function generateTeamCode(req, res, next) {
+  try {
+    const result = await TeamModel.find({}).sort({ code: -1 });
+    const maxCode = result[0].code;
+    req.body['code'] = maxCode + 1;
+
+    next();
+  }
+  catch (e) {
+    Logger.internalError(e);
+    res.sendStatus(Status.INTERNAL_SERVER_ERROR);
+  }
 }
