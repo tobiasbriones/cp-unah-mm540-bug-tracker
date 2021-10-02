@@ -19,10 +19,10 @@ import { TeamModel } from '../teams/team.model.mjs';
 import { ProjectModel } from '../projects/project.model.mjs';
 import {
   userAddNewId,
-  userExistsValidate,
-  userPasswordValidate,
-  userSignUpValidate,
-  userUpdateValidate
+  userValidateExists,
+  userValidatePassword,
+  userValidateSignUp,
+  userValidateUpdate
 } from '../users/users.middleware.mjs';
 
 const ROUTER_CONFIG = Object.freeze({
@@ -74,16 +74,16 @@ export class AdminModule extends Module {
 
     router.post(
       '/users',
-      userSignUpValidate,
+      userValidateSignUp,
       userAddNewId,
-      userPasswordValidate,
-      userExistsValidate,
+      userValidatePassword,
+      userValidateExists,
       signUp,
       controller.updateUser.bind(c)
     );
     router.get('/users', controller.readAllUsers.bind(c));
     router.get('/users/:userId', controller.readUser.bind(c));
-    router.put('/users/:userId', userUpdateValidate, controller.updateUser.bind(c));
+    router.put('/users/:userId', userValidateUpdate, controller.updateUser.bind(c));
     router.delete('/users/:userId', controller.deleteUser.bind(c));
   }
 }

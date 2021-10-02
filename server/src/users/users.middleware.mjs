@@ -15,7 +15,7 @@ import { UserModel } from './user.model.mjs';
 import { UsersService } from './users.service.mjs';
 import { Logger } from '../logger.mjs';
 
-export function userSignUpValidate(req, res, next) {
+export function userValidateSignUp(req, res, next) {
   const user = req.body;
 
   if (!user.full_name || !user.login || !user.role) {
@@ -29,7 +29,7 @@ export function userSignUpValidate(req, res, next) {
   next();
 }
 
-export function userPasswordValidate(req, res, next) {
+export function userValidatePassword(req, res, next) {
   const user = req.body;
 
   if (!user.password) {
@@ -39,7 +39,7 @@ export function userPasswordValidate(req, res, next) {
   next();
 }
 
-export async function userExistsValidate(req, res, next) {
+export async function userValidateExists(req, res, next) {
   try {
     const service = new UsersService();
     const exists = await service.exists(req.body);
@@ -57,7 +57,7 @@ export async function userExistsValidate(req, res, next) {
   }
 }
 
-export async function userUpdateValidate(req, res, next) {
+export async function userValidateUpdate(req, res, next) {
   const user = req.body;
 
   if (!user.id || !user.full_name || !user.login || !user.role) {
