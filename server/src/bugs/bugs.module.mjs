@@ -13,7 +13,7 @@
 import { Module } from '../module.mjs';
 import { BugsController } from './bugs.controller.mjs';
 import { jwtGuard, qaGuard } from '../auth/auth.middleware.mjs';
-import { bugValidate } from './bugs.middleware.mjs';
+import { bugValidate, generateBugCode } from './bugs.middleware.mjs';
 
 const ROUTER_CONFIG = Object.freeze({
   path: '/bugs',
@@ -34,7 +34,13 @@ export class BugsModule extends Module {
     const router = this.router;
     const controller = this.#controller;
 
-    router.post('/', qaGuard, bugValidate, controller.create.bind(controller));
+    router.post(
+      '/',
+      qaGuard,
+      bugValidate,
+      generateBugCode,
+      controller.create.bind(controller)
+    );
     router.get('/', controller.readAll.bind(controller));
     router.post('/:id/set-finished', controller.setFinished.bind(controller));
     router.post('/:id/set-assigned', controller.setAssigned.bind(controller));

@@ -11,6 +11,8 @@
  */
 
 import { Status } from '../http.mjs';
+import { Logger } from '../logger.mjs';
+import { BugModel } from './bug.model.mjs';
 
 export function bugValidate(req, res, next) {
   const bug = req.body;
@@ -18,8 +20,22 @@ export function bugValidate(req, res, next) {
   if (!bug) {
     return res.status(Status.BAD_REQUEST).send('Fill all the fields');
   }
-  if (!bug.code || !bug.description || !bug.priority || !bug.state) {
+  if (!bug.description || !bug.priority || !bug.state) {
     return res.status(Status.BAD_REQUEST).send('Fill all the fields');
   }
   next();
+}
+
+export async function generateBugCode(req, res, next) {
+  try {
+    const result = await BugModel.find({}).sort({ code: -1 });
+    const maxCode = result[0].code;
+    req.body['code'] = maxCode + 1;
+
+    next();
+  }
+  catch (e) {
+    Logger.internalError(e);
+    res.sendStatus(Status.INTERNAL_SERVER_ERROR);
+  }
 }
