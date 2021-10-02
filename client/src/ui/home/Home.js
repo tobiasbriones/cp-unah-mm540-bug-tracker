@@ -27,15 +27,20 @@ class Home extends React.Component {
   render() {
     return (
       <div className="row options">
-        <div className={ `col text-center ${ this.state.showAdmin }` }
-             onClick={ this.onAdminClick.bind(this) }>
+        <div
+          className={ `col text-center ${ this.state.showAdmin }` }
+          onClick={ this.onAdminClick.bind(this) }
+        >
           <span className="material-icons">
             admin_panel_settings
           </span>
           <p>Administrador</p>
         </div>
-        <div className={ `col text-center ${ this.state.showDev }` }
-             onClick={ this.onDevClick.bind(this) }>
+
+        <div
+          className={ `col text-center ${ this.state.showDev }` }
+          onClick={ this.onDevClick.bind(this) }
+        >
           <span className="material-icons">
             code
           </span>
@@ -43,8 +48,10 @@ class Home extends React.Component {
             Desarrollador
           </p>
         </div>
-        <div className={ `col text-center ${ this.state.showQa }` }
-             onClick={ this.onQaClick.bind(this) }>
+
+        <div
+          className={ `col text-center ${ this.state.showQa }` }
+          onClick={ this.onQaClick.bind(this) }>
           <span className="material-icons">
             verified
           </span>
