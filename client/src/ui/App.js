@@ -17,6 +17,7 @@ import Home from './home/Home';
 import Login from './login/Login';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Admin from './admin/Admin';
+import Qa from './qa/Qa';
 
 class App extends React.Component {
   render() {
@@ -28,6 +29,7 @@ class App extends React.Component {
           <Route exact path="/" component={ Home } />
           <Route path="/login" component={ Login } />
           <Route path="/admin" component={ Admin } />
+          <Route path="/qa" component={ Qa } />
         </Switch>
       </Router>
     );
