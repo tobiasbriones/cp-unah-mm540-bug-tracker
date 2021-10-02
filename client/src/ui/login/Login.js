@@ -18,6 +18,8 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: '',
+      password: '',
       error: ''
     };
   }
@@ -25,30 +27,33 @@ class Login extends React.Component {
   render() {
     return (
       <form
-        id="form"
         className="m-2 m-sm-5 mx-md-auto col-md-8 col-lg-4"
         onSubmit={ this.onSubmit.bind(this) }
       >
         <div className="form-group mb-4">
-          <label htmlFor="loginInput">Login</label>
+          <label htmlFor="loginUsernameInput">Login</label>
           <input
-            id="loginInput"
+            id="loginUsernameInput"
             className="form-control"
             type="text"
             aria-describedby="loginHelp"
             placeholder="Enter username"
+            value={ this.state.username }
+            onChange={ this.onUsernameChange.bind(this) }
           />
-          <small id="loginHelp" className="form-text text-muted">
+          <small id="loginUsernameHelp" className="form-text text-muted">
             Enter your username in the login field
           </small>
         </div>
         <div className="form-group mb-4">
-          <label htmlFor="passwordInput">Password</label>
+          <label htmlFor="loginPasswordInput">Password</label>
           <input
-            id="passwordInput"
+            id="loginPasswordInput"
             className="form-control"
             type="password"
             placeholder="Password"
+            value={ this.state.password }
+            onChange={ this.onPasswordChange.bind(this) }
           />
         </div>
         <button className="btn btn-primary w-100" type="submit">
@@ -64,8 +69,8 @@ class Login extends React.Component {
 
   async onSubmit(e) {
     e.preventDefault();
-    const login = document.getElementById('loginInput').value;
-    const password = document.getElementById('passwordInput').value;
+    const login = this.state.username;
+    const password = this.state.password;
     const authService = new AuthService();
 
     try {
@@ -74,14 +79,22 @@ class Login extends React.Component {
       authService.saveLogin(res.data);
       this.onLoggedIn();
     }
-    catch (err) {
-      if (err.response && err.response.status === 401) {
+    catch (e) {
+      if (e.response && e.response.status === 401) {
         this.setError('Invalid credentials');
       }
       else {
-        this.setError(err.message);
+        this.setError(e.message);
       }
     }
+  }
+
+  onUsernameChange(e) {
+    this.setState({ username: e.target.value });
+  }
+
+  onPasswordChange(e) {
+    this.setState({ password: e.target.value });
   }
 
   onLoggedIn() {
