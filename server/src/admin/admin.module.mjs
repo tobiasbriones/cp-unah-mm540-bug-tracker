@@ -18,7 +18,7 @@ import { generateProjectCode, projectValidate } from '../projects/projects.middl
 import { TeamModel } from '../teams/team.model.mjs';
 import { ProjectModel } from '../projects/project.model.mjs';
 import {
-  userAddNewId,
+  generateUserId,
   userValidateExists,
   userValidatePassword,
   userValidateSignUp,
@@ -75,7 +75,7 @@ export class AdminModule extends Module {
     router.post(
       '/users',
       userValidateSignUp,
-      userAddNewId,
+      generateUserId,
       userValidatePassword,
       userValidateExists,
       signUp,

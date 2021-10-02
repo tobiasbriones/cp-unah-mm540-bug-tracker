@@ -14,6 +14,7 @@ import { Status } from '../http.mjs';
 import { UserModel } from './user.model.mjs';
 import { UsersService } from './users.service.mjs';
 import { Logger } from '../logger.mjs';
+import { ProjectModel } from '../projects/project.model.mjs';
 
 export function userValidateSignUp(req, res, next) {
   const user = req.body;
@@ -71,22 +72,16 @@ export async function userValidateUpdate(req, res, next) {
   next();
 }
 
-export async function userAddNewId(req, res, next) {
+export async function generateUserId(req, res, next) {
   try {
-    req.body.id = await getNewUserId();
+    const result = await UserModel.find({}).sort({ id: -1 });
+    const maxId = result[0].id;
+    req.body['id'] = maxId + 1;
+
+    next();
   }
   catch (e) {
-    console.log(e);
-    res.status(Status.INTERNAL_SERVER_ERROR).send('Fail to generate user ID');
-    return;
+    Logger.internalError(e);
+    res.sendStatus(Status.INTERNAL_SERVER_ERROR);
   }
-  next();
-}
-
-// Temporal way of generating unique user IDs
-async function getNewUserId() {
-  const users = await UserModel.find();
-  const user = users.sort((a, b) => (a.id < b.id ? 1 : -1))[0];
-  const max = user.id;
-  return max + 1;
 }
