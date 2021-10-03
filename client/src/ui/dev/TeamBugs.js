@@ -21,7 +21,12 @@ class TeamBugs extends React.Component {
   render() {
     const mapBug = bug => (
       <label className="list-group-item  list-group-item-primary" key={ bug.code }>
-        <input className="form-check-input me-1" type="checkbox" value={ bug.code } />
+        <input
+          className="form-check-input me-1"
+          type="checkbox"
+          value={ bug.code }
+          onChange={ this.onChange.bind(this) }
+        />
         #{ bug.code } - { bug.description }
       </label>
     );
@@ -40,8 +45,8 @@ class TeamBugs extends React.Component {
 
   onChange(e) {
     if (this.props.onChange) {
-      const value = e.target.value;
-      console.log(value);
+      const value = { bugCode: e.target.value, checked: e.target.checked };
+
       this.props.onChange(value);
     }
   }
