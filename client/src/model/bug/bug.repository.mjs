@@ -47,6 +47,24 @@ export class BugRepository {
     await axios.post(BASE_URL, bug, config);
   }
 
+  async set(bug) {
+    const login = this.authService.getLogin();
+    const config = {
+      headers: { Authorization: `Bearer ${ login.uat }` }
+    };
+    const url = `${ BASE_URL }/${ bug.code }`;
+    await axios.put(url, bug, config);
+  }
+
+  async remove(bugCode) {
+    const login = this.authService.getLogin();
+    const config = {
+      headers: { Authorization: `Bearer ${ login.uat }` }
+    };
+    const url = `${ BASE_URL }/${ bugCode }`;
+    await axios.delete(url, config);
+  }
+
   async setFinished(bugCode) {
     const login = this.authService.getLogin();
     const config = {

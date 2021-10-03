@@ -49,6 +49,9 @@ export class BugsModule extends Module {
       controller.create.bind(controller)
     );
     router.get('/', controller.readAll.bind(controller));
+    router.put('/:code', qaGuard, bugValidate, bugAddProjectId, controller.update.bind(controller));
+    router.delete('/:code', qaGuard, controller.delete.bind(controller));
+
     router.post('/:id/set-finished', controller.setFinished.bind(controller));
     router.post('/:id/set-assigned', controller.setAssigned.bind(controller));
   }

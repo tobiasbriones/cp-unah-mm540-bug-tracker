@@ -14,7 +14,8 @@ import { BugModel } from './bug.model.mjs';
 import { Status } from '../http.mjs';
 
 export class BugsController {
-  constructor() {}
+  constructor() {
+  }
 
   async create(req, res) {
     try {
@@ -37,6 +38,36 @@ export class BugsController {
       const bugs = await BugModel.find().populate('project');
 
       res.json(bugs);
+    }
+    catch (e) {
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
+    }
+  }
+
+  async update(req, res) {
+    try {
+      const code = req.params['code'];
+      const bug = {
+        description: req.body.description,
+        priority: req.body.priority,
+        state: req.body.state,
+        project: req.body._projectId
+      };
+
+      await BugModel.updateOne({ code: code }, bug);
+      res.sendStatus(Status.OK);
+    }
+    catch (e) {
+      res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
+    }
+  }
+
+  async delete(req, res) {
+    try {
+      const code = req.params['code'];
+      await BugModel.deleteOne({ code: code });
+
+      res.sendStatus(Status.OK);
     }
     catch (e) {
       res.status(Status.INTERNAL_SERVER_ERROR).send(e.message);
