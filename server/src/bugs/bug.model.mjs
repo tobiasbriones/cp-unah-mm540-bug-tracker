@@ -24,6 +24,7 @@ const BugSchema = new Schema({
     ]
   },
   finishDate: Date,
-  project: { type: mongoose.Schema.Types.ObjectId, ref: 'Project' }
+  project: { type: mongoose.Schema.Types.ObjectId, ref: 'Project' },
+  team: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' }
 });
 export const BugModel = mongoose.model('Bug', BugSchema);

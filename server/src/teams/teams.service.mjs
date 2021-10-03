@@ -14,7 +14,6 @@ import { TeamModel } from './team.model.mjs';
 import { TeamProjectModel } from './team-project.model.mjs';
 import { BugModel } from '../bugs/bug.model.mjs';
 import { ProjectModel } from '../projects/project.model.mjs';
-import { TeamBugModel } from './team-bug.model.mjs';
 
 export class TeamsService {
   constructor() {}
@@ -60,17 +59,15 @@ export class TeamsService {
   }
 
   async assignBug(teamCode, bugCode) {
-    await TeamBugModel.create({ teamCode: teamCode, bugCode: bugCode });
+    const teamIdResult = await TeamModel.findOne({ code: teamCode }, '_id');
+    const _teamId = teamIdResult._id;
+
+    await BugModel.updateOne({ code: bugCode }, { team: _teamId });
   }
 
   async readBugs(teamCode) {
-    const bugCodes = await TeamBugModel.find({ teamCode: teamCode });
-    const bugs = [];
-
-    for (const code of bugCodes) {
-      const bug = await BugModel.findOne({ code: code.bugCode });
-      bugs.push(bug);
-    }
-    return bugs;
+    const teamIdResult = await TeamModel.findOne({ code: teamCode }, '_id');
+    const _teamId = teamIdResult._id;
+    return BugModel.find({ team: _teamId });
   }
 }

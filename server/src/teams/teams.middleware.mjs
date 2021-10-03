@@ -13,6 +13,7 @@
 import { Status } from '../http.mjs';
 import { Logger } from '../logger.mjs';
 import { TeamModel } from './team.model.mjs';
+import { BugModel } from '../bugs/bug.model.mjs';
 
 export function teamValidate(req, res, next) {
   const team = req.body;
@@ -21,6 +22,18 @@ export function teamValidate(req, res, next) {
     return res.status(Status.BAD_REQUEST).send('Fill all the fields');
   }
   if (!team.name || !team.languages || !team.tech) {
+    return res.status(Status.BAD_REQUEST).send('Fill all the fields');
+  }
+  next();
+}
+
+export function teamValidateAssignBug(req, res, next) {
+  const dto = req.body;
+
+  if (!dto) {
+    return res.status(Status.BAD_REQUEST).send('Fill all the fields');
+  }
+  if (!dto.bugCode) {
     return res.status(Status.BAD_REQUEST).send('Fill all the fields');
   }
   next();

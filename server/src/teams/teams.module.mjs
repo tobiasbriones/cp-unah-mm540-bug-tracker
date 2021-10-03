@@ -12,8 +12,8 @@
 
 import { jwtGuard, qaGuard } from '../auth/auth.middleware.mjs';
 import { Module } from '../module.mjs';
-import { TeamsService } from './teams.service.mjs';
 import { TeamsController } from './teams.controller.mjs';
+import { teamValidateAssignBug } from './teams.middleware.mjs';
 
 const ROUTER_CONFIG = Object.freeze({
   path: '/teams',
@@ -38,7 +38,11 @@ export class TeamsModule extends Module {
     router.post('/:teamId/projects', qaGuard, controller.createProject.bind(controller));
     router.get('/:teamId/projects', controller.readAllProjects.bind(controller));
 
-    router.post('/:teamId/bugs', controller.assignBug.bind(controller));
+    router.post(
+      '/:teamId/bugs',
+      teamValidateAssignBug,
+      controller.assignBug.bind(controller)
+    );
     router.get('/:teamId/bugs', controller.readAllBugs.bind(controller));
   }
 }
