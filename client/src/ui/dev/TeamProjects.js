@@ -42,7 +42,7 @@ class TeamProjects extends React.Component {
     return (
       <div>
         <p className="text-center font-weight-bold">
-          <strong>Proyectos de software</strong>
+          <strong>Proyectos de software ({ this.props.values.length })</strong>
         </p>
         <ReadAllTable
           cols={ cols }

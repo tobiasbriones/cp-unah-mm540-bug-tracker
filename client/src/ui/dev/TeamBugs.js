@@ -29,7 +29,7 @@ class TeamBugs extends React.Component {
     return (
       <div>
         <p className="text-center font-weight-bold">
-          <strong>Bugs asignados</strong>
+          <strong>Bugs asignados ({ this.props.values.length })</strong>
         </p>
         <div className="list-group">
           { this.props.values.map(mapBug) }
