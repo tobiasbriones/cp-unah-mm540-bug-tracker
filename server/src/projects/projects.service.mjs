@@ -11,7 +11,6 @@
  */
 
 import { ProjectModel } from './project.model.mjs';
-import { ProjectBugModel } from './project-bug.model.mjs';
 import { BugModel } from '../bugs/bug.model.mjs';
 import { TeamProjectModel } from '../teams/team-project.model.mjs';
 import { TeamModel } from '../teams/team.model.mjs';
@@ -45,18 +44,15 @@ export class ProjectsService {
   }
 
   async assignBug(projectCode, bugCode) {
-    await ProjectBugModel.create({ projectCode: projectCode, bugCode: bugCode });
+    const result = await ProjectModel.findOne({ code: projectCode }, '_id');
+    const _projectId = result._id;
+    await BugModel.updateOne({ code: bugCode }, { project: _projectId });
   }
 
   async readBugs(projectCode) {
-    const bugCodes = await ProjectBugModel.find({ projectCode: projectCode });
-    const bugs = [];
-
-    for (const code of bugCodes) {
-      const bug = await BugModel.findOne({ code: code.bugCode });
-      bugs.push(bug);
-    }
-    return bugs;
+    const result = await ProjectModel.findOne({ code: projectCode }, '_id');
+    const _projectId = result._id;
+    return BugModel.find({ project: _projectId });
   }
 
   async readTeams(projectCode) {

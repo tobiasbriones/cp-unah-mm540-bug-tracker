@@ -12,7 +12,6 @@
 
 import { TeamModel } from './team.model.mjs';
 import { TeamProjectModel } from './team-project.model.mjs';
-import { ProjectBugModel } from '../projects/project-bug.model.mjs';
 import { BugModel } from '../bugs/bug.model.mjs';
 import { ProjectModel } from '../projects/project.model.mjs';
 import { TeamBugModel } from './team-bug.model.mjs';

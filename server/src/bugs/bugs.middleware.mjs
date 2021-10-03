@@ -13,6 +13,7 @@
 import { Status } from '../http.mjs';
 import { Logger } from '../logger.mjs';
 import { BugModel } from './bug.model.mjs';
+import { ProjectModel } from '../projects/project.model.mjs';
 
 export function bugValidate(req, res, next) {
   const bug = req.body;
@@ -20,8 +21,11 @@ export function bugValidate(req, res, next) {
   if (!bug) {
     return res.status(Status.BAD_REQUEST).send('Fill all the fields');
   }
-  if (!bug.description || !bug.priority || !bug.state) {
+  if (!bug.description || !bug.priority || !bug.state || !bug.projectCode) {
     return res.status(Status.BAD_REQUEST).send('Fill all the fields');
+  }
+  if (isNaN(bug.projectCode) || bug.projectCode <= 0) {
+    return res.status(Status.BAD_REQUEST).send('Fill the bug\'s project');
   }
   next();
 }
@@ -29,6 +33,20 @@ export function bugValidate(req, res, next) {
 export function bugAddNewState(req, res, next) {
   req.body.state = 'New';
   next();
+}
+
+export async function bugAddProjectId(req, res, next) {
+  try {
+    const projectCode = req.body.projectCode;
+    const result = await ProjectModel.findOne({ code: projectCode }, '_id');
+    req.body._projectId = result._id;
+
+    next();
+  }
+  catch (e) {
+    Logger.internalError(e);
+    res.sendStatus(Status.INTERNAL_SERVER_ERROR);
+  }
 }
 
 export async function generateBugCode(req, res, next) {

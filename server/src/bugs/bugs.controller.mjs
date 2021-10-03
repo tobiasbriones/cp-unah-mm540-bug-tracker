@@ -22,7 +22,8 @@ export class BugsController {
         code: req.body.code,
         description: req.body.description,
         priority: req.body.priority,
-        state: req.body.state
+        state: req.body.state,
+        project: req.body._projectId
       });
       res.end();
     }
@@ -33,7 +34,7 @@ export class BugsController {
 
   async readAll(req, res) {
     try {
-      const bugs = await BugModel.find();
+      const bugs = await BugModel.find().populate('project');
 
       res.json(bugs);
     }
