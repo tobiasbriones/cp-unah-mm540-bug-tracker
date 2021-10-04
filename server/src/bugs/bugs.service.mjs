@@ -27,7 +27,6 @@ export class BugsService {
     const bug = await BugModel.findOne({ code: code });
 
     bug.state = 'Assigned';
-    bug.finishDate = 'En proceso';
     await BugModel.updateOne({ code: code }, bug);
   }
 }
