@@ -23,7 +23,7 @@ class App extends React.Component {
       category: ''
     };
     this.allNotes = NOTES;
-    this.currentIndex = 5;
+    this.currentIndex = NOTES.length;
   }
 
   render() {
@@ -74,9 +74,8 @@ class App extends React.Component {
   }
 
   nextId() {
-    const id = this.currentIndex;
     this.currentIndex++;
-    return id;
+    return this.currentIndex;
   }
 }
 
