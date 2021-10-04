@@ -20,7 +20,8 @@ class Bugs extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayClass: ''
+      displayClass: '',
+      stats: {}
     };
     this.bugRepository = new BugRepository();
     this.teamRepository = new TeamRepository();
@@ -34,16 +35,31 @@ class Bugs extends React.Component {
     return (
       <div className={ `row page ${ this.displayClass }` }>
         <div className="d-xl-flex col-xxl-9 m-auto">
-          <Stats />
+          <Stats data={ this.state.stats } />
           <AssignBug onAssignBug={ this.onAssignBug.bind(this) } />
         </div>
       </div>
     );
   }
 
+  async componentDidMount() {
+    await this.load();
+  }
+
   async onAssignBug(bugCode, teamCode) {
     try {
       await this.teamRepository.assignBug(teamCode, bugCode);
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
+
+  async load() {
+    try {
+      const stats = await this.bugRepository.getStatistics();
+
+      this.setState({ stats: stats });
     }
     catch (e) {
       console.log(e);

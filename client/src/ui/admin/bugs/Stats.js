@@ -11,18 +11,12 @@
  */
 
 import React from 'react';
-import { BugRepository } from '../../../model/bug/bug.repository.mjs';
-import { TeamRepository } from '../../../model/team/team.repository.mjs';
 import Chart from './Chart';
 
 class Stats extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      displayClass: ''
-    };
-    this.bugRepository = new BugRepository();
-    this.teamRepository = new TeamRepository();
+    this.state = {};
   }
 
   render() {
@@ -32,7 +26,7 @@ class Stats extends React.Component {
           <strong>Estadísticas de bugs</strong>
         </p>
         <div className="col-sm-8 col-md-6 m-auto card-body">
-          <Chart />
+          <Chart stats={ this.props.data } />
         </div>
       </div>
     );
