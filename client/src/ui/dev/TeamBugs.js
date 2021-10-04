@@ -25,6 +25,7 @@ class TeamBugs extends React.Component {
           className="form-check-input me-1"
           type="checkbox"
           value={ bug.code }
+          checked={ bug.state === 'Finished' }
           onChange={ this.onChange.bind(this) }
         />
         #{ bug.code } - { bug.description }
