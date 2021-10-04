@@ -12,16 +12,16 @@
 
 import React from 'react';
 import './Add.css';
+import { CATEGORIES } from '../data';
 
 class Add extends React.Component {
   constructor(props) {
     super(props);
-    this.categories = props.categories || [];
     this.state = {
       show: false,
       title: '',
       content: '',
-      category: this.categories[0]
+      category: ''
     };
   }
 
@@ -31,7 +31,7 @@ class Add extends React.Component {
         <button
           type="button"
           className="btn btn-primary"
-          onClick={ e => this.onAddBtnClick(e) }
+          onClick={ e => this.onAddButtonClick(e) }
         >
           Agregar
         </button>
@@ -68,7 +68,7 @@ class Add extends React.Component {
               className="form-select"
               onChange={ e => this.onCategoryChange(e) }
             >
-              { this.categories.map(this.newCategoryItem) }
+              { this.props.categories.map(this.newCategoryItem) }
             </select>
           </div>
           <button
@@ -83,7 +83,7 @@ class Add extends React.Component {
     );
   }
 
-  onAddBtnClick(e) {
+  onAddButtonClick(e) {
     e.preventDefault();
     this.setState({ show: !this.state.show });
   }
@@ -93,7 +93,7 @@ class Add extends React.Component {
     const note = {
       title: this.state.title,
       content: this.state.content,
-      category: this.state.category
+      category: this.state.category || CATEGORIES[0]
     };
 
     if (this.props.onCreateNote) {
@@ -130,3 +130,7 @@ class Add extends React.Component {
 }
 
 export default Add;
+
+Add.defaultProps = {
+  categories: []
+};

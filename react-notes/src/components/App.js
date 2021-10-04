@@ -18,11 +18,12 @@ import { CATEGORIES, NOTES } from '../data';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.currentIndex = 5;
-    this.category = CATEGORIES[0];
     this.state = {
-      notes: NOTES
+      notes: [],
+      category: ''
     };
+    this.allNotes = NOTES;
+    this.currentIndex = 5;
   }
 
   render() {
@@ -33,33 +34,43 @@ class App extends React.Component {
           onCreateNote={ note => this.onCreateNote(note) }
           onUpdateCategory={ category => this.onUpdateCategory(category) }
         />
-        <List notes={ this.state.notes } ref={ ref => (this.list = ref) } />
+        <List notes={ this.state.notes } />
       </div>
     );
+  }
+
+  componentDidMount() {
+    this.setState({ notes: this.allNotes, category: CATEGORIES[0] });
   }
 
   onCreateNote(note) {
     const entity = Object.assign({}, note, { id: this.nextId() });
 
-    this.setState({ notes: [...this.state.notes, entity] }, () =>
-      this.onUpdateCategory(this.category)
-    );
+    this.allNotes.push(entity);
+
+    if (entity.category === CATEGORIES[0] || entity.category === this.state.category) {
+      this.loadNotes(this.state.category);
+    }
     alert('Nota ingresada');
   }
 
   onUpdateCategory(category) {
-    this.category = category;
+    this.setState({ category: category });
+    this.loadNotes(category);
+  }
+
+  loadNotes(category) {
     if (category === CATEGORIES[0]) {
       this.showAllNotes();
       return;
     }
-    const values = this.state.notes.filter(note => note.category === category);
-    this.list.setState({ notes: values });
-    this.list.clear();
+    const notes = this.allNotes.filter(note => note.category === category);
+
+    this.setState({ notes: notes });
   }
 
   showAllNotes() {
-    this.list.setState({ notes: this.state.notes });
+    this.setState({ notes: this.allNotes });
   }
 
   nextId() {

@@ -17,7 +17,6 @@ class List extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      notes: props.notes || [],
       currentNote: { id: -1, title: '', content: '' },
       showContent: false
     };
@@ -34,10 +33,10 @@ class List extends React.Component {
               <th scope="col">Contenido</th>
             </tr>
           </thead>
-          <tbody>{ this.state.notes.map(note => this.newItem(note)) }</tbody>
+          <tbody>{ this.props.notes.map(note => this.newItem(note)) }</tbody>
         </table>
         <div
-          className={ 'content ' + this.state.currentNote.id === -1 ? 'd-none' : '' }
+          className={ this.state.currentNote.id === -1 ? 'd-none' : '' }
         >
           <p>
             <strong>Nota #{ this.state.currentNote.id }</strong>
@@ -52,15 +51,14 @@ class List extends React.Component {
 
   onShowContent(e) {
     const id = parseInt(e.target.dataset['id']);
-    const note = this.state.notes.find(note => note.id === id);
+    const note = this.props.notes.find(note => note.id === id);
     this.setState({ currentNote: note }, () => this.openModal());
   }
 
   openModal = () => this.setState({ showContent: true });
-  closeModal = () => this.setState({ showContent: false });
 
   clear() {
-    this.state.currentNote = { id: -1, title: '', content: '' };
+    this.setState({ currentNote: { id: -1, title: '', content: '' } });
   }
 
   newItem(note) {
@@ -86,3 +84,8 @@ class List extends React.Component {
 }
 
 export default List;
+
+List.defaultProps = {
+  notes: [],
+  category: ''
+};
