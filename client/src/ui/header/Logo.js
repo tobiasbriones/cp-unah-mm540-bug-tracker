@@ -24,7 +24,7 @@ class Header extends React.Component {
     return (
       <div>
         <LinkContainer to="/">
-          <img src="./logo192.png" alt="Logo" />
+          <img src="./logo192.png" alt="Logo" className="me-lg-4" />
         </LinkContainer>
       </div>
     );
