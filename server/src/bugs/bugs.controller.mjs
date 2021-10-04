@@ -12,9 +12,13 @@
 
 import { BugModel } from './bug.model.mjs';
 import { Status } from '../http.mjs';
+import { BugsService } from './bugs.service.mjs';
 
 export class BugsController {
+  #service;
+
   constructor() {
+    this.#service = new BugsService();
   }
 
   async create(req, res) {
@@ -77,11 +81,8 @@ export class BugsController {
   async setFinished(req, res) {
     try {
       const code = req.params['id'];
-      const bug = await BugModel.findOne({ code: code });
 
-      bug.state = 'Finished';
-      bug.finishDate = new Date().toISOString();
-      await BugModel.updateOne({ code: code }, bug);
+      await this.#service.setFinished(code);
       res.end();
     }
     catch (e) {
@@ -92,11 +93,8 @@ export class BugsController {
   async setAssigned(req, res) {
     try {
       const code = req.params['id'];
-      const bug = await BugModel.findOne({ code: code });
 
-      bug.state = 'Assigned';
-      bug.finishDate = 'En proceso';
-      await BugModel.updateOne({ code: code }, bug);
+      await this.#service.setAssigned(code);
       res.end();
     }
     catch (e) {
