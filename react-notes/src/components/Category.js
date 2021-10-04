@@ -15,8 +15,8 @@ import './Category.css';
 function Category(props) {
   const newItem = value => {
     return (
-      <option key={value} value={value}>
-        {value}
+      <option key={ value } value={ value }>
+        { value }
       </option>
     );
   };
@@ -24,9 +24,9 @@ function Category(props) {
     <div className="Category">
       <select
         className="form-select"
-        onChange={e => props.onUpdateCategory(e.target.value)}
+        onChange={ e => props.onUpdateCategory(e.target.value) }
       >
-        {props.list.map(newItem)}
+        { props.list.map(newItem) }
       </select>
     </div>
   );

@@ -11,8 +11,8 @@
  */
 
 .Category {
-  width: 240px;
   display: inline-block;
+  width: 240px;
   margin-right: 32px;
 }
 

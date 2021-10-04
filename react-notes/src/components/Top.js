@@ -18,10 +18,10 @@ function Top(props) {
   return (
     <div className="Top">
       <Category
-        list={props.list}
-        onUpdateCategory={props.onUpdateCategory}
-      ></Category>
-      <Add categories={props.list} onCreateNote={props.onCreateNote}></Add>
+        list={ props.list }
+        onUpdateCategory={ props.onUpdateCategory }
+      />
+      <Add categories={ props.list } onCreateNote={ props.onCreateNote } />
     </div>
   );
 }

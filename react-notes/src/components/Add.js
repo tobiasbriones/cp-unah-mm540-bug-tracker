@@ -21,7 +21,7 @@ class Add extends React.Component {
       show: false,
       title: '',
       content: '',
-      category: this.categories[0],
+      category: this.categories[0]
     };
   }
 
@@ -31,12 +31,12 @@ class Add extends React.Component {
         <button
           type="button"
           className="btn btn-primary"
-          onClick={e => this.onAddBtnClick(e)}
+          onClick={ e => this.onAddBtnClick(e) }
         >
           Agregar
         </button>
 
-        <form className={this.state.show ? '' : 'd-none'}>
+        <form className={ this.state.show ? '' : 'd-none' }>
           <div className="mb-3">
             <label htmlFor="titleInput" className="form-label">
               Título
@@ -45,8 +45,8 @@ class Add extends React.Component {
               type="text"
               className="form-control"
               id="titleInput"
-              onChange={e => this.onTitleChange(e)}
-            ></input>
+              onChange={ e => this.onTitleChange(e) }
+            />
           </div>
           <div className="mb-3">
             <label htmlFor="contentInput" className="form-label">
@@ -56,8 +56,8 @@ class Add extends React.Component {
               type="text"
               className="form-control"
               id="contentInput"
-              onChange={e => this.onContentChange(e)}
-            ></input>
+              onChange={ e => this.onContentChange(e) }
+            />
           </div>
           <div className="mb-3">
             <label htmlFor="categoryInput" className="form-label">
@@ -66,15 +66,15 @@ class Add extends React.Component {
             <select
               id="categoryInput"
               className="form-select"
-              onChange={e => this.onCategoryChange(e)}
+              onChange={ e => this.onCategoryChange(e) }
             >
-              {this.categories.map(this.newCategoryItem)}
+              { this.categories.map(this.newCategoryItem) }
             </select>
           </div>
           <button
             type="submit"
             className="btn btn-primary w-100"
-            onClick={e => this.onSubmit(e)}
+            onClick={ e => this.onSubmit(e) }
           >
             Agregar
           </button>
@@ -93,7 +93,7 @@ class Add extends React.Component {
     const note = {
       title: this.state.title,
       content: this.state.content,
-      category: this.state.category,
+      category: this.state.category
     };
 
     if (this.props.onCreateNote) {
@@ -116,24 +116,15 @@ class Add extends React.Component {
 
   newCategoryItem(value) {
     return (
-      <option key={value} value={value}>
-        {value}
+      <option key={ value } value={ value }>
+        { value }
       </option>
     );
   }
 
   reset() {
-    // Needs two way binding
-    /*    
     this.setState({
-      show: false,
-      title: '',
-      content: '',
-      category: this.categories[0],
-    });
-  */
-    this.setState({
-      show: false,
+      show: false
     });
   }
 }
