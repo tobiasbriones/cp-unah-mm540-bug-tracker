@@ -13,8 +13,9 @@
 import React from 'react';
 import TeamSelect from './TeamSelect';
 import TeamInfo from './TeamInfo';
-import { TeamRepository } from '../../model/team/team.repository.mjs';
 import TeamPane from './TeamPane';
+import { TeamRepository } from '../../model/team/team.repository.mjs';
+import { checkUserLogin } from '../../model/auth/auth.mjs';
 
 class Dev extends React.Component {
   constructor(props) {
@@ -51,6 +52,7 @@ class Dev extends React.Component {
   }
 
   async componentDidMount() {
+    checkUserLogin('dev');
     await this.loadTeams();
   }
 

@@ -13,6 +13,7 @@
 import React from 'react';
 import Projects from './projects/Projects';
 import Bugs from './bugs/Bugs';
+import { checkUserLogin } from '../../model/auth/auth.mjs';
 
 class Qa extends React.Component {
   constructor(props) {
@@ -54,6 +55,7 @@ class Qa extends React.Component {
   }
 
   componentDidMount() {
+    checkUserLogin('qa', 'admin');
     this.onProjectsActionClick();
   }
 

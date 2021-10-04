@@ -16,6 +16,7 @@ import Users from './users/Users';
 import Bugs from './bugs/Bugs';
 import Teams from './teams/Teams';
 import Projects from './projects/Projects';
+import { checkUserLogin } from '../../model/auth/auth.mjs';
 
 class Admin extends React.Component {
   constructor(props) {
@@ -72,6 +73,7 @@ class Admin extends React.Component {
   }
 
   componentDidMount() {
+    checkUserLogin('admin');
     this.onBugsActionClick();
   }
 
