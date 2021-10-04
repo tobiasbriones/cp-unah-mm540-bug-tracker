@@ -49,6 +49,7 @@ class Bugs extends React.Component {
   async onAssignBug(bugCode, teamCode) {
     try {
       await this.teamRepository.assignBug(teamCode, bugCode);
+      await this.loadStats();
     }
     catch (e) {
       console.log(e);
@@ -56,6 +57,10 @@ class Bugs extends React.Component {
   }
 
   async load() {
+    await this.loadStats();
+  }
+
+  async loadStats() {
     try {
       const stats = await this.bugRepository.getStatistics();
 
