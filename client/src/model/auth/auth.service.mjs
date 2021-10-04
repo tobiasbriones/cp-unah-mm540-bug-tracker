@@ -28,14 +28,25 @@ const EMPTY_LOGIN = Object.freeze({
 
 export class AuthService {
   getLogin() {
+    if (!this.hasLogin()) {
+      return EMPTY_LOGIN;
+    }
+    return {
+      uid: Cookies.get(UID_KEY),
+      name: Cookies.get(NAME_KEY),
+      role: Cookies.get(ROLE_KEY),
+      uat: Cookies.get(UAT_KEY)
+    };
+  }
+
+  hasLogin() {
     const login = {
       uid: Cookies.get(UID_KEY),
       name: Cookies.get(NAME_KEY),
       role: Cookies.get(ROLE_KEY),
       uat: Cookies.get(UAT_KEY)
     };
-    const isSet = login.uid && login.name && login.uat && login.role;
-    return isSet ? login : EMPTY_LOGIN;
+    return login.uid && login.name && login.uat && login.role;
   }
 
   saveLogin(login) {
