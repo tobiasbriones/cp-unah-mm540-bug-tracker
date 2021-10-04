@@ -11,7 +11,6 @@
  */
 
 import { TeamModel } from './team.model.mjs';
-import { TeamProjectModel } from './team-project.model.mjs';
 import { BugModel } from '../bugs/bug.model.mjs';
 import { ProjectModel } from '../projects/project.model.mjs';
 
@@ -44,18 +43,31 @@ export class TeamsService {
   }
 
   async assignProject(teamCode, projectCode) {
-    await TeamProjectModel.create({ teamCode: teamCode, projectCode: projectCode });
+    const teamResult = await TeamModel.findOne({ code: teamCode }, '_id, projects')
+                                      .populate('projects');
+    const projectResult = await ProjectModel.findOne({ code: projectCode }, '_id, teams')
+                                            .populate('teams');
+    const _teamId = teamResult._id;
+    const _projectId = projectResult._id;
+    const existingTeamProjects = teamResult.projects;
+    const existingProjectTeams = projectResult.teams;
+
+    if (existingTeamProjects.includes(_projectId)) {
+      return;
+    }
+    await TeamModel.updateOne(
+      { code: teamCode },
+      { projects: [...existingTeamProjects, _projectId] }
+    );
+    await ProjectModel.updateOne(
+      { code: projectCode },
+      { teams: [...existingProjectTeams, _teamId] }
+    );
   }
 
   async readProjects(teamCode) {
-    const projectCodes = await TeamProjectModel.find({ teamCode: teamCode });
-    const projects = [];
-
-    for (const code of projectCodes) {
-      const project = await ProjectModel.findOne({ code: code.projectCode });
-      projects.push(project);
-    }
-    return projects;
+    const result = await TeamModel.findOne({ code: teamCode }, 'projects').populate('projects');
+    return result.projects;
   }
 
   async assignBug(teamCode, bugCode) {

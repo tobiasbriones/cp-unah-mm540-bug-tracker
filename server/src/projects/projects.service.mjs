@@ -12,11 +12,10 @@
 
 import { ProjectModel } from './project.model.mjs';
 import { BugModel } from '../bugs/bug.model.mjs';
-import { TeamProjectModel } from '../teams/team-project.model.mjs';
-import { TeamModel } from '../teams/team.model.mjs';
 
 export class ProjectsService {
-  constructor() {}
+  constructor() {
+  }
 
   async createProject(project) {
     await ProjectModel.create(project);
@@ -56,13 +55,7 @@ export class ProjectsService {
   }
 
   async readTeams(projectCode) {
-    const teamCodes = await TeamProjectModel.find({ projectCode: projectCode });
-    const teams = [];
-
-    for (const code of teamCodes) {
-      const team = await TeamModel.findOne({ code: code.teamCode });
-      teams.push(team);
-    }
-    return teams;
+    const result = await ProjectModel.findOne({ code: projectCode }, 'teams').populate('teams');
+    return result.teams;
   }
 }

@@ -17,6 +17,7 @@ const TeamSchema = new Schema({
   code: { type: Number, unique: true },
   name: String,
   languages: [String],
-  tech: [String]
+  tech: [String],
+  projects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }]
 });
 export const TeamModel = mongoose.model('Team', TeamSchema);

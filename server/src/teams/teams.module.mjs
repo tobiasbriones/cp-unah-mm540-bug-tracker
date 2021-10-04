@@ -17,7 +17,7 @@ import { teamValidateAssignBug } from './teams.middleware.mjs';
 
 const ROUTER_CONFIG = Object.freeze({
   path: '/teams',
-  middlewares: [jwtGuard]
+  // middlewares: [jwtGuard]
 });
 
 export class TeamsModule extends Module {
@@ -35,7 +35,7 @@ export class TeamsModule extends Module {
     router.get('/', controller.readAll.bind(controller));
     router.get('/:teamId', controller.read.bind(controller));
 
-    router.post('/:teamId/projects', qaGuard, controller.createProject.bind(controller));
+    router.post('/:teamId/projects', controller.createProject.bind(controller));
     router.get('/:teamId/projects', controller.readAllProjects.bind(controller));
 
     router.post(

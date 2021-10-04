@@ -18,5 +18,6 @@ const ProjectSchema = new Schema({
   name: String,
   startDate: Date,
   endDate: Date,
+  teams: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Team' }]
 });
 export const ProjectModel = mongoose.model('Project', ProjectSchema);
