@@ -172,7 +172,7 @@ class Projects extends React.Component {
 
   fixDate(project) {
     project.startDate = project.startDate.substring(0, 10);
-    project.endDate = project.startDate.substring(0, 10);
+    project.endDate = project.endDate.substring(0, 10);
     return project;
   }
 }
