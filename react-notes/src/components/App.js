@@ -21,19 +21,19 @@ class App extends React.Component {
     this.currentIndex = 5;
     this.category = CATEGORIES[0];
     this.state = {
-      notes: NOTES,
+      notes: NOTES
     };
   }
 
   render() {
     return (
-      <div className="App">
+      <div>
         <Top
-          list={CATEGORIES}
-          onCreateNote={note => this.onCreateNote(note)}
-          onUpdateCategory={category => this.onUpdateCategory(category)}
-        ></Top>
-        <List notes={this.state.notes} ref={ref => (this.list = ref)}></List>
+          list={ CATEGORIES }
+          onCreateNote={ note => this.onCreateNote(note) }
+          onUpdateCategory={ category => this.onUpdateCategory(category) }
+        />
+        <List notes={ this.state.notes } ref={ ref => (this.list = ref) } />
       </div>
     );
   }
@@ -44,9 +44,6 @@ class App extends React.Component {
     this.setState({ notes: [...this.state.notes, entity] }, () =>
       this.onUpdateCategory(this.category)
     );
-    //this.list.setState({ notes: [...this.state.notes, entity] });
-
-    console.log([...this.state.notes, entity]);
     alert('Nota ingresada');
   }
 
