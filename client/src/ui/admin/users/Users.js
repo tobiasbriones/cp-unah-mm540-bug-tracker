@@ -34,7 +34,7 @@ class Users extends React.Component {
   render() {
     const commonInputs = [
       {
-        name: 'full_name',
+        name: 'name',
         type: 'text',
         label: 'Nombre Completo',
         placeholder: 'Nombre Completo',
@@ -76,7 +76,7 @@ class Users extends React.Component {
           value: 'Id de Usuario'
         },
         {
-          name: 'full_name',
+          name: 'name',
           value: 'Nombre Completo'
         },
         {

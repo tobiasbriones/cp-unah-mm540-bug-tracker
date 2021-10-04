@@ -219,7 +219,7 @@ export class AdminController {
       const id = req.params['userId'];
       const user = {
         id: req.body['id'],
-        full_name: req.body['full_name'],
+        name: req.body['name'],
         login: req.body['login'],
         role: req.body['role']
       };

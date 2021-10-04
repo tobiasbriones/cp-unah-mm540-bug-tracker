@@ -16,11 +16,11 @@ export class UsersService {
   constructor() {}
 
   async readAllUsers() {
-    return UserModel.find().select('id full_name login role');
+    return UserModel.find().select('id name login role');
   }
 
   async readUser(id) {
-    const user = await UserModel.findOne({ id: id }).select('id full_name login role');
+    const user = await UserModel.findOne({ id: id }).select('id name login role');
 
     if (!user) {
       throw new Error(`User ${ id } not found`);

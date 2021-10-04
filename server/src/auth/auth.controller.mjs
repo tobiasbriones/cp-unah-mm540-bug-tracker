@@ -22,7 +22,7 @@ export class AuthController {
   async login(req, res) {
     res.json({
       uid: req.user.login,
-      name: req.user.full_name,
+      name: req.user.name,
       role: req.user.role,
       uat: req.token
     });

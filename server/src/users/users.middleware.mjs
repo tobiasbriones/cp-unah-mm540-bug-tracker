@@ -19,7 +19,7 @@ import { ProjectModel } from '../projects/project.model.mjs';
 export function userValidateSignUp(req, res, next) {
   const user = req.body;
 
-  if (!user.full_name || !user.login || !user.role) {
+  if (!user.name || !user.login || !user.role) {
     res.status(Status.BAD_REQUEST).send('User must be set');
     return;
   }
@@ -61,7 +61,7 @@ export async function userValidateExists(req, res, next) {
 export async function userValidateUpdate(req, res, next) {
   const user = req.body;
 
-  if (!user.id || !user.full_name || !user.login || !user.role) {
+  if (!user.id || !user.name || !user.login || !user.role) {
     res.status(Status.BAD_REQUEST).send('User must be set');
     return;
   }
