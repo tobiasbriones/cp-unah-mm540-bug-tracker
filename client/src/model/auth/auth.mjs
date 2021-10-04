@@ -10,3 +10,20 @@
  * https://opensource.org/licenses/BSD-3-Clause.
  */
 
+import { AuthService } from './auth.service.mjs';
+
+export function checkUserLogin(...forRoles) {
+  const service = new AuthService();
+  const redirect = () => (document.location.href = '/');
+
+  if (service.hasLogin()) {
+    const login = service.getLogin();
+
+    if (!forRoles.includes(login.role)) {
+      redirect();
+    }
+  }
+  else {
+    redirect();
+  }
+}
