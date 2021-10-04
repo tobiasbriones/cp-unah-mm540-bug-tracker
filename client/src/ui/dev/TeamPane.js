@@ -13,33 +13,99 @@
 import React from 'react';
 import TeamProjects from './TeamProjects';
 import TeamBugs from './TeamBugs';
+import { TeamRepository } from '../../model/team/team.repository.mjs';
+import { BugRepository } from '../../model/bug/bug.repository.mjs';
 
 class TeamPane extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      projects: [],
+      bugs: []
+    };
+    this.repository = new TeamRepository();
+    this.bugRepository = new BugRepository();
+  }
+
+  get show() {
+    return this.props.teamCode >= 1;
   }
 
   render() {
-    if (!this.props.show) {
+    if (!this.show) {
       return <div />;
     }
     return (
       <div>
         <TeamProjects
-          values={ this.props.projects }
+          values={ this.state.projects }
         />
         <TeamBugs
-          values={ this.props.bugs }
+          values={ this.state.bugs }
+          onChange={ this.onBugStatusChange.bind(this) }
         />
       </div>
     );
+  }
+
+  async componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.teamCode !== prevProps.teamCode) {
+      await this.load();
+    }
+  }
+
+  async onBugStatusChange(state) {
+    try {
+      if (state.checked) {
+        await this.bugRepository.setFinished(state.bugCode);
+      }
+      else {
+        await this.bugRepository.setAssigned(state.bugCode);
+      }
+      await this.loadBugs(this.props.teamCode);
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
+
+  async load() {
+    const teamCode = this.props.teamCode;
+
+    if (teamCode <= 0) {
+      this.setState({ projects: [], bugs: [] });
+    }
+    else {
+      await this.loadProjects(teamCode);
+      await this.loadBugs(teamCode);
+    }
+  }
+
+  async loadProjects(teamCode) {
+    try {
+      const projects = await this.repository.getAllProjects(teamCode);
+
+      this.setState({ projects: projects });
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
+
+  async loadBugs(teamCode) {
+    try {
+      const bugs = await this.repository.getAllBugs(teamCode);
+
+      this.setState({ bugs: bugs });
+    }
+    catch (e) {
+      console.log(e);
+    }
   }
 }
 
 export default TeamPane;
 
 TeamPane.defaultProps = {
-  projects: [],
-  bugs: []
+  teamCode: -1
 };
