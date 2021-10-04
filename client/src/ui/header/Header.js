@@ -15,6 +15,7 @@ import React from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Nav, Navbar } from 'react-bootstrap-v5';
 import { AuthService } from '../../model/auth/auth.service.mjs';
+import Logo from './Logo';
 
 class Header extends React.Component {
   constructor(props) {
@@ -29,6 +30,8 @@ class Header extends React.Component {
     return (
       <header className="shadow px-4 py-2 mb-2 rounded">
         <Navbar className="nav" expand="lg">
+          <Logo />
+
           <Navbar.Brand className="text-white">
             Bug Tracker
           </Navbar.Brand>
