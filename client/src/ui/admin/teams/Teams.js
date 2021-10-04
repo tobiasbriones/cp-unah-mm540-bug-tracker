@@ -120,10 +120,10 @@ class Teams extends React.Component {
   }
 
   async onCreate(team) {
-    this.fix(team);
+    const modelTeam = this.toModelTeam(team);
 
     try {
-      await this.teamRepository.add(team);
+      await this.teamRepository.add(modelTeam);
       await this.loadTeams();
       this.crudRef.current.collapse();
     }
@@ -134,10 +134,10 @@ class Teams extends React.Component {
   }
 
   async onUpdate(team) {
-    this.fix(team);
+    const modelTeam = this.toModelTeam(team);
 
     try {
-      await this.teamRepository.set(team);
+      await this.teamRepository.set(modelTeam);
       await this.loadTeams();
       this.crudRef.current.collapse();
     }
@@ -162,10 +162,19 @@ class Teams extends React.Component {
   }
 
   async loadTeams() {
+    const mapTeam = team => {
+      team.languages = reduceArrayValues(team.languages);
+      team.tech = reduceArrayValues(team.tech);
+      return team;
+    };
+    const reduceArrayValues = values => values.reduce((prev, cur) => prev + ', ' + cur);
+
     try {
       const teams = await this.teamRepository.getAll();
+      const mappedTeams = teams.map(mapTeam);
+
       this.setState({
-        values: teams,
+        values: mappedTeams,
         createError: '',
         updateError: ''
       });
@@ -176,19 +185,21 @@ class Teams extends React.Component {
     }
   }
 
-  fix(team) {
+  toModelTeam(team) {
     if (
       !team.languages ||
       !team.languages.split ||
       !team.tech ||
       !team.tech.split
     ) {
-      return;
+      return {};
     }
+    const modelTeam = { ...team };
     const languages = team.languages.split(',').map(s => s.trim());
     const tech = team.tech.split(',').map(s => s.trim());
-    team.languages = languages;
-    team.tech = tech;
+    modelTeam.languages = languages;
+    modelTeam.tech = tech;
+    return modelTeam;
   }
 }
 
