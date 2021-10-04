@@ -13,6 +13,7 @@
 import { TeamModel } from './team.model.mjs';
 import { BugModel } from '../bugs/bug.model.mjs';
 import { ProjectModel } from '../projects/project.model.mjs';
+import { BugsService } from '../bugs/bugs.service.mjs';
 
 export class TeamsService {
   constructor() {}
@@ -73,8 +74,10 @@ export class TeamsService {
   async assignBug(teamCode, bugCode) {
     const teamIdResult = await TeamModel.findOne({ code: teamCode }, '_id');
     const _teamId = teamIdResult._id;
+    const bugsService = new BugsService();
 
     await BugModel.updateOne({ code: bugCode }, { team: _teamId });
+    await bugsService.setAssigned(bugCode);
   }
 
   async readBugs(teamCode) {
