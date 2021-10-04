@@ -19,6 +19,12 @@ const UAT_KEY = 'uat';
 const NAME_KEY = 'name';
 const ROLE_KEY = 'role';
 const UID_KEY = 'uid';
+const EMPTY_LOGIN = Object.freeze({
+  uid: '',
+  name: '',
+  role: '',
+  uat: ''
+});
 
 export class AuthService {
   getLogin() {
@@ -29,7 +35,7 @@ export class AuthService {
       uat: Cookies.get(UAT_KEY)
     };
     const isSet = login.uid && login.name && login.uat && login.role;
-    return isSet ? login : null;
+    return isSet ? login : EMPTY_LOGIN;
   }
 
   saveLogin(login) {
