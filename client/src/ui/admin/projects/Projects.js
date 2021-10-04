@@ -79,7 +79,7 @@ class Projects extends React.Component {
     const createForm = {
       title: 'Crear Proyecto',
       error: this.state.createError,
-      inputs: [...commonInputs]
+      inputs: commonInputs
     };
     const updateForm = {
       title: 'Actualizar Proyecto',
