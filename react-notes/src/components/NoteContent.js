@@ -22,6 +22,9 @@ class NoteContent extends React.Component {
   render() {
     return (
       <div className={ this.props.note.id === -1 ? 'd-none' : '' }>
+        <p className="mt-5 text-center">
+          <strong>Contenido</strong>
+        </p>
         <p>
           <strong>Nota #{ this.props.note.id }</strong>
         </p>
