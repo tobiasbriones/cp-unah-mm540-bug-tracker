@@ -11,10 +11,10 @@
  */
 
 import React from 'react';
-import './List.css';
+import './NotesList.css';
 import NotesTable from './NotesTable';
 
-class List extends React.Component {
+class NotesList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,9 +56,9 @@ class List extends React.Component {
   }
 }
 
-export default List;
+export default NotesList;
 
-List.defaultProps = {
+NotesList.defaultProps = {
   notes: [],
   category: ''
 };

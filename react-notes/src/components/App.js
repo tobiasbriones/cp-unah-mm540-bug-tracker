@@ -11,7 +11,7 @@
  */
 
 import React from 'react';
-import List from './List';
+import NotesList from './NotesList';
 import Top from './Top';
 import { CATEGORIES, NOTES } from '../data';
 
@@ -34,7 +34,7 @@ class App extends React.Component {
           onCreateNote={ note => this.onCreateNote(note) }
           onUpdateCategory={ category => this.onUpdateCategory(category) }
         />
-        <List notes={ this.state.notes } />
+        <NotesList notes={ this.state.notes } />
       </div>
     );
   }
