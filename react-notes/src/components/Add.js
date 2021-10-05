@@ -45,6 +45,7 @@ class Add extends React.Component {
               type="text"
               className="form-control"
               id="titleInput"
+              value={ this.state.title }
               onChange={ e => this.onTitleChange(e) }
             />
           </div>
@@ -56,6 +57,7 @@ class Add extends React.Component {
               type="text"
               className="form-control"
               id="contentInput"
+              value={ this.state.content }
               onChange={ e => this.onContentChange(e) }
             />
           </div>
@@ -124,7 +126,9 @@ class Add extends React.Component {
 
   reset() {
     this.setState({
-      show: false
+      show: false,
+      title: '',
+      content: ''
     });
   }
 }
