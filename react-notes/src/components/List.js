@@ -12,6 +12,7 @@
 
 import React from 'react';
 import './List.css';
+import NotesTable from './NotesTable';
 
 class List extends React.Component {
   constructor(props) {
@@ -25,16 +26,10 @@ class List extends React.Component {
   render() {
     return (
       <div className="List">
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Título</th>
-              <th scope="col">Contenido</th>
-            </tr>
-          </thead>
-          <tbody>{ this.props.notes.map(note => this.newItem(note)) }</tbody>
-        </table>
+        <NotesTable
+          notes={ this.props.notes }
+          onShowContent={ noteId => this.onShowContent(noteId) }
+        />
         <div
           className={ this.state.currentNote.id === -1 ? 'd-none' : '' }
         >
@@ -49,9 +44,8 @@ class List extends React.Component {
     );
   }
 
-  onShowContent(e) {
-    const id = parseInt(e.target.dataset['id']);
-    const note = this.props.notes.find(note => note.id === id);
+  onShowContent(noteId) {
+    const note = this.props.notes.find(note => note.id === noteId);
     this.setState({ currentNote: note }, () => this.openModal());
   }
 
@@ -59,27 +53,6 @@ class List extends React.Component {
 
   clear() {
     this.setState({ currentNote: { id: -1, title: '', content: '' } });
-  }
-
-  newItem(note) {
-    return (
-      <tr key={ note.id }>
-        <th scope="row">{ note.id }</th>
-        <td>{ note.title }</td>
-        <td>
-          <button
-            type="button"
-            className="btn btn-primary"
-            data-id={ note.id }
-            onClick={ e => this.onShowContent(e) }
-            data-bs-toggle="modal"
-            data-bs-target="#modal"
-          >
-            Ver contenido
-          </button>
-        </td>
-      </tr>
-    );
   }
 }
 
