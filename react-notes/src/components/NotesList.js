@@ -13,13 +13,13 @@
 import React from 'react';
 import './NotesList.css';
 import NotesTable from './NotesTable';
+import NoteContent from './NoteContent';
 
 class NotesList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentNote: { id: -1, title: '', content: '' },
-      showContent: false
+      currentNote: { id: -1, title: '', content: '' }
     };
   }
 
@@ -30,26 +30,15 @@ class NotesList extends React.Component {
           notes={ this.props.notes }
           onShowContent={ noteId => this.onShowContent(noteId) }
         />
-        <div
-          className={ this.state.currentNote.id === -1 ? 'd-none' : '' }
-        >
-          <p>
-            <strong>Nota #{ this.state.currentNote.id }</strong>
-          </p>
-          <p>Titulo: { this.state.currentNote.title }</p>
-          <p>Contenido</p>
-          <p>{ this.state.currentNote.content }</p>
-        </div>
+        <NoteContent note={ this.state.currentNote } />
       </div>
     );
   }
 
   onShowContent(noteId) {
     const note = this.props.notes.find(note => note.id === noteId);
-    this.setState({ currentNote: note }, () => this.openModal());
+    this.setState({ currentNote: note });
   }
-
-  openModal = () => this.setState({ showContent: true });
 
   clear() {
     this.setState({ currentNote: { id: -1, title: '', content: '' } });
@@ -59,6 +48,5 @@ class NotesList extends React.Component {
 export default NotesList;
 
 NotesList.defaultProps = {
-  notes: [],
-  category: ''
+  notes: []
 };
