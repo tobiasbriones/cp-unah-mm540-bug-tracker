@@ -35,6 +35,12 @@ class NotesList extends React.Component {
     );
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.category !== prevProps.category) {
+      this.hideNoteContent();
+    }
+  }
+
   onShowContent(noteId) {
     const note = this.props.notes.find(note => note.id === noteId);
     this.setState({ currentNote: note });
@@ -42,6 +48,12 @@ class NotesList extends React.Component {
 
   clear() {
     this.setState({ currentNote: { id: -1, title: '', content: '' } });
+  }
+
+  hideNoteContent() {
+    this.setState({
+      currentNote: { id: -1, title: '', content: '' }
+    });
   }
 }
 

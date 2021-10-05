@@ -34,7 +34,7 @@ class App extends React.Component {
           onCreateNote={ note => this.onCreateNote(note) }
           onUpdateCategory={ category => this.onUpdateCategory(category) }
         />
-        <NotesList notes={ this.state.notes } />
+        <NotesList notes={ this.state.notes } category={ this.state.category } />
       </div>
     );
   }
