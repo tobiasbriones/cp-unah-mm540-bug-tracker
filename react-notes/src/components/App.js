@@ -48,7 +48,7 @@ class App extends React.Component {
 
     this.allNotes.push(entity);
 
-    if (entity.category === CATEGORIES[0] || entity.category === this.state.category) {
+    if (this.state.category === CATEGORIES[0] || entity.category === this.state.category) {
       this.loadNotes(this.state.category);
     }
     alert('Nota ingresada');
