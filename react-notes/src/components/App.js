@@ -28,7 +28,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="col-lg-8 col-xxl-4 px-4 m-auto">
         <Top
           list={ CATEGORIES }
           onCreateNote={ note => this.onCreateNote(note) }

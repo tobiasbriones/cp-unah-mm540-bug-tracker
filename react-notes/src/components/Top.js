@@ -10,18 +10,17 @@
  * https://opensource.org/licenses/BSD-3-Clause.
  */
 
-import './Top.css';
 import Category from './Category';
 import Add from './Add';
 
 function Top(props) {
   return (
-    <div className="Top">
+    <div>
+      <Add categories={ props.list } onCreateNote={ props.onCreateNote } />
       <Category
         list={ props.list }
         onUpdateCategory={ props.onUpdateCategory }
       />
-      <Add categories={ props.list } onCreateNote={ props.onCreateNote } />
     </div>
   );
 }

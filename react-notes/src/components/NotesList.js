@@ -11,7 +11,6 @@
  */
 
 import React from 'react';
-import './NotesList.css';
 import NotesTable from './NotesTable';
 import NoteContent from './NoteContent';
 
@@ -25,7 +24,7 @@ class NotesList extends React.Component {
 
   render() {
     return (
-      <div className="List">
+      <div>
         <NotesTable
           notes={ this.props.notes }
           onShowContent={ noteId => this.onShowContent(noteId) }

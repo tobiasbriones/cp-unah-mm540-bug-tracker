@@ -11,7 +11,6 @@
  */
 
 import React from 'react';
-import './NotesList.css';
 
 class NoteContent extends React.Component {
   constructor(props) {

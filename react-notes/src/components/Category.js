@@ -10,8 +10,6 @@
  * https://opensource.org/licenses/BSD-3-Clause.
  */
 
-import './Category.css';
-
 function Category(props) {
   const newItem = value => {
     return (
@@ -21,7 +19,7 @@ function Category(props) {
     );
   };
   return (
-    <div className="Category">
+    <div className="my-4">
       <select
         className="form-select"
         onChange={ e => props.onUpdateCategory(e.target.value) }

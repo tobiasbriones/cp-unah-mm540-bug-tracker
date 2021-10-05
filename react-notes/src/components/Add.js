@@ -11,7 +11,6 @@
  */
 
 import React from 'react';
-import './Add.css';
 import { CATEGORIES } from '../data';
 
 class Add extends React.Component {
@@ -27,13 +26,13 @@ class Add extends React.Component {
 
   render() {
     return (
-      <div className="Add">
+      <div className="my-5">
         <button
           type="button"
-          className="btn btn-primary"
+          className="btn btn-primary mb-4"
           onClick={ e => this.onAddButtonClick(e) }
         >
-          Agregar
+          Nueva nota
         </button>
 
         <form className={ this.state.show ? '' : 'd-none' }>
@@ -81,6 +80,7 @@ class Add extends React.Component {
             Agregar
           </button>
         </form>
+        <hr />
       </div>
     );
   }
