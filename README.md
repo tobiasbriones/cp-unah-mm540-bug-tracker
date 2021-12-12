@@ -6,10 +6,23 @@
 
 Course project for a full-stack MongoDB + Express.js + React.js bug tracker web app.
 
-### Bonus
+## Tech
+
+Use Node.js with Express.js, MongoDB and React.js.
+
+## Bonus
 
 This other app is a bonus. It was a test I did for the course, and it's also a
 React app: [React Notes](./react-notes).
+
+## Caveats
+
+Consider that the current ID/Code generation is simple and should not used into 
+production.
+
+MongoDB is not suitable for relational databases and recall that most business
+problems always have relations. I would recommend using a relational SQL database
+instead or else a serverless solution like Firebase for rapid development or prototyping.
 
 ## Contact
 
